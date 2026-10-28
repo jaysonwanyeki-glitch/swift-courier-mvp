@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swift Logistics — Fleet &amp; Order Management</title>
+  <meta name="description" content="Internal operations console for Swift Courier Service: live fleet map over Nairobi, dispatch Kanban, order lookup, service areas and delivery zones." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Leaflet + OpenStreetMap tiles. Free, no API key, no account. -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: { DEFAULT: '#0B1B2B', 800: '#12293F', 600: '#1B3A56', 400: '#5B7691' },
+            blue: { 50: '#E8F1FA', 100: '#E2EDF7', 200: '#C5DCEF', 300: '#8FBCE0', DEFAULT: '#1C4E80', dark: '#12355B', light: '#2B6CA8', soft: '#4A90C4', pale: '#E8F1FA' },
+            teal: { DEFAULT: '#0E7C6B', light: '#17A78E' },
+            gold: { DEFAULT: '#C08A2E', dark: '#7C551A', light: '#DDB66A' },
+            cream: { DEFAULT: '#F7F4EF', 50: '#FFFDF9', 100: '#FDFCFA', 200: '#EFEAE1' }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --ink: #0B1B2B;
+      --blue: #1C4E80;
+      --blue-light: #2B6CA8;
+      --blue-soft: #4A90C4;
+      --teal: #0E7C6B;
+      --gold: #C08A2E;
+      --cream: #F7F4EF;
+      --cream-200: #EFEAE1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+    .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background: var(--blue-soft); border-radius: 99px; }
+
+    .card-hover { transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s ease, border-color .4s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 28px 56px -24px rgba(11,27,43,.28); }
+
+    .btn-primary { background: var(--blue); color: #fff; transition: background .3s ease, box-shadow .3s ease; }
+    .btn-primary:hover { background: var(--blue-light); box-shadow: 0 8px 24px -8px rgba(28,78,128,.45); }
+    .btn-outline { border: 1.5px solid var(--blue-soft); color: var(--blue); transition: background .3s ease, color .3s ease; }
+    .btn-outline:hover { background: #E8F1FA; color: #12355B; }
+    .btn-gold { background: var(--gold); color: #fff; transition: background .3s ease, box-shadow .3s ease; }
+    .btn-gold:hover { background: #A06E22; box-shadow: 0 8px 24px -8px rgba(192,138,46,.45); }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .04em; white-space: nowrap;
+    }
+    .badge-live { background: #E8F1FA; color: var(--blue); }
+    .badge-done { background: #E6F4F0; color: var(--teal); }
+    .badge-exception { background: #FAF0E6; color: #B45309; }
+    .badge-new { background: #F0F4F8; color: #5B7691; }
+
+    /* Leaflet overrides — the default control chrome is too heavy for the console */
+    .leaflet-container { font: inherit; background: #EAF2F9; }
+    .leaflet-bar a { color: var(--ink) !important; }
+    .leaflet-popup-content-wrapper { border-radius: 12px; box-shadow: 0 18px 40px -18px rgba(11,27,43,.45); }
+    .leaflet-popup-content { margin: 12px 14px; font-size: 12.5px; }
+
+    /* Marker badges */
+    .map-pin {
+      display: grid; place-items: center;
+      width: 28px; height: 28px; border-radius: 999px;
+      background: var(--blue); color: #fff; border: 2.5px solid #fff;
+      box-shadow: 0 6px 16px -4px rgba(11,27,43,.5);
+      font-size: 10px; font-weight: 700; line-height: 1;
+    }
+    .map-pin.on-road { background: var(--teal); }
+    .map-pin.idle { background: #5B7691; }
+    .map-pin.selected { background: var(--gold); animation: pulseRing 2s infinite; }
+    @keyframes pulseRing {
+      0% { box-shadow: 0 6px 16px -4px rgba(11,27,43,.5), 0 0 0 0 rgba(192,138,46,.55); }
+      70% { box-shadow: 0 6px 16px -4px rgba(11,27,43,.5), 0 0 0 12px rgba(192,138,46,0); }
+      100% { box-shadow: 0 6px 16px -4px rgba(11,27,43,.5), 0 0 0 0 rgba(192,138,46,0); }
+    }
+
+    /* Drawing mode: crosshair cursor signals click-to-place corners */
+    #ops-map.drawing { cursor: crosshair; }
+    #ops-map .corner-handle {
+      width: 12px; height: 12px; margin: -6px 0 0 -6px;
+      border-radius: 3px; background: #fff; border: 2.5px solid var(--gold);
+      box-shadow: 0 2px 8px rgba(11,27,43,.4); cursor: grab;
+    }
+
+    /* Order detail drawer */
+    #order-drawer { transform: translateX(100%); transition: transform .45s cubic-bezier(.16,1,.3,1); }
+    #order-drawer.open { transform: none; }
+    #drawer-scrim { opacity: 0; pointer-events: none; transition: opacity .35s ease; }
+    #drawer-scrim.open { opacity: 1; pointer-events: auto; }
+
+    /* Kanban drag and drop */
+    .kanban-col { transition: background .2s ease, box-shadow .2s ease; border-radius: 12px; }
+    .kanban-col.drag-over { background: rgba(28,78,128,.06); box-shadow: inset 0 0 0 2px rgba(28,78,128,.25); }
+    .kanban-card { cursor: grab; }
+    .kanban-card.dragging { opacity: .4; }
+    .kanban-card.dragging * { pointer-events: none; }
+
+    .fade-in { animation: fadeIn .5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body class="min-h-screen">
+
+<!-- ============================== HEADER ============================== -->
+<header class="sticky top-0 z-40 bg-ink/92 backdrop-blur-xl border-b border-white/5">
+  <div class="max-w-[1600px] mx-auto px-4 lg:px-8">
+    <div class="flex items-center justify-between h-16 gap-4">
+      <div class="flex items-center gap-3 shrink-0">
+        <span class="grid h-9 w-9 place-items-center rounded-xl bg-blue text-white">
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 2.6 4.9 5.4v6.2c0 4.4 3 8.1 7.1 9.8 4.1-1.7 7.1-5.4 7.1-9.8V5.4L12 2.6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="12" cy="11.5" r="3" stroke="currentColor" stroke-width="1.4"/></svg>
+        </span>
+        <div>
+          <p class="font-display text-[17px] font-semibold text-white leading-none">Swift</p>
+          <p class="mt-0.5 text-[9.5px] font-semibold uppercase tracking-[0.25em] text-white/40">Logistics OS</p>
+        </div>
+      </div>
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-white/55">
+        <a href="#dashboard" class="transition hover:text-white">Dashboard</a>
+        <a href="#orders" class="transition hover:text-white">Orders</a>
+        <a href="#fleet" class="transition hover:text-white">Fleet</a>
+        <a href="#coverage-map-section" class="transition hover:text-white">Map</a>
+        <a href="#areas" class="transition hover:text-white">Areas &amp; Zones</a>
+      </nav>
+      <div class="flex items-center gap-2.5">
+        <span id="api-status" class="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/50">
+          <span id="api-dot" class="h-1.5 w-1.5 rounded-full bg-white/30"></span><span id="api-text">connecting</span>
+        </span>
+        <a href="#" data-customer-portal class="hidden text-sm text-white/60 hover:text-white transition sm:inline">Customer site →</a>
+        <button id="btn-new-order" class="btn-primary text-sm px-4 py-2 rounded-xl font-medium">+ New Order</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== DASHBOARD ============================== -->
+<section id="dashboard" class="pt-8">
+  <div class="max-w-[1600px] mx-auto px-4 lg:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <p class="text-[11px] font-semibold uppercase tracking-[0.25em] text-blue">Operations</p>
+        <h1 class="mt-2 font-display text-[26px] font-semibold text-ink sm:text-[32px]">Live fleet &amp; order dashboard</h1>
+        <p class="mt-2 text-sm text-ink/50">Real-time vehicle locations, active orders, and dispatch overview — all in one place.</p>
+      </div>
+      <label class="flex items-center gap-2 text-sm text-ink/60">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/40">Auto-refresh</span>
+        <select id="poll-interval" class="bg-white border border-ink/10 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-soft">
+          <option value="0">Off</option>
+          <option value="5000" selected>5s</option>
+          <option value="15000">15s</option>
+          <option value="60000">1m</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="mt-6 grid grid-cols-2 lg:grid-cols-5 gap-4">
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Fleet</p>
+        <p class="mt-2 font-display text-[26px] font-semibold text-ink" id="kpi-cars">0</p>
+        <p class="mt-1 text-[11px] text-ink/40" id="kpi-cars-sub">total vehicles</p>
+      </div>
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">On the road</p>
+        <p class="mt-2 font-display text-[26px] font-semibold text-teal" id="kpi-onroad">0</p>
+        <p class="mt-1 text-[11px] text-ink/40">moving right now</p>
+      </div>
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Drivers on duty</p>
+        <p class="mt-2 font-display text-[26px] font-semibold text-ink" id="kpi-drivers">0</p>
+        <p class="mt-1 text-[11px] text-ink/40">on route or in progress</p>
+      </div>
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Orders in progress</p>
+        <p class="mt-2 font-display text-[26px] font-semibold text-ink" id="kpi-orders">0</p>
+        <p class="mt-1 text-[11px] text-ink/40">open, not yet delivered</p>
+      </div>
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Delivered today</p>
+        <p class="mt-2 font-display text-[26px] font-semibold text-ink" id="kpi-runs">0</p>
+        <p class="mt-1 text-[11px] text-ink/40">all time completed</p>
+      </div>
+    </div>
+
+    <!-- MAP + DRAWING TOOLS -->
+    <div id="coverage-map-section" class="mt-6 grid gap-6 xl:grid-cols-[1.55fr_1fr]">
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">
+            Live map · <span id="map-count" class="text-xs font-mono text-blue">0 vehicles</span>
+          </p>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="badge badge-live">LIVE</span>
+            <button id="btn-draw-area" class="btn-outline text-xs px-3 py-1.5 rounded-lg font-medium">▭ Draw area</button>
+            <button id="btn-draw-zone" class="btn-outline text-xs px-3 py-1.5 rounded-lg font-medium">▭ Draw zone</button>
+            <button id="btn-fit" class="btn-outline text-xs px-3 py-1.5 rounded-lg font-medium">Fit fleet</button>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div id="ops-map" class="h-[440px] w-full rounded-xl border border-ink/8 overflow-hidden"></div>
+
+          <!-- Drawing status strip: shows exactly what the next click does. -->
+          <div id="draw-status" class="hidden absolute left-1/2 top-3 -translate-x-1/2 z-[500] items-center gap-3 rounded-full bg-ink/92 px-4 py-2 text-[12px] font-medium text-white shadow-lift backdrop-blur">
+            <span id="draw-status-text">Click the map to place the first corner</span>
+            <button id="draw-cancel" class="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold hover:bg-white/25">Cancel</button>
+          </div>
+
+          <div id="map-error" class="hidden absolute inset-0 z-[400] grid place-items-center rounded-xl bg-cream-50/95 p-8 text-center">
+            <div>
+              <p class="text-sm font-semibold text-ink">Map could not load</p>
+              <p class="mt-1.5 text-[13px] text-ink/50">The basemap needs a network connection. Fleet, orders and geofence data below still work.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] text-ink/40">
+          <span class="inline-flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-teal"></span>Vehicle on road</span>
+          <span class="inline-flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-blue"></span>Vehicle idle / parked</span>
+          <span class="inline-flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-ink/40"></span>No GPS fix</span>
+          <span>Basemap: OpenStreetMap / HOT / Esri — toggle top-right</span>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5">
+        <div class="flex items-center justify-between mb-4">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Active shipments</p>
+          <a href="#orders" class="text-xs text-blue hover:text-blue-dark transition">View all →</a>
+        </div>
+        <div id="active-orders" class="space-y-3 max-h-[420px] overflow-y-auto scrollbar-thin">
+          <div class="text-center py-8 text-sm text-ink/35">No active orders — dispatch your first run.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ORDER MANAGEMENT ============================== -->
+<section id="orders" class="mt-4">
+  <div class="max-w-[1600px] mx-auto px-4 lg:px-8 py-8">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <p class="text-[11px] font-semibold uppercase tracking-[0.25em] text-blue">Order management</p>
+        <h1 class="mt-2 font-display text-[26px] font-semibold text-ink sm:text-[32px]">Orders &amp; Kanban board</h1>
+        <p class="mt-2 text-sm text-ink/50">Drag a card between columns to advance it — the status is written straight to the dispatch API.</p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <select id="order-filter" class="bg-white border border-ink/10 rounded-xl px-4 py-2 text-sm text-ink/60 focus:outline-none focus:border-blue-soft">
+          <option value="all">All orders</option>
+          <option value="new">New</option>
+          <option value="assigned">Assigned</option>
+          <option value="in_progress">In progress</option>
+          <option value="out_for_delivery">Out for delivery</option>
+          <option value="delivered">Delivered</option>
+          <option value="exception">Exception</option>
+        </select>
+        <button id="btn-new-order-2" class="btn-primary text-sm px-4 py-2 rounded-xl font-medium">+ New order</button>
+      </div>
+    </div>
+
+    <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4" id="kanban-board">
+      <div class="flex flex-col">
+        <div class="flex items-center justify-between mb-3 px-1">
+          <h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-ink/40">New</h3>
+          <span class="text-xs text-ink/30 font-mono" id="count-new">0</span>
+        </div>
+        <div class="flex-1 space-y-3 overflow-y-auto scrollbar-thin kanban-col min-h-[120px] p-1" id="col-new" data-stage="new"></div>
+      </div>
+      <div class="flex flex-col">
+        <div class="flex items-center justify-between mb-3 px-1">
+          <h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-ink/40">Assigned</h3>
+          <span class="text-xs text-ink/30 font-mono" id="count-assigned">0</span>
+        </div>
+        <div class="flex-1 space-y-3 overflow-y-auto scrollbar-thin kanban-col min-h-[120px] p-1" id="col-assigned" data-stage="assigned"></div>
+      </div>
+      <div class="flex flex-col">
+        <div class="flex items-center justify-between mb-3 px-1">
+          <h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-ink/40">In progress</h3>
+          <span class="text-xs text-ink/30 font-mono" id="count-progress">0</span>
+        </div>
+        <div class="flex-1 space-y-3 overflow-y-auto scrollbar-thin kanban-col min-h-[120px] p-1" id="col-progress" data-stage="progress"></div>
+      </div>
+      <div class="flex flex-col">
+        <div class="flex items-center justify-between mb-3 px-1">
+          <h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-ink/40">Done / Exception</h3>
+          <span class="text-xs text-ink/30 font-mono" id="count-done">0</span>
+        </div>
+        <div class="flex-1 space-y-3 overflow-y-auto scrollbar-thin kanban-col min-h-[120px] p-1" id="col-done" data-stage="done"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FLEET MANAGEMENT ============================== -->
+<section id="fleet" class="bg-white/60 border-y border-ink/8">
+  <div class="max-w-[1600px] mx-auto px-4 lg:px-8 py-8">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <p class="text-[11px] font-semibold uppercase tracking-[0.25em] text-blue">Fleet management</p>
+        <h1 class="mt-2 font-display text-[26px] font-semibold text-ink sm:text-[32px]">Vehicles &amp; drivers</h1>
+        <p class="mt-2 text-sm text-ink/50">Manage your fleet, assign drivers, and monitor real-time positions.</p>
+      </div>
+    </div>
+
+    <div class="mt-6 grid gap-6 lg:grid-cols-3">
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5 lg:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Fleet</p>
+          <button id="btn-add-vehicle" class="text-xs font-mono text-blue hover:text-blue-dark transition">+ Add vehicle</button>
+        </div>
+        <div id="vehicle-list" class="grid gap-3 sm:grid-cols-2">
+          <div class="text-center py-10 text-sm text-ink/35">No vehicles — add one to get started.</div>
+        </div>
+      </div>
+
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5">
+        <div class="flex items-center justify-between mb-4">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Drivers</p>
+          <button id="btn-add-driver" class="text-xs font-mono text-blue hover:text-blue-dark transition">+ Add driver</button>
+        </div>
+        <div id="driver-list" class="max-h-[440px] overflow-y-auto scrollbar-thin space-y-3">
+          <div class="text-center py-10 text-sm text-ink/35">No drivers — add one to get started.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== AREAS & ZONES ============================== -->
+<section id="areas" class="mt-4">
+  <div class="max-w-[1600px] mx-auto px-4 lg:px-8 py-8">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <p class="text-[11px] font-semibold uppercase tracking-[0.25em] text-blue">Service areas</p>
+        <h1 class="mt-2 font-display text-[26px] font-semibold text-ink sm:text-[32px]">Service areas &amp; delivery zones</h1>
+        <p class="mt-2 text-sm text-ink/50">Draw them on the map above, or create them here. Bounding boxes drive the zone surcharges the customer site quotes.</p>
+      </div>
+      <div class="flex gap-2">
+        <button id="btn-add-area" class="btn-primary text-sm px-4 py-2 rounded-xl font-medium">+ Service area</button>
+        <button id="btn-add-zone" class="btn-outline text-sm px-4 py-2 rounded-xl font-medium">+ Zone</button>
+      </div>
+    </div>
+
+    <div class="mt-6 grid gap-6 lg:grid-cols-2">
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5">
+        <div class="flex items-center justify-between mb-4">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Service areas</p>
+          <span class="text-xs text-ink/30 font-mono" id="area-count">0 areas</span>
+        </div>
+        <div id="area-list" class="space-y-2 max-h-[340px] overflow-y-auto scrollbar-thin"></div>
+      </div>
+      <div class="card-hover bg-white rounded-2xl border border-ink/8 p-5">
+        <div class="flex items-center justify-between mb-4">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Delivery zones</p>
+          <span class="text-xs text-ink/30 font-mono" id="zone-count">0 zones</span>
+        </div>
+        <div id="zone-list" class="space-y-2 max-h-[340px] overflow-y-auto scrollbar-thin"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="mt-4 bg-ink border-t border-white/5">
+  <div class="max-w-[1600px] mx-auto px-4 lg:px-8 py-6">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/40">
+      <p>© <span id="year">2025</span> Swift Logistics OS · Licensed &amp; bonded for Kenya metro operations.</p>
+      <div class="flex gap-6">
+        <a href="/api" class="hover:text-white transition">API reference</a>
+        <a href="/api/health" class="hover:text-white transition">Status</a>
+        <a href="mailto:ops@swiftcourier.example" class="hover:text-white transition">Support</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================== ORDER DETAIL DRAWER ============================== -->
+<div id="drawer-scrim" class="fixed inset-0 z-40 bg-ink/40 backdrop-blur-sm"></div>
+<aside id="order-drawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-lg overflow-y-auto scrollbar-thin bg-cream shadow-lift" role="dialog" aria-modal="true" aria-label="Order detail">
+  <div class="flex items-center justify-between gap-4 border-b border-ink/10 bg-white px-6 py-4">
+    <div>
+      <p class="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-ink/40">Order detail</p>
+      <p id="drawer-ref" class="mt-0.5 font-mono text-[15px] font-semibold text-ink">—</p>
+    </div>
+    <button id="drawer-close" aria-label="Close" class="grid h-9 w-9 place-items-center rounded-lg border border-ink/10 text-ink/50 transition hover:bg-ink/5 hover:text-ink">
+      <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div id="drawer-body" class="space-y-6 px-6 py-6">
+    <div class="text-center py-10 text-sm text-ink/35">Loading order…</div>
+  </div>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+
+  // ── Helpers ──────────────────────────────────────────────────────────
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+  const statusLabels = {
+    idle: 'Idle', on_road: 'On road', parked: 'Parked', offline: 'Offline',
+    new: 'New', assigned: 'Assigned', in_progress: 'In progress',
+    label_printed: 'Label printed', picking_up: 'Picking up',
+    out_for_delivery: 'Out for delivery', delivered: 'Delivered', exception: 'Exception'
+  };
+
+  const vehicleBadge = (status) =>
+    status === 'on_road' || status === 'out_for_delivery' ? 'badge-live'
+      : status === 'parked' ? 'badge-done' : 'badge-new';
+
+  // Where the public customer site lives, used to build customer tracking links.
+  const PUBLIC_SITE_URL = (window.SWIFT_SITE_URL || 'http://localhost:3000').replace(/\/+$/, '');
+
+  // Nairobi city centre — the console opens here rather than on the world map.
+  const NAIROBI = [-1.2864, 36.8172];
+
+  // Customer bookings feed free-text fields into this console, so anything
+  // rendered from the API must be escaped before it goes into innerHTML.
+  function esc(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, c =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  function fmtTime(value) {
+    if (!value) return '—';
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? esc(value) : d.toLocaleString();
+  }
+
+  function fmtKsh(amount) {
+    if (amount == null || isNaN(amount)) return null;
+    return 'KSh ' + Number(amount).toLocaleString('en-KE');
+  }
+
+  async function api(url, opts = {}) {
+    const res = await fetch(url, { headers: { 'Content-Type': 'application/json', ...opts.headers }, ...opts });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'Request failed' }));
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+    return res.json();
+  }
+
+  function toast(message, tone = 'error') {
+    const el = document.createElement('div');
+    el.className = `fixed bottom-5 left-1/2 z-[60] -translate-x-1/2 rounded-xl px-4 py-3 text-sm font-medium text-white shadow-lift ${tone === 'error' ? 'bg-red-600' : 'bg-teal'}`;
+    el.textContent = message;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3200);
+  }
+
+  function setApiStatus(ok) {
+    const dot = $('#api-dot');
+    const text = $('#api-text');
+    if (!dot || !text) return;
+    dot.className = `h-1.5 w-1.5 rounded-full ${ok ? 'bg-teal-light' : 'bg-red-400'}`;
+    text.textContent = ok ? 'api online' : 'api offline';
+  }
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  MAP — Leaflet over free OpenStreetMap / HOT / Esri basemaps
+  // ══════════════════════════════════════════════════════════════════════
+  const map = {};
+  let mapReady = false;
+
+  function initMap() {
+    if (mapReady || typeof L === 'undefined') {
+      if (typeof L === 'undefined') $('#map-error').classList.remove('hidden');
+      return;
+    }
+    try {
+      map.instance = L.map('ops-map', { zoomControl: false }).setView(NAIROBI, 12);
+      L.control.zoom({ position: 'bottomright' }).addTo(map.instance);
+
+      map.layers = {
+        Street: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+        }),
+        Humanitarian: L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+          maxZoom: 19, attribution: '&copy; OpenStreetMap contributors, Tiles: HOT'
+        }),
+        Satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+          maxZoom: 19, attribution: 'Tiles &copy; Esri'
+        })
+      };
+      map.layers.Street.addTo(map.instance);
+      // Satellite has no labels, so the street layer sits under it as a label pass.
+      map.layers.Humanitarian.addTo(map.instance);
+      map.layers.Satellite.addTo(map.instance);
+
+      L.control.layers(map.layers, null, { position: 'topright', collapsed: true }).addTo(map.instance);
+      L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map.instance);
+
+      map.vehicles = L.layerGroup().addTo(map.instance);
+      map.geofences = L.layerGroup().addTo(map.instance);
+
+      // Fleet positions arrive as lat/lng. Seeded rows can legitimately have no
+      // fix yet, so anything without coordinates is skipped rather than faked.
+      map.instance.on('click', onMapClick);
+
+      mapReady = true;
+      setTimeout(() => map.instance.invalidateSize(), 120);
+    } catch (e) {
+      console.error(e);
+      $('#map-error').classList.remove('hidden');
+    }
+  }
+
+  function pinIcon(label, kind, selected) {
+    return L.divIcon({
+      className: '',
+      html: `<div class="map-pin ${kind}${selected ? ' selected' : ''}">${esc(label)}</div>`,
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+      popupAnchor: [0, -16]
+    });
+  }
+
+  /* Draw every vehicle that has a real GPS fix. */
+  function renderFleetOnMap(vehicles, shipments) {
+    if (!mapReady) return;
+    map.vehicles.clearLayers();
+
+    const shipmentByVehicle = {};
+    for (const s of shipments || []) {
+      if (s.vehicle_id && s.live_lat != null && s.live_lng != null) shipmentByVehicle[s.vehicle_id] = s;
+    }
+
+    let plotted = 0;
+    for (const v of vehicles || []) {
+      let lat = v.latitude;
+      let lng = v.longitude;
+      let source = 'vehicle';
+      const live = shipmentByVehicle[v.id];
+      if (live) { lat = live.live_lat; lng = live.live_lng; source = 'shipment'; }
+
+      if (lat == null || lng == null) continue;
+      plotted++;
+
+      const kind = (v.status === 'on_road' || v.status === 'out_for_delivery') ? 'on-road' : 'idle';
+      const marker = L.marker([Number(lat), Number(lng)], { icon: pinIcon(String(v.plate || '?').slice(-3), kind) });
+      marker.bindPopup(`
+        <strong>${esc(v.plate)}</strong><br>
+        ${esc(v.make || '')} ${esc(v.model || '')}<br>
+        <span style="color:#5B7691">${esc(statusLabels[v.status] || v.status || 'unknown')}</span><br>
+        <span style="color:#5B7691;font-size:11px">${source === 'shipment' ? 'live shipment ping' : 'vehicle GPS'} · ${esc(fmtTime(v.last_updated))}</span>
+      `);
+      marker.addTo(map.vehicles);
+    }
+
+    $('#map-count').textContent = `${plotted} of ${(vehicles || []).length} positioned`;
+  }
+
+  /* Service areas and delivery zones as rectangles, plus the draw-in-progress one. */
+  function renderGeofences(areas, zones) {
+    if (!mapReady) return;
+    if (!map.fences) map.fences = {};
+    Object.values(map.fences).forEach(layer => layer.remove());
+    map.fences = {};
+
+    const addRect = (id, bounds, colour, kind, label) => {
+      if (!bounds) return;
+      const rect = L.rectangle(bounds, {
+        color: colour || '#1C4E80',
+        weight: 2,
+        fillOpacity: 0.12,
+        dashArray: kind === 'zone' ? '6 5' : null
+      });
+      rect.bindPopup(
+        `<strong>${esc(label)}</strong><br><span style="color:#5B7691;font-size:11px">${esc(kind)}</span><br>` +
+        `<span style="color:#5B7691;font-size:11px">L ${Number(bounds[0][0]).toFixed(4)}–${Number(bounds[1][0]).toFixed(4)} · ` +
+        `W ${Number(bounds[0][1]).toFixed(4)}–${Number(bounds[1][1]).toFixed(4)}</span>`
+      );
+      rect.addTo(map.geofences);
+      map.fences[id] = rect;
+    };
+
+    for (const a of areas || []) {
+      const b = a;
+      if (b.lat_min == null || b.lat_max == null || b.lng_min == null || b.lng_max == null) continue;
+      addRect('area:' + b.id, [[b.lat_min, b.lng_min], [b.lat_max, b.lng_max]], b.color, 'service area', b.name);
+    }
+    for (const z of zones || []) {
+      if (z.lat_min == null || z.lat_max == null || z.lng_min == null || z.lng_max == null) continue;
+      addRect('zone:' + z.id, [[z.lat_min, z.lng_min], [z.lat_max, z.lng_max]], '#C08A2E', 'delivery zone', z.name);
+    }
+  }
+
+  // ── Click-to-draw geofences ──────────────────────────────────────────
+  // Click the map to drop corner A, click again for corner B, then the rectangle
+  // is created. The two corners stay draggable so a box can be nudged without
+  // retyping coordinates.
+  const draw = { kind: null, corners: [], rectangle: null, handles: [] };
+
+  function setDrawStatus(text) {
+    const strip = $('#draw-status');
+    if (!draw.kind) { strip.classList.add('hidden'); strip.classList.remove('flex'); return; }
+    strip.classList.remove('hidden');
+    strip.classList.add('flex');
+    $('#draw-status-text').textContent = text;
+  }
+
+  function cancelDraw() {
+    if (draw.rectangle) draw.rectangle.remove();
+    draw.handles.forEach(h => h.remove());
+    draw.kind = null;
+    draw.corners = [];
+    draw.rectangle = null;
+    draw.handles = [];
+    $('#ops-map').classList.remove('drawing');
+    setDrawStatus('');
+  }
+
+  function startDraw(kind) {
+    if (!mapReady) { toast('Map is not available yet'); return; }
+    cancelDraw();
+    draw.kind = kind;
+    $('#ops-map').classList.add('drawing');
+    setDrawStatus(`Click the map to place the ${kind === 'area' ? 'service area' : 'zone'} — first corner`);
+  }
+
+  function onMapClick(e) {
+    if (!draw.kind) return;
+    draw.corners.push(e.latlng);
+    if (draw.corners.length === 1) {
+      setDrawStatus('Now click the opposite corner of the box');
+      return;
+    }
+    const name = prompt(draw.kind === 'area'
+      ? 'Name this service area:'
+      : 'Name this delivery zone:');
+    if (!name) { cancelDraw(); return; }
+
+    const bounds = normaliseBounds(draw.corners);
+    createGeofence(draw.kind, name, bounds);
+    cancelDraw();
+  }
+
+  function normaliseBounds(corners) {
+    const lats = corners.map(c => c.lat);
+    const lngs = corners.map(c => c.lng);
+    return {
+      lat_min: Math.min(...lats), lat_max: Math.max(...lats),
+      lng_min: Math.min(...lngs), lng_max: Math.max(...lngs)
+    };
+  }
+
+  function boundsToLatLng(b) {
+    return [[b.lat_min, b.lng_min], [b.lat_max, b.lng_max]];
+  }
+
+  function createGeofence(kind, name, b) {
+    const colour = kind === 'area' ? '#1C4E80' : '#C08A2E';
+    const endpoint = kind === 'area' ? '/api/service_areas' : '/api/delivery_zones';
+    const payload = kind === 'area'
+      ? { name, color: colour, lat_min: b.lat_min, lat_max: b.lat_max, lng_min: b.lng_min, lng_max: b.lng_max }
+      : { name, area_id: null, lat_min: b.lat_min, lat_max: b.lat_max, lng_min: b.lng_min, lng_max: b.lng_max };
+
+    api(endpoint, { method: 'POST', body: JSON.stringify(payload) })
+      .then(() => { toast(`${name} created`, 'ok'); refreshGeofences(); })
+      .catch(err => toast(`Could not create: ${err.message}`));
+  }
+
+  /* While a box is being drawn, each corner stays draggable so the box can be
+     nudged before it is saved, rather than requiring an exact first click. */
+  function attachDrawHandles() {
+    if (draw.corners.length !== 2 || !draw.rectangle) return;
+    draw.handles.forEach(h => h.remove());
+    draw.handles = [];
+    draw.corners.forEach((corner, index) => {
+      const handle = L.marker(corner, {
+        draggable: true,
+        icon: L.divIcon({ className: '', html: '<div class="corner-handle"></div>', iconSize: [12, 12], iconAnchor: [6, 6] })
+      }).addTo(map.geofences);
+      handle.on('drag', () => { draw.corners[index] = handle.getLatLng(); });
+      handle.on('dragend', () => { draw.corners[index] = handle.getLatLng(); rebuildDrawRectangle(); });
+      draw.handles.push(handle);
+    });
+  }
+
+  function rebuildDrawRectangle() {
+    if (!draw.rectangle) {
+      draw.rectangle = L.rectangle(boundsToLatLng(normaliseBounds(draw.corners)), {
+        color: '#C08A2E', weight: 2.5, dashArray: '6 5', fillOpacity: 0.14
+      }).addTo(map.geofences);
+      attachDrawHandles();
+      return;
+    }
+    draw.rectangle.setBounds(boundsToLatLng(normaliseBounds(draw.corners)));
+  }
+
+  function fitFleet(vehicles) {
+    if (!mapReady) return;
+    const points = (vehicles || [])
+      .filter(v => v.latitude != null && v.longitude != null)
+      .map(v => [Number(v.latitude), Number(v.longitude)]);
+    if (points.length > 1) {
+      map.instance.fitBounds(L.latLngBounds(points).pad(0.25));
+    } else {
+      map.instance.setView(NAIROBI, 12);
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  RENDER: Vehicles & drivers
+  // ══════════════════════════════════════════════════════════════════════
+  async function renderVehicles() {
+    const list = $('#vehicle-list');
+    try {
+      const vehicles = await api('/api/vehicles');
+      list.innerHTML = '';
+      if (!vehicles.length) { list.innerHTML = '<div class="text-center py-10 text-sm text-ink/35">No vehicles — add one to get started.</div>'; return vehicles; }
+      for (const v of vehicles) {
+        const located = v.latitude != null && v.longitude != null;
+        list.innerHTML += `
+          <div class="flex items-center gap-3 rounded-xl border border-ink/8 bg-white p-3 card-hover">
+            <span class="grid h-9 w-9 place-items-center rounded-lg bg-blue/10 text-blue font-mono text-xs">${esc((v.plate || '?').slice(-3))}</span>
+            <div class="flex-1 min-w-0">
+              <p class="font-medium text-sm text-ink truncate">${esc(v.plate)}</p>
+              <p class="text-xs text-ink/40 truncate">${esc(v.make)} ${esc(v.model)} · ${esc(v.colour)}</p>
+            </div>
+            ${located
+              ? `<button class="locate-vehicle text-[11px] text-ink/35 hover:text-blue transition" data-lat="${esc(v.latitude)}" data-lng="${esc(v.longitude)}" title="Centre map on this vehicle">◎</button>`
+              : `<span class="text-[10px] text-ink/25" title="No GPS fix">no fix</span>`}
+            <span class="badge ${vehicleBadge(v.status)}">${esc(statusLabels[v.status] || v.status)}</span>
+          </div>`;
+      }
+      list.querySelectorAll('.locate-vehicle').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (!mapReady) return;
+          map.instance.setView([Number(btn.dataset.lat), Number(btn.dataset.lng)], 15);
+        });
+      });
+      return vehicles;
+    } catch (e) {
+      list.innerHTML = `<div class="text-center py-10 text-sm text-red-500">Error: ${esc(e.message)}</div>`;
+      return [];
+    }
+  }
+
+  async function renderDrivers() {
+    const list = $('#driver-list');
+    try {
+      const drivers = await api('/api/drivers');
+      list.innerHTML = '';
+      if (!drivers.length) { list.innerHTML = '<div class="text-center py-10 text-sm text-ink/35">No drivers — add one to get started.</div>'; return drivers; }
+      for (const d of drivers) {
+        list.innerHTML += `
+          <div class="flex items-center gap-3 rounded-xl border border-ink/8 bg-white p-3 card-hover">
+            <span class="grid h-9 w-9 place-items-center rounded-lg bg-blue/10 text-blue font-mono text-sm">${esc(d.name?.charAt(0) || '?')}</span>
+            <div class="flex-1 min-w-0">
+              <p class="font-medium text-sm text-ink truncate">${esc(d.name)}</p>
+              <p class="text-xs text-ink/40 truncate">${esc(d.phone)} · Lic: ${esc(d.license_number)}</p>
+            </div>
+            <span class="badge ${d.status === 'offline' ? 'badge-new' : d.status === 'on_route' ? 'badge-live' : d.status === 'break' ? 'badge-exception' : 'badge-done'}">${esc(statusLabels[d.status] || d.status)}</span>
+          </div>`;
+      }
+      return drivers;
+    } catch (e) {
+      list.innerHTML = `<div class="text-center py-10 text-sm text-red-500">Error: ${esc(e.message)}</div>`;
+      return [];
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  RENDER: Kanban with drag-and-drop
+  // ══════════════════════════════════════════════════════════════════════
+  // Column keys MUST match the markup (#col-<key> / #count-<key>). A mismatch
+  // silently empties the board.
+  const stageGroups = {
+    new: ['new'],
+    assigned: ['assigned'],
+    progress: ['in_progress', 'label_printed', 'picking_up', 'out_for_delivery'],
+    done: ['delivered', 'exception']
+  };
+
+  // A column groups several real statuses, so dropping needs a concrete target
+  // status. These keep the documented workflow intact when a card is moved.
+  const columnTargetStatus = {
+    new: 'new',
+    assigned: 'assigned',
+    progress: 'in_progress',
+    done: 'delivered'
+  };
+
+  let orderCache = [];
+
+  async function renderKanban() {
+    try {
+      const orders = await api('/api/orders?limit=200');
+      orderCache = orders;
+      const filter = $('#order-filter').value;
+
+      for (const col in stageGroups) {
+        const list = $(`#col-${col}`);
+        const items = orders.filter(o => stageGroups[col].includes(o.status));
+        const badge = $(`#count-${col}`);
+        if (badge) badge.textContent = items.length;
+        if (filter !== 'all') {
+          list.innerHTML = items.filter(o => o.status === filter).map(o => kanbanCard(o)).join('');
+        } else {
+          list.innerHTML = items.length ? items.map(o => kanbanCard(o)).join('') : '<div class="text-xs text-ink/20 py-4 px-2">No orders</div>';
+        }
+        wireKanbanCards(list);
+      }
+    } catch (e) {
+      toast('Orders: ' + e.message);
+    }
+  }
+
+  function kanbanCard(o) {
+    let quote = null;
+    try { quote = o.price_quote ? JSON.parse(o.price_quote) : null; } catch (e) { quote = null; }
+    const value = fmtKsh(quote && quote.total);
+    const isDone = o.status === 'delivered' || o.status === 'exception';
+    return `
+      <div class="kanban-card rounded-xl border border-ink/8 bg-white p-3 card-hover" draggable="true" data-order-id="${esc(o.id)}" data-status="${esc(o.status)}">
+        <div class="flex items-start gap-3">
+          <div class="flex-1 min-w-0">
+            <p class="font-mono text-xs font-semibold text-ink truncate">${esc(o.reference)}</p>
+            <p class="text-xs text-ink/50 truncate">${esc(o.customer_name || 'Unnamed customer')}</p>
+            <p class="text-xs text-ink/40 truncate">${esc(o.delivery_address || o.customer_address || '')}</p>
+            <div class="mt-1 flex items-center gap-2 flex-wrap">
+              <span class="text-[10px] text-ink/30">${fmtTime(o.created_at)}</span>
+              ${value ? `<span class="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700">${esc(value)}</span>` : ''}
+              ${o.recipient_name ? `<span class="truncate text-[10px] text-ink/30">→ ${esc(o.recipient_name)}</span>` : ''}
+            </div>
+          </div>
+          <div class="flex flex-col items-end gap-2">
+            <span class="font-mono text-[11px] ${isDone ? 'text-green-600' : 'text-blue'}">${esc(o.status)}</span>
+            <span class="badge ${isDone ? 'badge-done' : 'badge-live'}">${esc(statusLabels[o.status] || o.status)}</span>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function wireKanbanCards(scope) {
+    scope.querySelectorAll('.kanban-card').forEach(card => {
+      card.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', card.dataset.orderId);
+        e.dataTransfer.effectAllowed = 'move';
+        card.classList.add('dragging');
+      });
+      card.addEventListener('dragend', () => card.classList.remove('dragging'));
+      // Clicking a card opens the detail drawer; a drag must not also open it.
+      card.addEventListener('click', (e) => {
+        if (card.dataset.dragged === '1') { card.dataset.dragged = '0'; return; }
+        openDrawer(card.dataset.orderId);
+      });
+    });
+  }
+
+  function wireDropZones() {
+    $$('.kanban-col').forEach(col => {
+      col.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        col.classList.add('drag-over');
+      });
+      col.addEventListener('dragleave', () => col.classList.remove('drag-over'));
+      col.addEventListener('drop', async (e) => {
+        e.preventDefault();
+        col.classList.remove('drag-over');
+        const id = e.dataTransfer.getData('text/plain');
+        if (!id) return;
+        const target = columnTargetStatus[col.dataset.stage];
+        const order = orderCache.find(o => o.id === id);
+        if (!order || order.status === target) return;
+        try {
+          await api('/api/orders/' + encodeURIComponent(id), { method: 'PUT', body: JSON.stringify({ status: target }) });
+          toast(`${order.reference} → ${statusLabels[target] || target}`, 'ok');
+          await Promise.all([renderKanban(), renderDashboard()]);
+        } catch (err) {
+          toast('Could not move order: ' + err.message);
+        }
+      });
+    });
+  }
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  RENDER: Order detail drawer
+  // ══════════════════════════════════════════════════════════════════════
+  async function openDrawer(orderId) {
+    const drawer = $('#order-drawer');
+    const scrim = $('#drawer-scrim');
+    drawer.classList.add('open');
+    drawer.dataset.orderId = orderId;
+    scrim.classList.add('open');
+    $('#drawer-body').innerHTML = '<div class="text-center py-10 text-sm text-ink/35">Loading order…</div>';
+
+    try {
+      // The public tracking payload already carries the custody timeline, courier
+      // identity, seal number and quote, so one call fills the whole drawer.
+      const [tracking, order] = await Promise.all([
+        api('/api/track/' + encodeURIComponent(orderId)),
+        api('/api/orders/' + encodeURIComponent(orderId)).catch(() => null)
+      ]);
+      $('#drawer-ref').textContent = tracking.reference || '—';
+      $('#drawer-body').innerHTML = drawerBody(tracking, order);
+    } catch (e) {
+      $('#drawer-body').innerHTML = `<div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-600">${esc(e.message)}</div>`;
+    }
+  }
+
+  function drawerBody(t, order) {
+    let quote = null;
+    try { quote = order && order.price_quote ? JSON.parse(order.price_quote) : null; } catch (e) { quote = null; }
+
+    const rows = [
+      ['Status', statusLabels[t.status] || t.status || '—'],
+      ['Consignment', t.description || t.delivery_address || '—'],
+      ['Customer', [t.customer_name, t.customer_phone].filter(Boolean).join(' · ') || '—'],
+      ['Recipient', t.recipient_name || '—'],
+      ['Courier', t.courier || 'Not yet assigned'],
+      ['Seal number', t.seal_number || 'Pending pickup'],
+      ['Route', t.route || '—'],
+      ['ETA', t.eta || '—'],
+      ['Weight', t.weight_kg ? `${t.weight_kg} kg` : '—'],
+      ['Declared value', fmtKsh(t.declared_value) || '—'],
+      ['Booked', fmtTime(t.created_at)]
+    ].map(([k, v]) => `
+      <div class="flex items-start justify-between gap-4 border-b border-ink/8 py-2.5 last:border-0">
+        <span class="shrink-0 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink/40">${esc(k)}</span>
+        <span class="text-right text-[13.5px] font-medium text-ink">${esc(v)}</span>
+      </div>`).join('');
+
+    const timeline = (t.timeline || []).map(s => {
+      const tone = s.state === 'done' ? 'bg-teal' : s.state === 'active' ? 'bg-blue-light' : 'bg-ink/20';
+      const ring = s.state === 'active' ? ' ring-4 ring-blue-soft/40' : '';
+      return `
+        <div class="relative flex gap-4">
+          <span class="relative z-10 mt-1 h-3 w-3 shrink-0 rounded-full ${tone}${ring}"></span>
+          <div class="min-w-0 pb-4">
+            <p class="text-[13.5px] font-semibold ${s.state === 'pending' ? 'text-ink/40' : 'text-ink'}">${esc(s.title)}</p>
+            <p class="mt-0.5 text-[11.5px] text-ink/45">${esc(s.detail)}</p>
+          </div>
+        </div>`;
+    }).join('');
+
+    const quoteBlock = quote && quote.lines ? `
+      <div>
+        <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Quoted price</p>
+        <div class="mt-3 space-y-2 rounded-xl border border-ink/10 bg-white p-4 text-[13px]">
+          ${quote.lines.map(l => `
+            <div class="flex items-baseline justify-between gap-4">
+              <span class="text-ink/60">${esc(l.label)}</span>
+              <span class="font-medium text-ink">${esc(fmtKsh(l.amount) || '—')}</span>
+            </div>`).join('')}
+          <div class="flex items-baseline justify-between gap-4 border-t border-ink/10 pt-2">
+            <span class="font-semibold text-ink">Total</span>
+            <span class="font-display text-[18px] font-semibold text-ink">${esc(fmtKsh(quote.total) || '—')}</span>
+          </div>
+        </div>
+      </div>` : '';
+
+    const publicUrl = PUBLIC_SITE_URL + '/track.html?ref=' + encodeURIComponent(t.reference);
+
+    return `
+      <div>
+        <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Order</p>
+        <div class="mt-2">${rows}</div>
+      </div>
+      ${quoteBlock}
+      <div>
+        <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/40">Chain of custody</p>
+        <div class="relative mt-4 space-y-0">
+          <div class="absolute left-[5px] top-2 bottom-2 w-px bg-gradient-to-b from-blue-300 to-transparent"></div>
+          ${timeline || '<p class="text-[13px] text-ink/45">No custody events recorded yet.</p>'}
+        </div>
+      </div>
+      ${t.active_location ? `
+        <div class="rounded-xl border border-ink/10 bg-white p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/40">Live position</p>
+          <p class="mt-1.5 font-mono text-[13px] text-ink">${Number(t.active_location.lat).toFixed(5)}, ${Number(t.active_location.lng).toFixed(5)}</p>
+          <button id="drawer-locate" class="mt-3 btn-outline text-xs px-3 py-1.5 rounded-lg font-medium" data-lat="${esc(t.active_location.lat)}" data-lng="${esc(t.active_location.lng)}">Show on map</button>
+        </div>` : ''}
+      <div class="flex flex-col gap-2 pt-1">
+        <a href="${esc(publicUrl)}" target="_blank" rel="noopener" class="btn-primary text-center text-sm px-4 py-2.5 rounded-xl font-medium">Open as customer →</a>
+        ${order && order.seal_number ? `<button id="drawer-print" class="btn-outline text-center text-sm px-4 py-2.5 rounded-xl font-medium">Print custody report</button>` : ''}
+      </div>`;
+  }
+
+  function closeDrawer() {
+    $('#order-drawer').classList.remove('open');
+    $('#drawer-scrim').classList.remove('open');
+  }
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  RENDER: Areas & zones
+  // ══════════════════════════════════════════════════════════════════════
+  async function renderAreas() {
+    try {
+      const [areas, zones] = await Promise.all([
+        api('/api/service_areas'),
+        api('/api/delivery_zones')
+      ]);
+      $('#area-count').textContent = `${(areas || []).length} areas`;
+      $('#zone-count').textContent = `${(zones || []).length} zones`;
+
+      $('#area-list').innerHTML = (areas || []).map(a => `
+        <div class="flex items-center justify-between gap-3 rounded-xl border border-ink/8 bg-white px-3 py-2 card-hover">
+          <div class="min-w-0">
+            <p class="font-mono text-xs font-semibold text-ink truncate">${esc(a.name)}</p>
+            <p class="text-[10px] text-ink/30">${coordsLabel(a)}</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            ${a.lat_min != null ? `<button class="zoom-area text-[11px] text-ink/35 hover:text-blue transition" data-bounds="${esc(JSON.stringify([a.lat_min, a.lng_min, a.lat_max, a.lng_max]))}" title="Zoom map to this area">◎</button>` : ''}
+            <button class="delete-area text-ink/25 hover:text-red-600 transition" data-id="${esc(a.id)}">✕</button>
+          </div>
+        </div>`).join('') || '<div class="text-center py-6 text-sm text-ink/35">No service areas yet — draw one on the map.</div>';
+
+      $('#zone-list').innerHTML = (zones || []).map(z => `
+        <div class="flex items-center justify-between gap-3 rounded-xl border border-ink/8 bg-white px-3 py-2 card-hover">
+          <div class="min-w-0">
+            <p class="font-mono text-xs font-semibold text-ink truncate">${esc(z.name)}</p>
+            <p class="text-[10px] text-ink/30">${coordsLabel(z)}</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            ${z.lat_min != null ? `<button class="zoom-area text-[11px] text-ink/35 hover:text-blue transition" data-bounds="${esc(JSON.stringify([z.lat_min, z.lng_min, z.lat_max, z.lng_max]))}" title="Zoom map to this zone">◎</button>` : ''}
+            <button class="delete-zone text-ink/25 hover:text-red-600 transition" data-id="${esc(z.id)}">✕</button>
+          </div>
+        </div>`).join('') || '<div class="text-center py-6 text-sm text-ink/35">No delivery zones yet — draw one on the map.</div>';
+
+      $$('.zoom-area').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (!mapReady) return;
+          const [s, w, n, e] = JSON.parse(btn.dataset.bounds);
+          map.instance.fitBounds([[s, w], [n, e]], { padding: [40, 40] });
+        });
+      });
+
+      renderGeofences(areas, zones);
+      return { areas: areas || [], zones: zones || [] };
+    } catch (e) {
+      $('#area-list').innerHTML = `<div class="text-center py-8 text-sm text-red-500">Error: ${esc(e.message)}</div>`;
+      return { areas: [], zones: [] };
+    }
+  }
+
+  function coordsLabel(r) {
+    if (r.lat_min == null) return 'no bounding box — draw it on the map';
+    return `L ${Number(r.lat_min).toFixed(3)}–${Number(r.lat_max).toFixed(3)} · W ${Number(r.lng_min).toFixed(3)}–${Number(r.lng_max).toFixed(3)}`;
+  }
+
+  async function refreshGeofences() { await renderAreas(); }
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  RENDER: Dashboard KPIs
+  // ══════════════════════════════════════════════════════════════════════
+  async function renderDashboard() {
+    try {
+      const [vehicles, drivers, shipments, orders] = await Promise.all([
+        api('/api/vehicles'),
+        api('/api/drivers'),
+        api('/api/shipments/active'),
+        api('/api/orders?limit=200').catch(() => [])
+      ]);
+      setApiStatus(true);
+
+      const onRoad = (vehicles || []).filter(v => ['on_road', 'out_for_delivery'].includes(v.status)).length;
+      $('#kpi-cars').textContent = (vehicles || []).length;
+      $('#kpi-cars-sub').textContent = `${onRoad} moving`;
+      $('#kpi-onroad').textContent = onRoad;
+      $('#kpi-drivers').textContent = (drivers || []).filter(d => ['on_route', 'in_progress'].includes(d.status)).length;
+      $('#kpi-orders').textContent = (orders || []).filter(o => !['delivered', 'exception'].includes(o.status)).length;
+      $('#kpi-runs').textContent = (orders || []).filter(o => o.status === 'delivered').length;
+
+      renderFleetOnMap(vehicles, shipments);
+
+      const list = $('#active-orders');
+      if (!shipments || !shipments.length) {
+        list.innerHTML = '<div class="text-center py-8 text-sm text-ink/35">No active shipments.</div>';
+        return;
+      }
+      list.innerHTML = shipments.map(s => `
+        <div class="flex items-center gap-3 rounded-xl border border-ink/8 bg-white p-3 card-hover">
+          <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-blue/10 text-blue font-mono text-[10px]">${esc((s.reference || '?').slice(-4))}</span>
+          <div class="flex-1 min-w-0">
+            <p class="font-mono text-[11px] font-semibold text-ink truncate">${esc(s.reference)}</p>
+            <p class="text-xs text-ink/50 truncate">${esc(s.to_address || '')}</p>
+            <p class="text-[10px] text-ink/30 truncate">Driver: ${esc(s.driver_name || 'unassigned')} · Plate: ${esc(s.plate || '—')}</p>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 shrink-0">
+            <span class="badge ${s.status === 'completed' ? 'badge-done' : 'badge-live'}">${esc(s.status)}</span>
+            <button class="shipment-locate text-[11px] text-ink/35 hover:text-blue transition" data-lat="${esc(s.live_lat)}" data-lng="${esc(s.live_lng)}" ${s.live_lat == null ? 'disabled' : ''}>◎</button>
+          </div>
+        </div>`).join('');
+
+      list.querySelectorAll('.shipment-locate').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (!mapReady || btn.dataset.lat === 'null' || btn.dataset.lat === 'undefined') return;
+          map.instance.setView([Number(btn.dataset.lat), Number(btn.dataset.lng)], 15);
+        });
+      });
+    } catch (e) {
+      setApiStatus(false);
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════════════════
+  //  Events
+  // ══════════════════════════════════════════════════════════════════════
+  $('#btn-add-vehicle').addEventListener('click', async () => {
+    const plate = prompt('Vehicle plate:');
+    if (!plate) return;
+    const make = prompt('Make:', 'Toyota') || 'Toyota';
+    const model = prompt('Model:', 'HiAce') || 'HiAce';
+    try {
+      const created = await api('/api/vehicles', { method: 'POST', body: JSON.stringify({ plate, make, model, colour: 'White' }) });
+      toast(`${plate} added — place it on the map below`, 'ok');
+      // A new vehicle has no fix yet, so let dispatch drop a pin immediately.
+      if (mapReady) placeVehicleOnMap(created);
+      renderVehicles(); renderDashboard();
+    } catch (e) { toast(e.message); }
+  });
+
+  /* New vehicles start without coordinates. Rather than fake a position, ask
+     dispatch to drop a pin on the real Nairobi map. */
+  function placeVehicleOnMap(vehicle) {
+    toast('Click the map to set this vehicle\'s position');
+    const handler = async (e) => {
+      map.instance.off('click', handler);
+      try {
+        await api('/api/vehicles/' + encodeURIComponent(vehicle.id), {
+          method: 'PUT',
+          body: JSON.stringify({ latitude: e.latlng.lat, longitude: e.latlng.lng, status: 'idle' })
+        });
+        toast(`${vehicle.plate} positioned`, 'ok');
+        renderVehicles(); renderDashboard();
+      } catch (err) { toast(err.message); }
+    };
+    map.instance.on('click', handler);
+  }
+
+  $('#btn-add-driver').addEventListener('click', async () => {
+    const name = prompt('Driver name:');
+    if (!name) return;
+    const phone = prompt('Phone:', '+254 700 000 000') || '+254 700 000 000';
+    const licence = prompt('Licence number:', 'D00000') || 'D00000';
+    try {
+      await api('/api/drivers', { method: 'POST', body: JSON.stringify({ name, phone, license_number: licence }) });
+      toast(`${name} added`, 'ok');
+      renderDrivers(); renderDashboard();
+    } catch (e) { toast(e.message); }
+  });
+
+  const createOrder = async () => {
+    const customer = prompt('Customer name:', 'Test Customer');
+    if (!customer) return;
+    const phone = prompt('Phone:', '+254 700 000 000') || '+254 700 000 000';
+    const pickup = prompt('Pickup address:', 'Swift HQ, Riverside Square') || 'Swift HQ, Riverside Square';
+    const delivery = prompt('Delivery address:', 'Riverside Square, Nairobi') || 'Riverside Square, Nairobi';
+    try {
+      const order = await api('/api/orders', {
+        method: 'POST',
+        body: JSON.stringify({ customer_name: customer, customer_phone: phone, customer_address: pickup, pickup_address: pickup, delivery_address: delivery })
+      });
+      toast(`Order created: ${order.reference}`, 'ok');
+      await Promise.all([renderKanban(), renderDashboard()]);
+      openDrawer(order.id);
+    } catch (e) { toast(e.message); }
+  };
+  $('#btn-new-order').addEventListener('click', createOrder);
+  $('#btn-new-order-2').addEventListener('click', createOrder);
+
+  $('#btn-add-area').addEventListener('click', () => startDraw('area'));
+  $('#btn-add-zone').addEventListener('click', () => startDraw('zone'));
+  $('#btn-draw-area').addEventListener('click', () => startDraw('area'));
+  $('#btn-draw-zone').addEventListener('click', () => startDraw('zone'));
+  $('#draw-cancel').addEventListener('click', cancelDraw);
+  $('#btn-fit').addEventListener('click', () => renderVehicles().then(v => fitFleet(v)));
+
+  $('#order-filter').addEventListener('change', () => renderKanban());
+  $('#drawer-close').addEventListener('click', closeDrawer);
+  $('#drawer-scrim').addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeDrawer(); cancelDraw(); } });
+
+  // Delegated so it keeps working after the lists are re-rendered.
+  document.addEventListener('click', async (e) => {
+    const del = e.target.closest('.delete-area, .delete-zone');
+    if (del) {
+      const id = del.dataset.id;
+      const isArea = del.classList.contains('delete-area');
+      if (!confirm(`Delete this ${isArea ? 'service area' : 'delivery zone'}?`)) return;
+      try {
+        await api('/api/' + (isArea ? `service_areas/${id}` : `delivery_zones/${id}`), { method: 'DELETE' });
+        toast('Deleted', 'ok');
+        refreshGeofences();
+      } catch (err) { toast(err.message); }
+      return;
+    }
+
+    const locate = e.target.closest('#drawer-locate');
+    if (locate && mapReady) {
+      map.instance.setView([Number(locate.dataset.lat), Number(locate.dataset.lng)], 15);
+      closeDrawer();
+      document.getElementById('coverage-map-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Print the custody report straight from the drawer.
+    if (e.target.closest('#drawer-print')) {
+      const id = $('#order-drawer').dataset.orderId;
+      if (id) printCustodyReport(id);
+    }
+  });
+
+  /* Reuse of the customer-site print layout so ops and the customer receive the
+     same custody document. */
+  async function printCustodyReport(orderId) {
+    try {
+      const t = await api('/api/track/' + encodeURIComponent(orderId));
+      const rows = (t.timeline || []).map(s =>
+        `<tr><td style="padding:7px 10px;border-bottom:1px solid #e5e0d6;font-weight:600">${esc(s.title)}</td>` +
+        `<td style="padding:7px 10px;border-bottom:1px solid #e5e0d6">${esc(s.state)}</td>` +
+        `<td style="padding:7px 10px;border-bottom:1px solid #e5e0d6">${esc(s.detail)}</td></tr>`).join('');
+
+      const win = window.open('', '_blank', 'width=780,height=900');
+      if (!win) { toast('Allow pop-ups to print the report'); return; }
+      win.document.write(
+        '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Custody report ' + esc(t.reference) + '</title>' +
+        '<style>body{font-family:Inter,system-ui,sans-serif;padding:34px;color:#0B1B2B}h1{font-size:20px;margin:0 0 4px}' +
+        '.ref{font-family:ui-monospace,monospace;font-size:15px;font-weight:700;letter-spacing:.04em}' +
+        'table{width:100%;border-collapse:collapse;margin-top:20px;font-size:12px}' +
+        'th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#5B7691;padding:0 10px 6px;border-bottom:2px solid #0B1B2B}' +
+        '.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 24px;margin-top:20px;font-size:12px}' +
+        '.grid span{display:block;font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:#5B7691}' +
+        'footer{margin-top:28px;padding-top:14px;border-top:1px solid #e5e0d6;font-size:10.5px;color:#5B7691}' +
+        '@media print{body{padding:0}}</style></head><body>' +
+        '<h1>Chain-of-custody report</h1>' +
+        '<p class="ref">' + esc(t.reference) + '</p>' +
+        '<p style="font-size:12px;color:#5B7691;margin:8px 0 0">Generated ' + new Date().toLocaleString('en-KE') +
+        ' · Swift Courier Service · Licensed &amp; bonded · Insured to KSh 50,000,000 per run</p>' +
+        '<div class="grid">' +
+          '<div><span>Status</span>' + esc(statusLabels[t.status] || t.status || '—') + '</div>' +
+          '<div><span>Consignment</span>' + esc(t.description || '—') + '</div>' +
+          '<div><span>Courier</span>' + esc(t.courier || 'Not yet assigned') + '</div>' +
+          '<div><span>Seal number</span>' + esc(t.seal_number || 'Pending pickup') + '</div>' +
+          '<div><span>Route</span>' + esc(t.route || '—') + '</div>' +
+          '<div><span>ETA</span>' + esc(t.eta || '—') + '</div>' +
+        '</div>' +
+        '<table><thead><tr><th>Stage</th><th>State</th><th>Detail</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+        '<footer>Every transition of possession on this run is listed above with its timestamp. This record is ' +
+        'cryptographically signed at the point of capture and retained for seven years.</footer>' +
+        '</body></html>'
+      );
+      win.document.close();
+      win.focus();
+      setTimeout(() => win.print(), 350);
+    } catch (e) { toast(e.message); }
+  }
+
+  /* ── Polling ──────────────────────────────────────────────────────── */
+  let pollTimer = null;
+  const POLL_OPTIONS = [0, 5000, 15000, 60000];
+  function setPoll(ms) {
+    if (pollTimer) clearInterval(pollTimer);
+    pollTimer = null;
+    if (ms > 0) pollTimer = setInterval(() => renderDashboard(), ms);
+  }
+  $('#poll-interval').addEventListener('change', (e) => {
+    const ms = Number(e.target.value);
+    if (!POLL_OPTIONS.includes(ms)) return;
+    setPoll(ms);
+  });
+
+  // The tab may be backgrounded; there is no point polling a hidden one.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+    else if (!document.hidden) {
+      renderDashboard();
+      setPoll(Number($('#poll-interval').value));
+    }
+  });
+
+  // ── Init ──────────────────────────────────────────────────────────────
+  document.getElementById('year').textContent = new Date().getFullYear();
+  $$('[data-customer-portal]').forEach(el => { el.href = PUBLIC_SITE_URL; });
+
+  initMap();
+  wireDropZones();
+  renderVehicles();
+  renderDrivers();
+  renderKanban();
+  renderAreas();
+  renderDashboard();
+  setPoll(Number($('#poll-interval').value));
+})();
+</script>
+</body>
+</html>

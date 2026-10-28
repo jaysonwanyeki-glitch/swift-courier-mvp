@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a secure run — Swift Courier Service</title>
+<meta name="description" content="Get an instant server-priced quote and book a secure courier run in Nairobi. No account needed, no payment online. Dispatch confirms the window and assigns a vetted courier." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind-config.js"></script>
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body class="antialiased overflow-x-hidden">
+
+<header id="site-header" class="header-solid fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="flex h-20 items-center justify-between">
+      <a href="index.html" class="group flex items-center gap-3">
+        <span class="relative grid h-11 w-11 place-items-center rounded-[14px] bg-ink text-blue-500 shadow-soft transition-transform duration-500 group-hover:-rotate-6">
+          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
+            <path d="M12 2.6 4.9 5.4v6.2c0 4.4 3 8.1 7.1 9.8 4.1-1.7 7.1-5.4 7.1-9.8V5.4L12 2.6Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+            <path d="m8.7 12.1 2.3 2.3 4.4-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="leading-none">
+          <span class="block font-display text-[22px] font-semibold tracking-tight text-ink">Swift</span>
+          <span class="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.3em] text-ink/45">Courier Service</span>
+        </span>
+      </a>
+      <nav class="hidden items-center gap-7 lg:flex">
+        <a href="index.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Home</a>
+        <a href="services.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Services</a>
+        <a href="custody.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Chain of Custody</a>
+        <a href="coverage.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Coverage</a>
+        <a href="pricing.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Rates</a>
+        <a href="faq.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">FAQ</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="track.html" class="nav-link hidden items-center gap-2 text-[14.5px] font-medium text-ink/70 transition sm:flex">Track</a>
+        <button id="menu-btn" aria-label="Open menu" class="grid h-11 w-11 place-items-center rounded-xl border border-ink/10 bg-cream-100 text-ink transition hover:bg-cream-200 lg:hidden">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu" class="overflow-hidden border-t border-ink/10 bg-cream/95 backdrop-blur-xl transition-[max-height,opacity] duration-500 lg:hidden" style="max-height:0;opacity:0">
+    <div class="mx-auto max-w-7xl px-5 py-6">
+      <div class="grid gap-1">
+        <a href="index.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Home</a>
+        <a href="services.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Services</a>
+        <a href="custody.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Chain of custody</a>
+        <a href="coverage.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Coverage</a>
+        <a href="pricing.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Rates</a>
+        <a href="faq.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">FAQ</a>
+        <a href="track.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Track a shipment</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="page-top pb-24">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="reveal relative overflow-hidden rounded-[2.2rem] bg-ink px-7 py-14 text-cream shadow-lift sm:px-12 sm:py-16 lg:px-16">
+      <div class="pointer-events-none absolute -left-20 -top-24 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-32 right-0 h-80 w-80 rounded-full bg-teal/15 blur-3xl"></div>
+      <div class="noise pointer-events-none absolute inset-0 opacity-[0.06]"></div>
+      <div class="relative grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        <div class="lg:self-center">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-3.5 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-cream/70">
+            <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-teal-light"></span> Dispatch online now
+          </span>
+          <h1 class="mt-6 font-display text-[34px] font-semibold leading-[1.08] tracking-[-0.02em] sm:text-[42px]">Book a secure run in under ninety seconds.</h1>
+          <p class="mt-5 text-[16px] leading-relaxed text-cream/55">Get an instant price, then send it to dispatch. We confirm the window and assign a vetted courier — usually within eight minutes.</p>
+
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href="tel:+254730900100" class="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/20 px-6 py-3.5 text-[14.5px] font-semibold text-cream transition-all duration-300 hover:border-white/40 hover:bg-white/[0.06]">
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M6.5 4h3l1.5 3.5-2 1.4a11 11 0 0 0 5.6 5.6l1.4-2L19.5 14v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4 5.7 2 2 0 0 1 6 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Call dispatch
+            </a>
+            <a href="mailto:runs@swiftcourier.example" class="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/20 px-6 py-3.5 text-[14.5px] font-semibold text-cream transition-all duration-300 hover:border-white/40 hover:bg-white/[0.06]">Email a request</a>
+          </div>
+
+          <div class="mt-10 grid gap-3 sm:grid-cols-3">
+            <div class="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 backdrop-blur">
+              <p class="font-display text-[22px] font-semibold leading-none text-blue-300">8 min</p>
+              <p class="mt-2 text-[12px] font-medium uppercase tracking-[0.13em] text-blue-300">Avg. confirmation</p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 backdrop-blur">
+              <p class="font-display text-[22px] font-semibold leading-none text-blue-300">24/7</p>
+              <p class="mt-2 text-[12px] font-medium uppercase tracking-[0.13em] text-cream/45">Emergency runs</p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 backdrop-blur">
+              <p class="font-display text-[22px] font-semibold leading-none text-blue-300">KSh 0</p>
+              <p class="mt-2 text-[12px] font-medium uppercase tracking-[0.13em] text-cream/45">Hidden fees, ever</p>
+            </div>
+          </div>
+
+          <p class="mt-8 text-[13px] leading-relaxed text-cream/45">
+            Not sure which tier? <a href="services.html" class="font-semibold text-blue-300 underline">Compare the six services</a> or
+            <a href="pricing.html" class="font-semibold text-blue-300 underline">read the full rate card</a>.
+          </p>
+        </div>
+
+        <!-- Booking form -->
+        <div>
+          <form id="book-form" class="rounded-[1.6rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur sm:p-7" novalidate>
+            <p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-400">Get a quote &amp; book</p>
+            <h2 class="mt-2 font-display text-[22px] font-semibold tracking-tight">Where are we collecting, and where to?</h2>
+
+            <!-- Set when arriving from the hover-to-book strip on a service card. -->
+            <p id="bk-service-note" class="mt-4 hidden rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-[13.5px] text-gold-light">
+              Booking <span data-service-name class="font-semibold"></span> — we've pre-selected the tier that usually fits and suggested what to list. Adjust anything below.
+            </p>
+
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              <div class="sm:col-span-2">
+                <label for="bk-pickup" class="mb-1.5 block text-[12.5px] font-medium text-cream/60">Pickup address</label>
+                <input id="bk-pickup" name="pickup_address" type="text" required placeholder="Swift HQ, Riverside Drive"
+                  class="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-[14.5px] text-cream placeholder-cream/30 outline-none transition focus:border-blue-400 focus:bg-white/[0.08]" />
+              </div>
+              <div class="sm:col-span-2">
+                <label for="bk-delivery" class="mb-1.5 block text-[12.5px] font-medium text-cream/60">Delivery address <span class="text-gold-light">*</span></label>
+                <input id="bk-delivery" name="delivery_address" type="text" required placeholder="Milimani Law Courts, Upper Hill"
+                  class="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-[14.5px] text-cream placeholder-cream/30 outline-none transition focus:border-blue-400 focus:bg-white/[0.08]" />
+              </div>
+              <div>
+                <label for="bk-name" class="mb-1.5 block text-[12.5px] font-medium text-cream/60">Your name <span class="text-gold-light">*</span></label>
+                <input id="bk-name" name="customer_name" type="text" required placeholder="Amina Wanjiru" autocomplete="name"
+                  class="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-[14.5px] text-cream placeholder-cream/30 outline-none transition focus:border-blue-400 focus:bg-white/[0.08]" />
+              </div>
+              <div>
+                <label for="bk-phone" class="mb-1.5 block text-[12.5px] font-medium text-cream/60">Phone <span class="text-gold-light">*</span></label>
+                <input id="bk-phone" name="customer_phone" type="tel" required placeholder="+254 712 000 000" autocomplete="tel"
+                  class="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-[14.5px] text-cream placeholder-cream/30 outline-none transition focus:border-blue-400 focus:bg-white/[0.08]" />
+              </div>
+              <div>
+                <label for="bk-weight" class="mb-1.5 block text-[12.5px] font-medium text-cream/60">Weight (kg)</label>
+                <input id="bk-weight" name="weight_kg" type="number" min="0.1" step="0.1" value="1"
+                  class="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-[14.5px] text-cream outline-none transition focus:border-blue-400 focus:bg-white/[0.08]" />
+              </div>
+              <div>
+                <label for="bk-value" class="mb-1.5 block text-[12.5px] font-medium text-cream/60">Declared value (KSh)</label>
+                <input id="bk-value" name="declared_value" type="number" min="0" step="1000" value="0"
+                  class="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-[14.5px] text-cream outline-none transition focus:border-blue-400 focus:bg-white/[0.08]" />
+              </div>
+              <div>
+                <label for="bk-recipient" class="mb-1.5 block text-[12.5px] font-medium text-cream/60">Recipient name</label>
+                <input id="bk-recipient" name="recipient_name" type="text" placeholder="Who signs for it"
+                  class="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-[14.5px] text-cream placeholder-cream/30 outline-none transition focus:border-blue-400 focus:bg-white/[0.08]" />
+              </div>
+              <div>
+                <label for="bk-email" class="mb-1.5 block text-[12.5px] font-medium text-cream/60">Email <span class="text-cream/35">(optional)</span></label>
+                <input id="bk-email" name="customer_email" type="email" placeholder="you@example.com" autocomplete="email"
+                  class="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-[14.5px] text-cream placeholder-cream/30 outline-none transition focus:border-blue-400 focus:bg-white/[0.08]" />
+              </div>
+              <div class="sm:col-span-2">
+                <label for="bk-items" class="mb-1.5 block text-[12.5px] font-medium text-cream/60">What's inside</label>
+                <input id="bk-items" name="items" type="text" placeholder="12 court documents, sealed"
+                  class="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-[14.5px] text-cream placeholder-cream/30 outline-none transition focus:border-blue-400 focus:bg-white/[0.08]" />
+              </div>
+              <div class="sm:col-span-2">
+                <span class="mb-2 block text-[12.5px] font-medium text-cream/60">Service</span>
+                <div id="bk-tiers" class="grid grid-cols-2 gap-2 sm:grid-cols-4"></div>
+                <input type="hidden" id="bk-tier" name="service_tier" value="priority" />
+              </div>
+            </div>
+
+            <div class="mt-6 rounded-xl border border-white/10 bg-ink/40 p-5">
+              <div class="flex items-center justify-between gap-3">
+                <p class="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-cream/50">Instant quote</p>
+                <span id="bk-quote-state" class="text-[11.5px] font-medium text-cream/40">Calculating…</span>
+              </div>
+              <div id="bk-quote-lines" class="mt-3 space-y-2 text-[13.5px] text-cream/65"></div>
+              <div class="mt-4 flex items-baseline justify-between border-t border-white/10 pt-3">
+                <span class="text-[13px] font-medium text-cream/60">Total</span>
+                <span id="bk-quote-total" class="font-display text-[24px] font-semibold text-cream">—</span>
+              </div>
+            </div>
+
+            <p id="bk-error" class="mt-4 hidden rounded-xl border border-red-400/25 bg-red-500/10 px-4 py-2.5 text-[13px] text-red-200"></p>
+
+            <button type="submit" id="bk-submit" class="group mt-6 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-blue-600 px-7 py-4 text-[15px] font-semibold text-cream transition-all duration-300 hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60">
+              Book this run
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p class="mt-3 text-center text-[12px] text-cream/40">No payment now — dispatch confirms the window and invoices you. No account needed.</p>
+          </form>
+
+          <div id="book-success" class="hidden rounded-[1.6rem] border border-teal-light/25 bg-teal/[0.08] p-7 backdrop-blur">
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-teal-light/20 text-teal-light">
+              <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3 class="mt-5 font-display text-[24px] font-semibold tracking-tight">Run booked. Dispatch is on it.</h3>
+            <p class="mt-2 text-[14.5px] leading-relaxed text-cream/60">We've logged your request and queued it for a courier. Keep this reference — it's how you track the run to the door.</p>
+            <div class="mt-6 rounded-xl border border-white/10 bg-ink/40 p-5">
+              <p class="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-cream/50">Your reference</p>
+              <p id="bs-ref" class="mt-1.5 font-display text-[28px] font-semibold tracking-tight text-cream">—</p>
+              <div id="bs-quote" class="mt-4 space-y-1.5 text-[13px] text-cream/60"></div>
+            </div>
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+              <button type="button" id="bs-track" class="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3.5 text-[14.5px] font-semibold text-cream transition hover:bg-blue-500">Track this run</button>
+              <a href="tel:+254730900100" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3.5 text-[14.5px] font-semibold text-cream transition hover:bg-white/[0.06]">Call dispatch</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal mt-12 grid gap-6 lg:grid-cols-3">
+      <div class="rounded-[1.4rem] border border-ink/10 bg-cream-100 p-6">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-600">What you get</p>
+        <ul class="mt-4 space-y-2.5 text-[14px] text-ink/65">
+          <li class="flex items-start gap-2.5"><span class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-teal/15 text-teal"><svg viewBox="0 0 24 24" fill="none" class="h-2.5 w-2.5"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Numbered tamper-evident seal</li>
+          <li class="flex items-start gap-2.5"><span class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-teal/15 text-teal"><svg viewBox="0 0 24 24" fill="none" class="h-2.5 w-2.5"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Named courier with ID issued before pickup</li>
+          <li class="flex items-start gap-2.5"><span class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-teal/15 text-teal"><svg viewBox="0 0 24 24" fill="none" class="h-2.5 w-2.5"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Live GPS tracking link</li>
+          <li class="flex items-start gap-2.5"><span class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-teal/15 text-teal"><svg viewBox="0 0 24 24" fill="none" class="h-2.5 w-2.5"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Seven-year custody record</li>
+        </ul>
+      </div>
+      <div class="rounded-[1.4rem] border border-ink/10 bg-cream-100 p-6">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-600">Before you send</p>
+        <p class="mt-4 text-[14px] leading-relaxed text-ink/65">Have the pickup and delivery addresses to hand, roughly what it weighs, and its declared value. The quote updates live as you type — nothing is stored until you submit.</p>
+        <a href="coverage.html" class="mt-5 inline-flex items-center gap-2 text-[14px] font-semibold text-blue-700">Check we cover your route <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="rounded-[1.4rem] border border-ink/10 bg-ink p-6 text-cream">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-300">Recurring runs?</p>
+        <p class="mt-4 text-[14px] leading-relaxed text-cream/60">Law firms, clinics, notaries and galleries typically run 20–400 deliveries a month. Accounts add consolidated invoicing, named courier preferences and standing pickup times.</p>
+        <a href="tel:+254730900100" class="mt-5 inline-flex items-center gap-2 text-[14px] font-semibold text-blue-300">Talk to dispatch <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer" class="border-t border-ink/10 bg-cream-200/60">
+  <div class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
+    <div class="flex flex-col items-start justify-between gap-4 text-[13px] text-ink/50 sm:flex-row sm:items-center">
+      <p>© <span id="year">2025</span> Swift Courier Service. Licensed &amp; bonded for Kenya metro operations.</p>
+      <div class="flex gap-6">
+        <a href="index.html" class="hover:text-ink transition">Home</a>
+        <a href="services.html" class="hover:text-ink transition">Services</a>
+        <a href="pricing.html" class="hover:text-ink transition">Rates</a>
+        <a href="faq.html" class="hover:text-ink transition">FAQ</a>
+        <a href="track.html" class="hover:text-ink transition">Track</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="contact-float" class="no-print fixed bottom-6 right-4 z-40 sm:right-6">
+  <a href="https://wa.me/254730900100" target="_blank" rel="noopener" aria-label="Chat with dispatch on WhatsApp" class="block rounded-full bg-[#1FA855] p-3.5 text-white shadow-lift transition hover:scale-105">
+    <svg viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.2-.1-1.5-.8-1.8-.9s-.4-.1-.6.2-.6.9-.8 1.1-.3.2-.6.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3A3 3 0 0 0 6 10.6a5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4 5.2 5.2 0 0 0 3.2.6 2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg>
+  </a>
+</div>
+
+<script src="assets/api-config.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

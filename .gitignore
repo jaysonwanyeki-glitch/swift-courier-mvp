@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Local databases (dev/demo data only — production DB lives on a volume)
+logistics-system/backend/data/
+logistics-system/data/
+*.db
+*.db-shm
+*.db-wal
+
+# Vercel local CLI state
+.vercel/
+
+# Env files (never commit secrets)
+.env
+.env.*
+
+# Logs and OS noise
+*.log
+.DS_Store
+Thumbs.db

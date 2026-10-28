@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FAQ — Swift Courier Service</title>
+<meta name="description" content="Answers to the questions Swift Courier Service is asked most: what qualifies as a crucial delivery, how custody is proven, courier vetting, court filings, missed windows, accounts, and claims." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind-config.js"></script>
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body class="antialiased overflow-x-hidden">
+
+<header id="site-header" class="header-solid fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="flex h-20 items-center justify-between">
+      <a href="index.html" class="group flex items-center gap-3">
+        <span class="relative grid h-11 w-11 place-items-center rounded-[14px] bg-ink text-blue-500 shadow-soft transition-transform duration-500 group-hover:-rotate-6">
+          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
+            <path d="M12 2.6 4.9 5.4v6.2c0 4.4 3 8.1 7.1 9.8 4.1-1.7 7.1-5.4 7.1-9.8V5.4L12 2.6Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+            <path d="m8.7 12.1 2.3 2.3 4.4-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="leading-none">
+          <span class="block font-display text-[22px] font-semibold tracking-tight text-ink">Swift</span>
+          <span class="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.3em] text-ink/45">Courier Service</span>
+        </span>
+      </a>
+      <nav class="hidden items-center gap-7 lg:flex">
+        <a href="index.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Home</a>
+        <a href="services.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Services</a>
+        <a href="custody.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Chain of Custody</a>
+        <a href="coverage.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Coverage</a>
+        <a href="pricing.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Rates</a>
+        <a href="faq.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition" aria-current="page">FAQ</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="track.html" class="nav-link hidden items-center gap-2 text-[14.5px] font-medium text-ink/70 transition sm:flex">Track</a>
+        <a href="book.html" class="group hidden items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-[14px] font-semibold text-cream shadow-soft transition-all duration-300 hover:bg-ink-700 sm:inline-flex">
+          Book a run
+          <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button id="menu-btn" aria-label="Open menu" class="grid h-11 w-11 place-items-center rounded-xl border border-ink/10 bg-cream-100 text-ink transition hover:bg-cream-200 lg:hidden">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu" class="overflow-hidden border-t border-ink/10 bg-cream/95 backdrop-blur-xl transition-[max-height,opacity] duration-500 lg:hidden" style="max-height:0;opacity:0">
+    <div class="mx-auto max-w-7xl px-5 py-6">
+      <div class="grid gap-1">
+        <a href="index.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Home</a>
+        <a href="services.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Services</a>
+        <a href="custody.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Chain of custody</a>
+        <a href="coverage.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Coverage</a>
+        <a href="pricing.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Rates</a>
+        <a href="track.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Track a shipment</a>
+        <a href="book.html" class="mobile-link mt-4 flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3.5 text-[15px] font-semibold text-cream">Book a secure run</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="page-top pb-16">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div class="reveal lg:sticky lg:top-28 lg:self-start">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">Questions</p>
+        <h1 class="mt-4 font-display text-[40px] font-semibold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[50px]">The things clients ask us first.</h1>
+        <p class="mt-6 text-[16px] leading-relaxed text-ink/60">Still unsure whether your delivery qualifies? Call dispatch — a human answers within three rings, day or night.</p>
+        <a href="tel:+254730900100" class="group mt-7 inline-flex items-center gap-2.5 text-[15px] font-semibold text-ink">
+          <span class="grid h-9 w-9 place-items-center rounded-full bg-ink text-blue-500 transition-transform duration-300 group-hover:scale-105">
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M6.5 4h3l1.5 3.5-2 1.4a11 11 0 0 0 5.6 5.6l1.4-2L19.5 14v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4 5.7 2 2 0 0 1 6 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          +254 730 900 100
+        </a>
+        <div class="mt-8 rounded-2xl border border-ink/10 bg-cream-100 p-6">
+          <p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-600">Other pages</p>
+          <ul class="mt-4 space-y-2.5 text-[14px]">
+            <li><a href="services.html" class="text-ink/70 transition hover:text-ink">Services in detail</a></li>
+            <li><a href="custody.html" class="text-ink/70 transition hover:text-ink">How we prove custody</a></li>
+            <li><a href="coverage.html" class="text-ink/70 transition hover:text-ink">Coverage map &amp; zones</a></li>
+            <li><a href="pricing.html" class="text-ink/70 transition hover:text-ink">Rate card</a></li>
+            <li><a href="track.html" class="text-ink/70 transition hover:text-ink">Track a shipment</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reveal space-y-3">
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">What counts as a "crucial" delivery?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink"><svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">Anything where loss, delay, or disclosure creates a real consequence: court filings, executed contracts, deeds and wills, medical or personnel records, financial instruments, prototypes, artworks, and serialised hardware. If it needs a signature, a seal, or a paper trail, it belongs on a Swift run.</p></div></div>
+        </div>
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">How exactly do you prove chain of custody?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink"><svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">Every transition of possession is logged with a timestamp, the identity of both parties, the seal number, and a photograph. The log is cryptographically signed at the point of capture, so nothing can be edited after the fact. You receive the complete record within two minutes of delivery, and we retain it for seven years.</p></div></div>
+        </div>
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">How are your couriers vetted?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink"><svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">Background screening, fingerprinting, and a five-year employment check — repeated annually. Couriers assigned to confidential records or legal matters sign an individual NDA and are photographed on every run. We never use contractors or gig drivers on Swift-branded routes.</p></div></div>
+        </div>
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">Do you handle court filings and proof of service?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink"><svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">Yes — we run scheduled morning and afternoon filing routes to every courthouse in the metro, and we can file on demand. You get the clerk's time-stamped receipt, the case stamp, and, where required, a sworn declaration of service signed by the courier who filed it.</p></div></div>
+        </div>
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">What happens if a run misses its window?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink"><svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">If a Priority Chain run exceeds its committed window for any reason within our control, that run is free. For Standard Secure we issue a full credit. In the rare event of loss or damage, claims are settled against coverage — up to KSh 200,000, KSh 2,000,000, KSh 20,000,000 or KSh 50,000,000 depending on your tier — with the settlement window opening the same day.</p></div></div>
+        </div>
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">Do you offer accounts for recurring clients?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink"><svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">Yes. Law firms, healthcare groups, notaries, and galleries typically run between 20 and 400 deliveries a month with us. Accounts include consolidated monthly invoicing, named courier preferences, standing pickup times, a dedicated dispatch line, and a quarterly custody audit report.</p></div></div>
+        </div>
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">Can I track a run without an account?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink"><svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">Yes. Your reference number is enough — enter it on the <a href="track.html" class="font-semibold text-blue-700 underline">tracking page</a> and you'll see the full custody log, courier identity and seal status. You can also print that log for your records.</p></div></div>
+        </div>
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">What data do you keep about me?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink"><svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">Only what the run requires: name, phone, optional email, addresses, weight and declared value. We never sell customer data, and we do not retain contents of consignments — only the custody record. Ask dispatch for a copy of your data or its deletion once the retention window has passed.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer" class="border-t border-ink/10 bg-cream-200/60">
+  <div class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
+    <div class="flex flex-col items-start justify-between gap-4 text-[13px] text-ink/50 sm:flex-row sm:items-center">
+      <p>© <span id="year">2025</span> Swift Courier Service. Licensed &amp; bonded for Kenya metro operations.</p>
+      <div class="flex gap-6">
+        <a href="index.html" class="hover:text-ink transition">Home</a>
+        <a href="services.html" class="hover:text-ink transition">Services</a>
+        <a href="coverage.html" class="hover:text-ink transition">Coverage</a>
+        <a href="pricing.html" class="hover:text-ink transition">Rates</a>
+        <a href="track.html" class="hover:text-ink transition">Track</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="contact-float" class="no-print fixed bottom-6 right-4 z-40 sm:right-6">
+  <a href="https://wa.me/254730900100" target="_blank" rel="noopener" aria-label="Chat with dispatch on WhatsApp" class="block rounded-full bg-[#1FA855] p-3.5 text-white shadow-lift transition hover:scale-105">
+    <svg viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.2-.1-1.5-.8-1.8-.9s-.4-.1-.6.2-.6.9-.8 1.1-.3.2-.6.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3A3 3 0 0 0 6 10.6a5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4 5.2 5.2 0 0 0 3.2.6 2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg>
+  </a>
+</div>
+
+<script src="assets/api-config.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

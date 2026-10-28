@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chain of custody — Swift Courier Service</title>
+<meta name="description" content="How Swift Courier Service proves chain of custody: intake and condition records, tamper-evident seals, witnessed handoffs, encrypted in-transit monitoring, and a seven-year signed archive." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind-config.js"></script>
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body class="antialiased overflow-x-hidden">
+
+<header id="site-header" class="header-solid fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="flex h-20 items-center justify-between">
+      <a href="index.html" class="group flex items-center gap-3">
+        <span class="relative grid h-11 w-11 place-items-center rounded-[14px] bg-ink text-blue-500 shadow-soft transition-transform duration-500 group-hover:-rotate-6">
+          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
+            <path d="M12 2.6 4.9 5.4v6.2c0 4.4 3 8.1 7.1 9.8 4.1-1.7 7.1-5.4 7.1-9.8V5.4L12 2.6Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+            <path d="m8.7 12.1 2.3 2.3 4.4-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="leading-none">
+          <span class="block font-display text-[22px] font-semibold tracking-tight text-ink">Swift</span>
+          <span class="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.3em] text-ink/45">Courier Service</span>
+        </span>
+      </a>
+      <nav class="hidden items-center gap-7 lg:flex">
+        <a href="index.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Home</a>
+        <a href="services.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Services</a>
+        <a href="custody.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition" aria-current="page">Chain of Custody</a>
+        <a href="coverage.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Coverage</a>
+        <a href="pricing.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Rates</a>
+        <a href="faq.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">FAQ</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="track.html" class="nav-link hidden items-center gap-2 text-[14.5px] font-medium text-ink/70 transition sm:flex">Track</a>
+        <a href="book.html" class="group hidden items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-[14px] font-semibold text-cream shadow-soft transition-all duration-300 hover:bg-ink-700 sm:inline-flex">
+          Book a run
+          <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button id="menu-btn" aria-label="Open menu" class="grid h-11 w-11 place-items-center rounded-xl border border-ink/10 bg-cream-100 text-ink transition hover:bg-cream-200 lg:hidden">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu" class="overflow-hidden border-t border-ink/10 bg-cream/95 backdrop-blur-xl transition-[max-height,opacity] duration-500 lg:hidden" style="max-height:0;opacity:0">
+    <div class="mx-auto max-w-7xl px-5 py-6">
+      <div class="grid gap-1">
+        <a href="index.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Home</a>
+        <a href="services.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Services</a>
+        <a href="coverage.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Coverage</a>
+        <a href="pricing.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Rates</a>
+        <a href="faq.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">FAQ</a>
+        <a href="track.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Track a shipment</a>
+        <a href="book.html" class="mobile-link mt-4 flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3.5 text-[15px] font-semibold text-cream">Book a secure run</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="page-top pb-16">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="reveal max-w-3xl">
+      <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">Chain of custody</p>
+      <h1 class="mt-4 font-display text-[40px] font-semibold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[54px]">Proof at every single touchpoint.</h1>
+      <p class="mt-6 text-[17px] leading-relaxed text-ink/65">A delivery isn't just an address. It's a record. From the moment we take possession to the moment a signature is captured, Swift documents who held it, where it was, and what it looked like.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pb-20">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid gap-4 md:grid-cols-3 lg:gap-5">
+      <div class="reveal card-hover rounded-[1.5rem] border border-ink/10 bg-cream-100 p-7">
+        <span class="font-display text-[30px] font-semibold leading-none text-blue-400">01</span>
+        <h2 class="mt-5 font-display text-[20px] font-semibold tracking-tight text-ink">Item intake &amp; condition record</h2>
+        <p class="mt-3 text-[14.5px] leading-relaxed text-ink/60">We photograph the item, weigh it, log any existing marks, and record the sender's ID before anything leaves the room.</p>
+      </div>
+      <div class="reveal card-hover rounded-[1.5rem] border border-ink/10 bg-cream-100 p-7" style="transition-delay:.06s">
+        <span class="font-display text-[30px] font-semibold leading-none text-blue-400">02</span>
+        <h2 class="mt-5 font-display text-[20px] font-semibold tracking-tight text-ink">Tamper-evident sealing</h2>
+        <p class="mt-3 text-[14.5px] leading-relaxed text-ink/60">Every envelope and case is closed with a numbered seal. The number is registered on the waybill and never reused.</p>
+      </div>
+      <div class="reveal card-hover rounded-[1.5rem] border border-ink/10 bg-cream-100 p-7" style="transition-delay:.12s">
+        <span class="font-display text-[30px] font-semibold leading-none text-blue-400">03</span>
+        <h2 class="mt-5 font-display text-[20px] font-semibold tracking-tight text-ink">Witnessed handoff</h2>
+        <p class="mt-3 text-[14.5px] leading-relaxed text-ink/60">Transition of possession happens in front of a witness or on recorded bodycam, with both parties confirming the seal number.</p>
+      </div>
+      <div class="reveal card-hover rounded-[1.5rem] border border-ink/10 bg-cream-100 p-7">
+        <span class="font-display text-[30px] font-semibold leading-none text-blue-400">04</span>
+        <h2 class="mt-5 font-display text-[20px] font-semibold tracking-tight text-ink">Encrypted in-transit monitoring</h2>
+        <p class="mt-3 text-[14.5px] leading-relaxed text-ink/60">GPS pings every 30 seconds, with automatic alerts if the courier deviates from the planned corridor by more than 400 metres.</p>
+      </div>
+      <div class="reveal card-hover rounded-[1.5rem] border border-ink/10 bg-cream-100 p-7" style="transition-delay:.06s">
+        <span class="font-display text-[30px] font-semibold leading-none text-blue-400">05</span>
+        <h2 class="mt-5 font-display text-[20px] font-semibold tracking-tight text-ink">Signature, seal check &amp; archive</h2>
+        <p class="mt-3 text-[14.5px] leading-relaxed text-ink/60">The recipient verifies the seal is unbroken, signs digitally, and the complete record is archived for seven years.</p>
+      </div>
+      <div class="reveal rounded-[1.5rem] bg-ink p-7 text-cream">
+        <p class="font-display text-[30px] font-semibold leading-none text-blue-300">7 yrs</p>
+        <h2 class="mt-5 font-display text-[20px] font-semibold tracking-tight">Record retention</h2>
+        <p class="mt-3 text-[14.5px] leading-relaxed text-cream/60">Every run's custody record is retained for seven years and can be produced on request, quoted by reference number.</p>
+        <a href="track.html" class="mt-5 inline-flex items-center gap-2 text-[14px] font-semibold text-blue-300">Open a custody log <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="border-y border-ink/10 bg-cream-200/50 py-20">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid gap-14 lg:grid-cols-2 lg:gap-20">
+      <div class="reveal">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">Admissibility</p>
+        <h2 class="mt-4 font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.02em] text-ink sm:text-[36px]">Built to survive a courtroom.</h2>
+        <p class="mt-5 text-[16px] leading-relaxed text-ink/65">Our custody logs have been accepted as supporting evidence in civil proceedings. Each record carries timestamps, courier identity, seal numbers and photographic proof — signed at the point of capture so it cannot be edited after the fact.</p>
+        <div class="mt-8 space-y-3">
+          <div class="flex items-start gap-3.5 rounded-2xl border border-ink/10 bg-cream-100 p-5">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-blue-600/15 text-blue-700"><svg viewBox="0 0 24 24" fill="none" class="h-4.5 w-4.5"><path d="M12 3.2 5.6 5.8v5.4c0 3.9 2.7 7.2 6.4 8.7 3.7-1.5 6.4-4.8 6.4-8.7V5.8L12 3.2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="m9.3 11.6 2.1 2.1 3.9-4.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><p class="text-[14.5px] font-semibold text-ink">Cryptographic signing</p><p class="mt-1.5 text-[13.5px] leading-relaxed text-ink/60">The log is hashed and signed at the moment of capture, so any later alteration is detectable.</p></div>
+          </div>
+          <div class="flex items-start gap-3.5 rounded-2xl border border-ink/10 bg-cream-100 p-5">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-blue-600/15 text-blue-700"><svg viewBox="0 0 24 24" fill="none" class="h-4.5 w-4.5"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.5"/><path d="M12 7.4v5l3.2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><p class="text-[14.5px] font-semibold text-ink">Timestamped transitions</p><p class="mt-1.5 text-[13.5px] leading-relaxed text-ink/60">Every change of possession is recorded with a timestamp, the courier's identity, and the seal number in force at that moment.</p></div>
+          </div>
+          <div class="flex items-start gap-3.5 rounded-2xl border border-ink/10 bg-cream-100 p-5">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-blue-600/15 text-blue-700"><svg viewBox="0 0 24 24" fill="none" class="h-4.5 w-4.5"><path d="M6 3.5h9.5L20 8v12.5H6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 3.5V8h5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+            <div><p class="text-[14.5px] font-semibold text-ink">Printable copies</p><p class="mt-1.5 text-[13.5px] leading-relaxed text-ink/60">Any custody log can be printed or saved as PDF straight from the tracking page — useful for filing alongside your own records.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">Couriers</p>
+        <h2 class="mt-4 font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.02em] text-ink sm:text-[36px]">Who is allowed to carry it.</h2>
+        <p class="mt-5 text-[16px] leading-relaxed text-ink/65">Background screening, fingerprinting, and a five-year employment check — repeated annually. Couriers assigned to confidential records or legal matters sign an individual NDA and are photographed on every run. We never use contractors or gig drivers on Swift-branded routes.</p>
+        <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div class="rounded-2xl border border-ink/10 bg-cream-100 px-5 py-4"><p class="font-display text-[24px] font-semibold leading-none text-ink">100%</p><p class="mt-2 text-[12px] font-medium uppercase tracking-[0.12em] text-ink/45">Vetted directly</p></div>
+          <div class="rounded-2xl border border-ink/10 bg-cream-100 px-5 py-4"><p class="font-display text-[24px] font-semibold leading-none text-ink">30 sec</p><p class="mt-2 text-[12px] font-medium uppercase tracking-[0.12em] text-ink/45">GPS interval</p></div>
+          <div class="rounded-2xl border border-ink/10 bg-ink px-5 py-4 text-cream"><p class="font-display text-[24px] font-semibold leading-none text-blue-300">0</p><p class="mt-2 text-[12px] font-medium uppercase tracking-[0.12em] text-cream/45">Sorting hubs</p></div>
+        </div>
+        <a href="services.html" class="group mt-8 inline-flex items-center gap-2.5 text-[15px] font-semibold text-ink">See the services we run <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer" class="border-t border-ink/10 bg-cream-200/60">
+  <div class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
+    <div class="flex flex-col items-start justify-between gap-4 text-[13px] text-ink/50 sm:flex-row sm:items-center">
+      <p>© <span id="year">2025</span> Swift Courier Service. Licensed &amp; bonded for Kenya metro operations.</p>
+      <div class="flex gap-6">
+        <a href="index.html" class="hover:text-ink transition">Home</a>
+        <a href="services.html" class="hover:text-ink transition">Services</a>
+        <a href="coverage.html" class="hover:text-ink transition">Coverage</a>
+        <a href="faq.html" class="hover:text-ink transition">FAQ</a>
+        <a href="track.html" class="hover:text-ink transition">Track</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="contact-float" class="no-print fixed bottom-6 right-4 z-40 sm:right-6">
+  <a href="https://wa.me/254730900100" target="_blank" rel="noopener" aria-label="Chat with dispatch on WhatsApp" class="block rounded-full bg-[#1FA855] p-3.5 text-white shadow-lift transition hover:scale-105">
+    <svg viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.2-.1-1.5-.8-1.8-.9s-.4-.1-.6.2-.6.9-.8 1.1-.3.2-.6.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3A3 3 0 0 0 6 10.6a5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4 5.2 5.2 0 0 0 3.2.6 2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg>
+  </a>
+</div>
+
+<script src="assets/api-config.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    container_name: swift-logistics-backend
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - DB_PATH=/data/logistics.db
+      - PORT=4000
+    volumes:
+      - backend-data:/data
+      - ./src:/app/src
+    restart: unless-stopped
+    networks:
+      - swift-network
+
+  frontend:
+    # Build context is the repo root: the Dockerfile needs both the ops bundle
+    # (logistics-system/frontend/public) and the customer site (repo root).
+    build:
+      context: ../..
+      dockerfile: logistics-system/frontend/Dockerfile
+    container_name: swift-logistics-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - swift-network
+
+volumes:
+  backend-data:
+
+networks:
+  swift-network:
+    driver: bridge

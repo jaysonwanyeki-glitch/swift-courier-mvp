@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: swift-logistics-backend
+    ports:
+      - "4001:4001"
+    environment:
+      - NODE_ENV=production
+      - DB_PATH=/data/logistics.db
+      - PORT=4001
+      # Base URL of the public customer site. Used to build the shareable
+      # tracking links that dispatch hands to customers.
+      - PUBLIC_URL=http://localhost:3000
+    volumes:
+      - backend-data:/data
+    restart: unless-stopped
+    networks:
+      - swift-network
+
+  frontend:
+    # Build context is the repo root: the Dockerfile needs both the ops bundle
+    # (logistics-system/frontend/public) and the customer site (repo root).
+    build:
+      context: ..
+      dockerfile: logistics-system/frontend/Dockerfile
+    container_name: swift-logistics-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - swift-network
+
+volumes:
+  backend-data:
+
+networks:
+  swift-network:
+    driver: bridge

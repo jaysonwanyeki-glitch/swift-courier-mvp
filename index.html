@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Swift Courier Service — Secure Delivery for Kenyan Sellers</title>
+<meta name="description" content="Swift Courier Service delivers legal documents, confidential records, high-value goods and fast-moving consumer goods for Kenyan sellers. Licensed, bonded, insured to KSh 50 million per run. Online seller support, tracking and same-day dispatch." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind-config.js"></script>
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body id="top" class="antialiased overflow-x-hidden">
+
+<!-- ============================== HEADER ============================== -->
+<header id="site-header" class="header-over-hero fixed inset-x-0 top-0 z-50 transition-all duration-500">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="flex h-20 items-center justify-between">
+      <a href="index.html" class="group flex items-center gap-3">
+        <span class="relative grid h-11 w-11 place-items-center rounded-[14px] bg-ink text-blue-500 shadow-soft transition-transform duration-500 group-hover:-rotate-6">
+          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
+            <path d="M12 2.6 4.9 5.4v6.2c0 4.4 3 8.1 7.1 9.8 4.1-1.7 7.1-5.4 7.1-9.8V5.4L12 2.6Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+            <path d="m8.7 12.1 2.3 2.3 4.4-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-teal-light ring-2 ring-cream"></span>
+        </span>
+        <span class="leading-none">
+          <span class="brand-word block font-display text-[22px] font-semibold tracking-tight text-ink">Swift</span>
+          <span class="brand-sub mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.3em] text-ink/45">Courier Service</span>
+        </span>
+      </a>
+      <nav class="hidden items-center gap-7 lg:flex">
+        <a href="services.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Services</a>
+        <a href="custody.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Chain of Custody</a>
+        <a href="coverage.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Coverage</a>
+        <a href="pricing.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Rates</a>
+        <a href="faq.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">FAQ</a>
+        <a href="track.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Track</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="track.html" class="nav-link hidden items-center gap-2 text-[14.5px] font-medium text-ink/70 transition sm:flex">
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.6"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Track
+        </a>
+        <a href="book.html" class="group hidden items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-[14px] font-semibold text-cream shadow-soft transition-all duration-300 hover:bg-ink-700 hover:shadow-lift sm:inline-flex">
+          Book a run
+          <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button id="menu-btn" aria-label="Open menu" class="grid h-11 w-11 place-items-center rounded-xl border border-ink/12 bg-cream-100/70 text-ink backdrop-blur transition hover:bg-cream-100 lg:hidden">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu" class="overflow-hidden border-t border-ink/10 bg-cream/95 backdrop-blur-xl transition-[max-height,opacity] duration-500 ease-[cubic-bezier(.16,1,.3,1)] lg:hidden" style="max-height:0;opacity:0">
+    <div class="mx-auto max-w-7xl px-5 py-6">
+      <div class="grid gap-1">
+        <a href="services.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Services</a>
+        <a href="custody.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Chain of custody</a>
+        <a href="coverage.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Coverage</a>
+        <a href="pricing.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Rates</a>
+        <a href="faq.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">FAQ</a>
+        <a href="track.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Track a shipment</a>
+      </div>
+      <a href="book.html" class="mobile-link mt-4 flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3.5 text-[15px] font-semibold text-cream">Book a secure run</a>
+      <p class="mt-4 text-center text-[12.5px] text-ink/50">Dispatch available 24/7 · +254 730 900 100 · helps.co.ke</p>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<section class="relative min-h-screen flex items-end pb-16 lg:pb-24">
+  <div class="hero-image-container absolute inset-0 film-grain">
+    <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=1920&q=80&auto=format&fit=crop" alt="Dramatic low-angle view of curved Art Deco building against dusk sky with street lamp silhouette" class="w-full h-full object-cover" />
+  </div>
+  <div class="hero-overlay absolute inset-0"></div>
+
+  <div class="relative z-10 mx-auto w-full max-w-7xl px-5 lg:px-8">
+    <div class="grid items-end gap-10 lg:grid-cols-2 lg:gap-16">
+      <div class="reveal">
+        <div class="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 py-2 pl-2.5 pr-4 backdrop-blur-md">
+          <span class="grid h-6 w-6 place-items-center rounded-full bg-teal/20 text-teal-light">
+            <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="text-[12.5px] font-semibold tracking-wide text-cream/90">Licensed &amp; bonded · Court-ready documentation</span>
+        </div>
+
+        <h1 class="mt-7 font-display text-[44px] font-semibold leading-[1.02] tracking-[-0.02em] text-cream text-shadow-lg sm:text-[60px] lg:text-[72px]">
+          Deliver what<br>
+          <span class="relative italic text-blue-300">cannot<span class="absolute -bottom-1 left-0 h-[5px] w-full rounded-full bg-blue-400"></span></span><br>
+          go missing.
+        </h1>
+
+        <p class="mt-7 max-w-xl text-[16.5px] leading-relaxed text-cream/70 sm:text-[17.5px]">
+          Swift Courier Service moves the deliveries that carry consequences — sealed legal documents, confidential records, and high-value goods. Hand to hand, sealed, witnessed, and tracked to the minute — for sellers across Kenya.
+        </p>
+
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a href="book.html" class="group inline-flex items-center justify-center gap-2.5 rounded-full bg-blue-600 px-7 py-4 text-[15px] font-semibold text-cream shadow-lift transition-all duration-300 hover:bg-blue-500">
+            Book a secure run
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="track.html" class="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/5 px-7 py-4 text-[15px] font-semibold text-cream backdrop-blur transition-all duration-300 hover:border-white/40 hover:bg-white/10">
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            Track a run
+          </a>
+        </div>
+
+        <dl class="mt-12 grid max-w-xl grid-cols-2 gap-x-6 gap-y-7 border-t border-white/15 pt-8 sm:grid-cols-4">
+          <div>
+            <dt class="font-display text-[26px] font-semibold leading-none text-cream"><span class="counter" data-count="99.98" data-decimals="2">0</span><span class="text-blue-300">%</span></dt>
+            <dd class="mt-2 text-[12px] font-medium uppercase tracking-[0.13em] text-cream/45">On-time rate</dd>
+          </div>
+          <div>
+            <dt class="font-display text-[26px] font-semibold leading-none text-cream"><span class="counter" data-count="1.4" data-decimals="1">0</span>M</dt>
+            <dd class="mt-2 text-[12px] font-medium uppercase tracking-[0.13em] text-cream/45">Sealed handoffs</dd>
+          </div>
+          <div>
+            <dt class="font-display text-[26px] font-semibold leading-none text-cream">24/7</dt>
+            <dd class="mt-2 text-[12px] font-medium uppercase tracking-[0.13em] text-cream/45">Live dispatch</dd>
+          </div>
+          <div>
+            <dt class="font-display text-[26px] font-semibold leading-none text-cream">KSh 50M</dt>
+            <dd class="mt-2 text-[12px] font-medium uppercase tracking-[0.13em] text-cream/45">Per-run cover</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Right: custody card -->
+      <div class="reveal hidden lg:block" style="transition-delay:.12s">
+        <div class="relative mx-auto max-w-md">
+          <div class="floaty absolute -left-3 top-10 z-20 rounded-2xl border border-white/10 glass-card px-4 py-3 shadow-lift">
+            <div class="flex items-center gap-2.5">
+              <span class="grid h-8 w-8 place-items-center rounded-full bg-teal/20 text-teal-light">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 3.2 5.6 5.8v5.4c0 3.9 2.7 7.2 6.4 8.7 3.7-1.5 6.4-4.8 6.4-8.7V5.8L12 3.2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="m9.3 11.6 2.1 2.1 3.9-4.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <div>
+                <p class="text-[12.5px] font-semibold text-cream">Seal intact</p>
+                <p class="text-[11px] text-cream/50">Tamper check verified</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="floaty-slow absolute -right-2 bottom-16 z-20 rounded-2xl border border-white/10 glass-card px-4 py-3 shadow-lift">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-cream/45">ETA</p>
+            <p class="font-display text-[19px] font-semibold text-cream">14:20 <span class="text-[12px] font-sans font-medium text-cream/45">EAT</span></p>
+          </div>
+
+          <div class="relative overflow-hidden rounded-[1.9rem] glass-card p-6 text-cream shadow-lift sm:p-7">
+            <div class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-blue-500/20 blur-3xl"></div>
+            <div class="noise pointer-events-none absolute inset-0 opacity-[0.06]"></div>
+
+            <div class="relative flex items-start justify-between gap-4">
+              <div>
+                <p class="text-[10.5px] font-semibold uppercase tracking-[0.22em] text-blue-400">Custody chain</p>
+                <p class="mt-2 font-display text-[20px] font-semibold tracking-tight">SWF-4471-QC</p>
+                <p class="mt-1 text-[12.5px] text-cream/50">Estate deed · Kiprop &amp; Otieno LLP</p>
+              </div>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-teal-light/30 bg-teal-light/12 px-2.5 py-1.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-teal-light">
+                <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-teal-light"></span> Live
+              </span>
+            </div>
+
+            <div class="relative mt-7 space-y-5">
+              <div class="timeline-track" style="background:linear-gradient(to bottom, rgba(192,138,46,.9), rgba(192,138,46,.25))"></div>
+              <div class="relative flex gap-4">
+                <span class="relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-blue-600 text-ink ring-4 ring-[#0B1B2B]">
+                  <svg viewBox="0 0 24 24" fill="none" class="h-3 w-3"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <div class="-mt-0.5">
+                  <p class="text-[13.5px] font-semibold">Picked up &amp; sealed</p>
+                  <p class="text-[11.5px] text-cream/45">08:12 · Kiprop &amp; Otieno LLP, Upper Hill</p>
+                </div>
+              </div>
+              <div class="relative flex gap-4">
+                <span class="relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-blue-600 text-ink ring-4 ring-[#0B1B2B]">
+                  <svg viewBox="0 0 24 24" fill="none" class="h-3 w-3"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <div class="-mt-0.5">
+                  <p class="text-[13.5px] font-semibold">Witnessed handoff</p>
+                  <p class="text-[11.5px] text-cream/45">09:04 · Courier ID #8841 · photo logged</p>
+                </div>
+              </div>
+              <div class="relative flex gap-4">
+                <span class="pulse-ring relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-blue-500 ring-4 ring-[#0B1B2B]">
+                  <span class="h-2 w-2 rounded-full bg-ink"></span>
+                </span>
+                <div class="-mt-0.5">
+                  <p class="text-[13.5px] font-semibold text-blue-400">In transit</p>
+                  <p class="text-[11.5px] text-cream/45">9:40 · GPS encrypted · geofence nominal</p>
+                </div>
+              </div>
+              <div class="relative flex gap-4">
+                <span class="relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-cream/20 bg-[#0B1B2B] ring-4 ring-[#0B1B2B]">
+                  <span class="h-1.5 w-1.5 rounded-full bg-cream/30"></span>
+                </span>
+                <div class="-mt-0.5">
+                  <p class="text-[13.5px] font-medium text-cream/45">Recipient signature</p>
+                  <p class="text-[11.5px] text-cream/30">Pending delivery</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-7 border-t border-white/10 pt-5">
+              <div class="flex items-center justify-between text-[11.5px] font-medium text-cream/50">
+                <span>Progress</span>
+                <span class="text-blue-400">82%</span>
+              </div>
+              <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                <div class="h-full w-[82%] rounded-full bg-gradient-to-r from-gold-dark via-gold to-gold-light"></div>
+              </div>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10.5px] font-medium text-cream/55">AES-256 log</span>
+                <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10.5px] font-medium text-cream/55">Insured $2M</span>
+                <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10.5px] font-medium text-cream/55">No handoffs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== MARQUEE ============================== -->
+<section class="border-y border-ink/10 bg-cream-200/60 py-5">
+  <div class="marquee-mask overflow-hidden">
+    <div class="marquee-track flex w-max items-center gap-14 pr-14">
+      <span class="whitespace-nowrap text-[12px] font-semibold uppercase tracking-[0.24em] text-ink/40">Trusted by</span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Kiprop &amp; Otieno LLP</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Milimani Law Courts Registry</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Riverbank Medical Centre</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Wanjiru &amp; Co. Notaries</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Highridge Private Bank</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Maridadi Fine Art</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">County Records Bureau</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Baobab Biosciences</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Kiprop &amp; Otieno LLP</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Milimani Law Courts Registry</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Riverbank Medical Centre</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Wanjiru &amp; Co. Notaries</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Highridge Private Bank</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Maridadi Fine Art</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">County Records Bureau</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+      <span class="whitespace-nowrap font-display text-[17px] font-medium text-ink/60">Baobab Biosciences</span>
+      <span class="h-1 w-1 rounded-full bg-blue-600"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SERVICES (hover to book) ============================== -->
+<section id="services" class="py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="reveal max-w-2xl">
+      <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-600">What we carry</p>
+      <h2 class="mt-4 font-display text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[44px]">Six services, one standard: nothing goes unaccounted for.</h2>
+      <p class="mt-5 text-[16px] leading-relaxed text-ink/60">We don't run general parcels. Every route we operate is built around goods and information where a lost or delayed item means a missed deadline, a broken chain, or a serious liability.</p>
+      <p class="mt-5 text-[13.5px] text-ink/45">
+        <span class="font-semibold text-ink/70">Hover or tap any service</span> to see its price and book it in one step.
+      </p>
+    </div>
+
+    <!-- Rendered from the shared catalog in assets/site.js so the price shown
+         on hover always comes from the server rate card. -->
+    <div id="services-grid" class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
+
+    <noscript>
+      <div class="mt-10 rounded-2xl border border-ink/10 bg-cream-100 p-6 text-[14px] text-ink/65">
+        Hover-to-book needs JavaScript. Every service is described in full on the
+        <a href="services.html" class="font-semibold text-blue-700 underline">services page</a>.
+      </div>
+    </noscript>
+  </div>
+</section>
+
+<!-- ============================== CHAIN OF CUSTODY ============================== -->
+<section id="custody" class="border-y border-ink/10 bg-cream-200/50 py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+      <div class="reveal lg:sticky lg:top-28 lg:self-start">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">Chain of custody</p>
+        <h2 class="mt-4 font-display text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[43px]">Proof at every single touchpoint.</h2>
+        <p class="mt-5 text-[16px] leading-relaxed text-ink/60">A delivery isn't just an address. It's a record. From the moment we take possession to the moment a signature is captured, Swift documents who held it, where it was, and what it looked like.</p>
+        <div class="mt-9 rounded-[1.4rem] border border-ink/10 bg-cream-100 p-6">
+          <div class="flex items-start gap-4">
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-blue-600/15 text-blue-700">
+              <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="M12 3.2 5.6 5.8v5.4c0 3.9 2.7 7.2 6.4 8.7 3.7-1.5 6.4-4.8 6.4-8.7V5.8L12 3.2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 9v3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="15.4" r="1" fill="currentColor"/></svg>
+            </span>
+            <div>
+              <p class="font-display text-[17px] font-semibold text-ink">Admissible documentation</p>
+              <p class="mt-2 text-[14px] leading-relaxed text-ink/60">Our custody logs have been accepted as supporting evidence in civil proceedings. Each record carries timestamps, courier identity, and photographic proof.</p>
+            </div>
+          </div>
+        </div>
+        <a href="custody.html" class="group mt-8 inline-flex items-center gap-2.5 text-[15px] font-semibold text-ink">
+          See the full custody process
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="space-y-4">
+        <div class="reveal card-hover flex gap-5 rounded-[1.4rem] border border-ink/10 bg-cream-100 p-6">
+          <span class="font-display text-[30px] font-semibold leading-none text-blue-400">01</span>
+          <div>
+            <h3 class="font-display text-[19px] font-semibold tracking-tight text-ink">Item intake &amp; condition record</h3>
+            <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink/60">We photograph the item, weigh it, log any existing marks, and record the sender's ID before anything leaves the room.</p>
+          </div>
+        </div>
+        <div class="reveal card-hover flex gap-5 rounded-[1.4rem] border border-ink/10 bg-cream-100 p-6" style="transition-delay:.05s">
+          <span class="font-display text-[30px] font-semibold leading-none text-blue-400">02</span>
+          <div>
+            <h3 class="font-display text-[19px] font-semibold tracking-tight text-ink">Tamper-evident sealing</h3>
+            <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink/60">Every envelope and case is closed with a numbered seal. The number is registered on the waybill and never reused.</p>
+          </div>
+        </div>
+        <div class="reveal card-hover flex gap-5 rounded-[1.4rem] border border-ink/10 bg-cream-100 p-6" style="transition-delay:.1s">
+          <span class="font-display text-[30px] font-semibold leading-none text-blue-400">03</span>
+          <div>
+            <h3 class="font-display text-[19px] font-semibold tracking-tight text-ink">Witnessed handoff</h3>
+            <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink/60">Transition of possession happens in front of a witness or on recorded bodycam, with both parties confirming the seal number.</p>
+          </div>
+        </div>
+        <div class="reveal card-hover flex gap-5 rounded-[1.4rem] border border-ink/10 bg-cream-100 p-6" style="transition-delay:.15s">
+          <span class="font-display text-[30px] font-semibold leading-none text-blue-400">04</span>
+          <div>
+            <h3 class="font-display text-[19px] font-semibold tracking-tight text-ink">Encrypted in-transit monitoring</h3>
+            <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink/60">GPS pings every 30 seconds, with automatic alerts if the courier deviates from the planned corridor by more than 400 metres.</p>
+          </div>
+        </div>
+        <div class="reveal card-hover flex gap-5 rounded-[1.4rem] border border-ink/10 bg-cream-100 p-6" style="transition-delay:.2s">
+          <span class="font-display text-[30px] font-semibold leading-none text-blue-400">05</span>
+          <div>
+            <h3 class="font-display text-[19px] font-semibold tracking-tight text-ink">Signature, seal check &amp; archive</h3>
+            <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink/60">The recipient verifies the seal is unbroken, signs digitally, and the complete record is archived for seven years.</p>
+          </div>
+        </div>
+        <div class="reveal grid gap-3 pt-3 sm:grid-cols-3">
+          <div class="rounded-2xl border border-ink/10 bg-ink px-5 py-4 text-cream">
+            <p class="font-display text-[24px] font-semibold leading-none text-blue-300">7 yrs</p>
+            <p class="mt-2 text-[12px] font-medium uppercase tracking-[0.12em] text-cream/50">Record retention</p>
+          </div>
+          <div class="rounded-2xl border border-ink/10 bg-cream-100 px-5 py-4">
+            <p class="font-display text-[24px] font-semibold leading-none text-ink">30 sec</p>
+            <p class="mt-2 text-[12px] font-medium uppercase tracking-[0.12em] text-ink/45">GPS interval</p>
+          </div>
+          <div class="rounded-2xl border border-ink/10 bg-cream-100 px-5 py-4">
+            <p class="font-display text-[24px] font-semibold leading-none text-ink">100%</p>
+            <p class="mt-2 text-[12px] font-medium uppercase tracking-[0.12em] text-ink/45">Vetted couriers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PROCESS ============================== -->
+<section id="process" class="py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">How it works</p>
+      <h2 class="mt-4 font-display text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[44px]">Booked to signed in four steps.</h2>
+      <p class="mt-5 text-[16px] leading-relaxed text-ink/60">Most runs are confirmed within eight minutes of your request. Emergency dispatch is available around the clock.</p>
+    </div>
+    <div class="relative mt-16">
+      <div class="absolute left-0 right-0 top-[26px] hidden h-px bg-gradient-to-r from-transparent via-ink/15 to-transparent lg:block"></div>
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div class="reveal text-center lg:text-left">
+          <span class="mx-auto grid h-[52px] w-[52px] place-items-center rounded-2xl border border-blue-200 bg-cream-100 font-display text-[19px] font-semibold text-blue-600 shadow-soft lg:mx-0">1</span>
+          <h3 class="mt-5 font-display text-[19px] font-semibold tracking-tight text-ink">Tell us what it is</h3>
+          <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink/60">Documents, records or goods — plus the deadline. We'll confirm the right service tier and coverage.</p>
+        </div>
+        <div class="reveal text-center lg:text-left" style="transition-delay:.07s">
+          <span class="mx-auto grid h-[52px] w-[52px] place-items-center rounded-2xl border border-ink/10 bg-cream-100 font-display text-[19px] font-semibold text-ink shadow-soft lg:mx-0">2</span>
+          <h3 class="mt-5 font-display text-[19px] font-semibold tracking-tight text-ink">Courier assigned</h3>
+          <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink/60">You receive the courier's name, photo, ID number and live tracking link before they knock on the door.</p>
+        </div>
+        <div class="reveal text-center lg:text-left" style="transition-delay:.14s">
+          <span class="mx-auto grid h-[52px] w-[52px] place-items-center rounded-2xl border border-ink/10 bg-cream-100 font-display text-[19px] font-semibold text-ink shadow-soft lg:mx-0">3</span>
+          <h3 class="mt-5 font-display text-[19px] font-semibold tracking-tight text-ink">Sealed &amp; in motion</h3>
+          <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink/60">The item is sealed in your presence and moves directly to the recipient — no hubs, no sorting centres.</p>
+        </div>
+        <div class="reveal text-center lg:text-left" style="transition-delay:.21s">
+          <span class="mx-auto grid h-[52px] w-[52px] place-items-center rounded-2xl bg-ink font-display text-[19px] font-semibold text-blue-500 shadow-soft lg:mx-0">4</span>
+          <h3 class="mt-5 font-display text-[19px] font-semibold tracking-tight text-ink">Signed &amp; archived</h3>
+          <p class="mt-2.5 text-[14.5px] leading-relaxed text-ink/60">Digital signature captured on arrival. The full custody report lands in your inbox within two minutes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== COVERAGE ============================== -->
+<section id="coverage" class="border-y border-ink/10 bg-cream-200/50 py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+      <div class="reveal order-2 lg:order-1">
+        <div class="relative mx-auto aspect-square w-full max-w-[440px]">
+          <div class="absolute inset-0 rounded-full bg-gradient-to-br from-gold/12 via-transparent to-ink/8 blur-2xl"></div>
+          <svg viewBox="0 0 400 400" class="relative h-full w-full">
+            <defs>
+              <radialGradient id="rg" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#C08A2E" stop-opacity=".22"/>
+                <stop offset="100%" stop-color="#C08A2E" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle cx="200" cy="200" r="185" fill="url(#rg)"/>
+            <circle cx="200" cy="200" r="72" fill="none" stroke="#0B1B2B" stroke-opacity=".12" stroke-width="1.2"/>
+            <circle cx="200" cy="200" r="122" fill="none" stroke="#0B1B2B" stroke-opacity=".12" stroke-width="1.2" stroke-dasharray="4 6"/>
+            <circle cx="200" cy="200" r="172" fill="none" stroke="#0B1B2B" stroke-opacity=".1" stroke-width="1.2"/>
+            <g class="spin-slow" style="transform-origin:200px 200px">
+              <circle cx="200" cy="200" r="172" fill="none" stroke="#C08A2E" stroke-opacity=".55" stroke-width="2" stroke-dasharray="60 480" stroke-linecap="round" class="route-dash"/>
+            </g>
+            <circle cx="200" cy="200" r="9" fill="#0B1B2B"/>
+            <circle cx="200" cy="200" r="17" fill="none" stroke="#C08A2E" stroke-width="1.6"/>
+            <circle cx="272" cy="200" r="6" fill="#C08A2E"/>
+            <circle cx="145" cy="132" r="6" fill="#0E7C6B"/>
+            <circle cx="98" cy="262" r="6" fill="#C08A2E"/>
+            <circle cx="308" cy="288" r="6" fill="#0E7C6B"/>
+            <circle cx="332" cy="128" r="4.5" fill="#0B1B2B" fill-opacity=".35"/>
+            <circle cx="74" cy="120" r="4.5" fill="#0B1B2B" fill-opacity=".35"/>
+          </svg>
+          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[calc(50%+0px)] text-center">
+            <p class="font-display text-[13px] font-semibold uppercase tracking-[0.18em] text-blue-600">Dispatch</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal order-1 lg:order-2">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">Coverage</p>
+        <h2 class="mt-4 font-display text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[43px]">Four zones. Fixed windows. No estimates.</h2>
+        <p class="mt-5 text-[16px] leading-relaxed text-ink/60">We publish the window we can actually hold — not a best-case guess. If a documented run misses its window, the run is free.</p>
+        <div class="mt-9 space-y-3">
+          <div class="flex items-center justify-between gap-5 rounded-2xl border border-ink/10 bg-cream-100 px-5 py-4 transition hover:border-gold/40">
+            <div class="flex items-center gap-4">
+              <span class="h-2.5 w-2.5 rounded-full bg-blue-600"></span>
+              <div><p class="text-[15px] font-semibold text-ink">Nairobi metro</p><p class="text-[12.5px] text-ink/50">CBD, Westlands, Upper Hill &amp; Kilimani</p></div>
+            </div>
+            <p class="shrink-0 font-display text-[16px] font-semibold text-blue-700">≤ 2 hrs</p>
+          </div>
+          <div class="flex items-center justify-between gap-5 rounded-2xl border border-ink/10 bg-cream-100 px-5 py-4 transition hover:border-gold/40">
+            <div class="flex items-center gap-4">
+              <span class="h-2.5 w-2.5 rounded-full bg-blue-600"></span>
+              <div><p class="text-[15px] font-semibold text-ink">Greater Nairobi</p><p class="text-[12.5px] text-ink/50">Kiambu, Machakos &amp; Kajiado towns</p></div>
+            </div>
+            <p class="shrink-0 font-display text-[16px] font-semibold text-blue-700">Same day</p>
+          </div>
+          <div class="flex items-center justify-between gap-5 rounded-2xl border border-ink/10 bg-cream-100 px-5 py-4 transition hover:border-gold/40">
+            <div class="flex items-center gap-4">
+              <span class="h-2.5 w-2.5 rounded-full bg-teal"></span>
+              <div><p class="text-[15px] font-semibold text-ink">National</p><p class="text-[12.5px] text-ink/50">All 47 counties via daily trunk routes</p></div>
+            </div>
+            <p class="shrink-0 font-display text-[16px] font-semibold text-teal">Next day</p>
+          </div>
+          <div class="flex items-center justify-between gap-5 rounded-2xl border border-ink/10 bg-cream-100 px-5 py-4 transition hover:border-gold/40">
+            <div class="flex items-center gap-4">
+              <span class="h-2.5 w-2.5 rounded-full bg-teal"></span>
+              <div><p class="text-[15px] font-semibold text-ink">International</p><p class="text-[12.5px] text-ink/50">EAC &amp; COMESA via vetted partner network</p></div>
+            </div>
+            <p class="shrink-0 font-display text-[16px] font-semibold text-teal">2–4 days</p>
+          </div>
+        </div>
+        <div id="coverage-areas" class="mt-9 hidden grid gap-4 sm:grid-cols-2"></div>
+        <p id="coverage-note" class="mt-6 hidden text-[12.5px] text-ink/40">Live service areas currently configured in dispatch.</p>
+        <a href="coverage.html" class="group mt-8 inline-flex items-center gap-2.5 text-[15px] font-semibold text-ink">
+          Open the coverage map
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PRICING ============================== -->
+<section id="pricing" class="py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">Rates</p>
+      <h2 class="mt-4 font-display text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[44px]">Priced per run, not per panic.</h2>
+      <p class="mt-5 text-[16px] leading-relaxed text-ink/60">Flat metro rates with no fuel surcharges. Volume agreements available for firms and institutions with recurring runs.</p>
+    </div>
+    <!-- Rendered from GET /api/rates so the advertised price can never drift
+         from what dispatch invoices. The noscript block is the fallback. -->
+    <div id="pricing-grid" class="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4"></div>
+    <noscript>
+      <div class="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div class="flex flex-col rounded-[1.6rem] border border-ink/10 bg-cream-100 p-8">
+          <span class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-600">Standard</span>
+          <div class="mt-5 flex items-end gap-2"><span class="font-display text-[40px] font-semibold leading-none text-ink">KSh 450</span><span class="pb-1 text-[13.5px] font-medium text-ink/45">from / run</span></div>
+          <p class="mt-4 text-[14.5px] leading-relaxed text-ink/60">Next-day delivery across Nairobi.</p>
+        </div>
+        <div class="flex flex-col rounded-[1.6rem] border border-ink/10 bg-cream-100 p-8">
+          <span class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-600">Priority</span>
+          <div class="mt-5 flex items-end gap-2"><span class="font-display text-[40px] font-semibold leading-none text-ink">KSh 850</span><span class="pb-1 text-[13.5px] font-medium text-ink/45">from / run</span></div>
+          <p class="mt-4 text-[14.5px] leading-relaxed text-ink/60">Same-day for anything filed before 2pm.</p>
+        </div>
+        <div class="flex flex-col rounded-[1.6rem] border border-ink/10 bg-cream-100 p-8">
+          <span class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-600">Express</span>
+          <div class="mt-5 flex items-end gap-2"><span class="font-display text-[40px] font-semibold leading-none text-ink">KSh 1,500</span><span class="pb-1 text-[13.5px] font-medium text-ink/45">from / run</span></div>
+          <p class="mt-4 text-[14.5px] leading-relaxed text-ink/60">Two-hour window inside the inner zone.</p>
+        </div>
+        <div class="flex flex-col rounded-[1.6rem] border border-ink/10 bg-cream-100 p-8">
+          <span class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-600">Charter</span>
+          <div class="mt-5 flex items-end gap-2"><span class="font-display text-[40px] font-semibold leading-none text-ink">KSh 4,500</span><span class="pb-1 text-[13.5px] font-medium text-ink/45">from / run</span></div>
+          <p class="mt-4 text-[14.5px] leading-relaxed text-ink/60">A vehicle and crew reserved for you.</p>
+        </div>
+      </div>
+    </noscript>
+    <p class="reveal mt-8 text-center text-[13px] text-ink/45">All rates include seal, documentation, and seven-year record retention. No fuel or after-hours surcharges on Nairobi metro runs. <a href="pricing.html" class="font-semibold text-blue-700 underline">See the full rate card</a>.</p>
+  </div>
+</section>
+
+<!-- ============================== TESTIMONIALS ============================== -->
+<section class="border-y border-ink/10 bg-cream-200/50 py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="reveal max-w-2xl">
+      <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">Clients</p>
+      <h2 class="mt-4 font-display text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[42px]">People who can't afford a lost envelope.</h2>
+    </div>
+    <div class="mt-14 grid gap-6 lg:grid-cols-3">
+      <figure class="reveal card-hover flex flex-col rounded-[1.5rem] border border-ink/10 bg-cream-100 p-8">
+        <svg viewBox="0 0 24 24" fill="none" class="h-7 w-7 text-blue-300"><path d="M9.5 6C6.5 6 4.5 8.4 4.5 11.6c0 2.6 1.7 4.4 4 4.4 2 0 3.4-1.4 3.4-3.3 0-1.8-1.2-3.1-2.9-3.1-.3 0-.6 0-.8.1.4-1.4 1.6-2.4 3.2-2.6V6h-.9Zm9 0c-3 0-5 2.4-5 5.6 0 2.6 1.7 4.4 4 4.4 2 0 3.4-1.4 3.4-3.3 0-1.8-1.2-3.1-2.9-3.1-.3 0-.6 0-.8.1.4-1.4 1.6-2.4 3.2-2.6V6h-.9Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <blockquote class="mt-6 flex-1 font-display text-[18.5px] leading-[1.5] text-ink">"We had a filing window close at 4:30. Swift sealed the bundle at our office at 2:05 and the clerk's receipt was in my inbox by 2:51. That's the whole job."</blockquote>
+        <figcaption class="mt-7 flex items-center gap-3.5 border-t border-ink/10 pt-6">
+          <span class="grid h-11 w-11 place-items-center rounded-full bg-ink font-display text-[15px] font-semibold text-blue-500">WK</span>
+          <div><p class="text-[14.5px] font-semibold text-ink">Wanjiru Kariuki</p><p class="text-[12.5px] text-ink/50">Managing Partner, Kiprop &amp; Otieno LLP</p></div>
+        </figcaption>
+      </figure>
+      <figure class="reveal card-hover flex flex-col rounded-[1.5rem] border border-ink/10 bg-cream-100 p-8" style="transition-delay:.07s">
+        <svg viewBox="0 0 24 24" fill="none" class="h-7 w-7 text-blue-300"><path d="M9.5 6C6.5 6 4.5 8.4 4.5 11.6c0 2.6 1.7 4.4 4 4.4 2 0 3.4-1.4 3.4-3.3 0-1.8-1.2-3.1-2.9-3.1-.3 0-.6 0-.8.1.4-1.4 1.6-2.4 3.2-2.6V6h-.9Zm9 0c-3 0-5 2.4-5 5.6 0 2.6 1.7 4.4 4 4.4 2 0 3.4-1.4 3.4-3.3 0-1.8-1.2-3.1-2.9-3.1-.3 0-.6 0-.8.1.4-1.4 1.6-2.4 3.2-2.6V6h-.9Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <blockquote class="mt-6 flex-1 font-display text-[18.5px] leading-[1.5] text-ink">"Patient records can't be anonymised in transit — they have to stay sealed and accounted for. Swift is the only carrier our compliance team signed off on without conditions."</blockquote>
+        <figcaption class="mt-7 flex items-center gap-3.5 border-t border-ink/10 pt-6">
+          <span class="grid h-11 w-11 place-items-center rounded-full bg-ink font-display text-[15px] font-semibold text-blue-500">DO</span>
+          <div><p class="text-[14.5px] font-semibold text-ink">Dr. Daniel Okafor</p><p class="text-[12.5px] text-ink/50">Director of Records, Riverbank Medical Centre</p></div>
+        </figcaption>
+      </figure>
+      <figure class="reveal card-hover flex flex-col rounded-[1.5rem] border border-ink/10 bg-cream-100 p-8" style="transition-delay:.14s">
+        <svg viewBox="0 0 24 24" fill="none" class="h-7 w-7 text-blue-300"><path d="M9.5 6C6.5 6 4.5 8.4 4.5 11.6c0 2.6 1.7 4.4 4 4.4 2 0 3.4-1.4 3.4-3.3 0-1.8-1.2-3.1-2.9-3.1-.3 0-.6 0-.8.1.4-1.4 1.6-2.4 3.2-2.6V6h-.9Zm9 0c-3 0-5 2.4-5 5.6 0 2.6 1.7 4.4 4 4.4 2 0 3.4-1.4 3.4-3.3 0-1.8-1.2-3.1-2.9-3.1-.3 0-.6 0-.8.1.4-1.4 1.6-2.4 3.2-2.6V6h-.9Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <blockquote class="mt-6 flex-1 font-display text-[18.5px] leading-[1.5] text-ink">"A KSh 8.5M piece arrived with the seal number matching, condition photos on my phone, and the courier waiting while I inspected it. That's why we moved everything to Swift."</blockquote>
+        <figcaption class="mt-7 flex items-center gap-3.5 border-t border-ink/10 pt-6">
+          <span class="grid h-11 w-11 place-items-center rounded-full bg-ink font-display text-[15px] font-semibold text-blue-500">AY</span>
+          <div><p class="text-[14.5px] font-semibold text-ink">Amina Yusuf</p><p class="text-[12.5px] text-ink/50">Director, Maridadi Fine Art</p></div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FAQ ============================== -->
+<section id="faq" class="py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div class="reveal lg:sticky lg:top-28 lg:self-start">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">Questions</p>
+        <h2 class="mt-4 font-display text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[42px]">The things clients ask us first.</h2>
+        <p class="mt-5 text-[15.5px] leading-relaxed text-ink/60">Still unsure whether your delivery qualifies? Call dispatch — a human answers within three rings, day or night.</p>
+        <a href="tel:+254730900100" class="group mt-7 inline-flex items-center gap-2.5 text-[15px] font-semibold text-ink">
+          <span class="grid h-9 w-9 place-items-center rounded-full bg-ink text-blue-500 transition-transform duration-300 group-hover:scale-105">
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M6.5 4h3l1.5 3.5-2 1.4a11 11 0 0 0 5.6 5.6l1.4-2L19.5 14v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4 5.7 2 2 0 0 1 6 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          +254 730 900 100
+        </a>
+        <a href="faq.html" class="group mt-6 inline-flex items-center gap-2.5 text-[15px] font-semibold text-blue-700">
+          Read the full FAQ
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="reveal space-y-3">
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">What counts as a "crucial" delivery?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink">
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+            </span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">Anything where loss, delay, or disclosure creates a real consequence: court filings, executed contracts, deeds and wills, medical or personnel records, financial instruments, prototypes, artworks, and serialised hardware. If it needs a signature, a seal, or a paper trail, it belongs on a Swift run.</p></div></div>
+        </div>
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">How exactly do you prove chain of custody?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink">
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+            </span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">Every transition of possession is logged with a timestamp, the identity of both parties, the seal number, and a photograph. The log is cryptographically signed at the point of capture, so nothing can be edited after the fact. You receive the complete record within two minutes of delivery, and we retain it for seven years.</p></div></div>
+        </div>
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">What happens if a run misses its window?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink">
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+            </span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">If a Priority Chain run exceeds its committed window for any reason within our control, that run is free. For Standard Secure we issue a full credit. In the rare event of loss or damage, claims are settled against coverage — up to KSh 200,000, KSh 2,000,000, KSh 20,000,000 or KSh 50,000,000 depending on your tier — with the settlement window opening the same day.</p></div></div>
+        </div>
+        <div class="acc rounded-[1.3rem] border border-ink/10 bg-cream-100 transition-colors duration-300 hover:border-ink/20">
+          <button class="acc-btn flex w-full items-center justify-between gap-6 px-6 py-5 text-left">
+            <span class="font-display text-[17.5px] font-semibold tracking-tight text-ink">Do you offer accounts for recurring clients?</span>
+            <span class="acc-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink/5 text-ink">
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+            </span>
+          </button>
+          <div class="acc-body"><div><p class="px-6 pb-6 text-[14.5px] leading-relaxed text-ink/60">Yes. Law firms, healthcare groups, notaries, and galleries typically run between 20 and 400 deliveries a month with us. Accounts include consolidated monthly invoicing, named courier preferences, standing pickup times, a dedicated dispatch line, and a quarterly custody audit report.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BOOKING CTA ============================== -->
+<section id="book" class="pb-24">
+  <div class="reveal mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="relative overflow-hidden rounded-[2.2rem] bg-ink px-7 py-14 text-cream shadow-lift sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+      <div class="pointer-events-none absolute -left-20 -top-24 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-32 right-0 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl"></div>
+      <div class="noise pointer-events-none absolute inset-0 opacity-[0.06]"></div>
+      <div class="relative grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+        <div>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-3.5 py-1.5 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-cream/70">
+            <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-teal-light"></span> Dispatch online now
+          </span>
+          <h2 class="mt-6 font-display text-[34px] font-semibold leading-[1.08] tracking-[-0.02em] sm:text-[42px]">Book a secure run in under ninety seconds.</h2>
+          <p class="mt-5 max-w-xl text-[16px] leading-relaxed text-cream/55">Get an instant server-priced quote, then send it to dispatch. We confirm the window and assign a vetted courier — usually before you've finished your coffee.</p>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href="book.html" class="group inline-flex items-center justify-center gap-2.5 rounded-full bg-blue-600 px-7 py-4 text-[15px] font-semibold text-ink transition-all duration-300 hover:bg-blue-500">
+              Start a booking
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="tel:+254730900100" class="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/20 px-7 py-4 text-[15px] font-semibold text-cream transition-all duration-300 hover:border-white/40 hover:bg-white/[0.06]">
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M6.5 4h3l1.5 3.5-2 1.4a11 11 0 0 0 5.6 5.6l1.4-2L19.5 14v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4 5.7 2 2 0 0 1 6 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Call dispatch
+            </a>
+          </div>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+          <div class="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 backdrop-blur">
+            <p class="font-display text-[22px] font-semibold leading-none text-blue-300">8 min</p>
+            <p class="mt-2 text-[12px] font-medium uppercase tracking-[0.13em] text-blue-300">Avg. confirmation</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 backdrop-blur">
+            <p class="font-display text-[22px] font-semibold leading-none text-blue-300">24/7</p>
+            <p class="mt-2 text-[12px] font-medium uppercase tracking-[0.13em] text-cream/45">Emergency runs</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 backdrop-blur">
+            <p class="font-display text-[22px] font-semibold leading-none text-blue-300">KSh 0</p>
+            <p class="mt-2 text-[12px] font-medium uppercase tracking-[0.13em] text-cream/45">Hidden fees, ever</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SELLERS ============================== -->
+<section id="sellers" class="border-t border-ink/10 bg-cream-200/60 py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid gap-14 lg:grid-cols-[1fr_1.2fr]">
+      <div class="reveal">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">For online sellers</p>
+        <h2 class="mt-4 font-display text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[43px]">Run your whole store on one platform.</h2>
+        <p class="mt-5 text-[16px] leading-relaxed text-ink/60">Connect your TikTok Shop, Instagram Shop, and Facebook Page to Swift and we will deliver everything you sell — documents, samples, stock, and high-value goods — with live tracking, tamper seals, and signed custody logs for every order.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="tel:+254730900100" class="inline-flex items-center gap-2.5 rounded-full border border-blue-300 px-5 py-2.5 text-[14px] font-semibold text-blue-700 transition-all duration-300 hover:bg-blue-100">Onboard with dispatch</a>
+          <a href="mailto:sellers@swiftcourier.example" class="inline-flex items-center gap-2.5 rounded-full bg-blue-600 px-5 py-2.5 text-[14px] font-semibold text-cream transition-all duration-300 hover:bg-blue-500">sellers@swiftcourier.example</a>
+        </div>
+        <div class="mt-8 grid gap-6 sm:grid-cols-3">
+          <div class="rounded-2xl border border-blue-200 bg-blue-50 p-5">
+            <div class="grid h-10 w-10 place-items-center rounded-xl bg-blue-600 text-white">
+              <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="M4 7V4.5M4 7H2.5M4 7L1.5 5.5M4 7h2.5M12 7V4.5M12 7H10.5M12 7l-2-1.5M12 7h2.5M20 7V4.5M20 7H18.5M20 7l-2-1.5M20 7h2.5M12 20v-3.5M12 20H10.5M12 20l-2 1.5M12 20h2.5M20 20v-3.5M20 20h-2.5M20 20l-2 1.5M20 20h2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p class="mt-4 font-display text-[18px] font-semibold text-ink">TikTok Shop</p>
+            <p class="mt-1 text-[12.5px] text-ink/55">Link your TikTok account and receive dispatch requests directly from your orders.</p>
+          </div>
+          <div class="rounded-2xl border border-blue-200 bg-blue-50 p-5">
+            <div class="grid h-10 w-10 place-items-center rounded-xl bg-blue-600 text-white">
+              <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><rect x="4" y="5.5" width="16" height="13" rx="2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 10h7M8.5 14h5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <p class="mt-4 font-display text-[18px] font-semibold text-ink">Instagram</p>
+            <p class="mt-1 text-[12.5px] text-ink/55">Tag your orders in Stories and link your dispatch tracking for buyers.</p>
+          </div>
+          <div class="rounded-2xl border border-blue-200 bg-blue-50 p-5">
+            <div class="grid h-10 w-10 place-items-center rounded-xl bg-blue-600 text-white">
+              <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <p class="mt-4 font-display text-[18px] font-semibold text-ink">Facebook</p>
+            <p class="mt-1 text-[12.5px] text-ink/55">Accept orders through Meta Catalogs and hand them to a vetted Swift courier.</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal lg:sticky lg:top-28 lg:self-start">
+        <div class="rounded-[1.6rem] border border-blue-200 bg-blue-50 p-7">
+          <p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-700">Seller onboarding</p>
+          <h3 class="mt-3 font-display text-[22px] font-semibold tracking-tight text-ink">Set up in under 10 minutes</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-ink/60">1. Tell dispatch your store links (TikTok, Instagram, Facebook). 2. Choose your delivery zones and run frequency. 3. We assign a named courier and issue your seller dispatch number.</p>
+          <div class="mt-6 space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-blue-600 text-white"><svg viewBox="0 0 24 24" fill="none" class="h-3 w-3"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="text-[13px] text-ink/70">TikTok Shop, Instagram Shop, or Facebook Page connected</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-blue-600 text-white"><svg viewBox="0 0 24 24" fill="none" class="h-3 w-3"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="text-[13px] text-ink/70">Named courier + dispatch number issued</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-blue-600 text-white"><svg viewBox="0 0 24 24" fill="none" class="h-3 w-3"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="text-[13px] text-ink/70">Per-order tamper seal, GPS, and custody log</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-blue-600 text-white"><svg viewBox="0 0 24 24" fill="none" class="h-3 w-3"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="text-[13px] text-ink/70">Weekly sales summary + delivery audit report</span>
+            </div>
+          </div>
+          <a href="tel:+254730900100" class="group mt-6 inline-flex items-center gap-2.5 rounded-full bg-blue-600 px-5 py-3 text-[14px] font-semibold text-cream transition-all duration-300 hover:bg-blue-500">+254 730 900 100</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer id="site-footer" class="border-t border-ink/10 bg-cream-200/60">
+  <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
+    <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="grid h-11 w-11 place-items-center rounded-[14px] bg-ink text-blue-500">
+            <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
+              <path d="M12 2.6 4.9 5.4v6.2c0 4.4 3 8.1 7.1 9.8 4.1-1.7 7.1-5.4 7.1-9.8V5.4L12 2.6Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+              <path d="m8.7 12.1 2.3 2.3 4.4-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="leading-none">
+            <span class="block font-display text-[21px] font-semibold tracking-tight text-ink">Swift</span>
+            <span class="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.3em] text-ink/45">Courier Service</span>
+          </span>
+        </div>
+        <p class="mt-6 max-w-xs text-[14.5px] leading-relaxed text-ink/55">Chain-of-custody delivery for legal documents, confidential records, and high-value goods. Licensed, bonded, and insured to KSh 50,000,000 per run.</p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="rounded-full border border-ink/10 px-3 py-1 text-[11.5px] font-medium text-ink/55">Licence #CR-40912</span>
+          <span class="rounded-full border border-ink/10 px-3 py-1 text-[11.5px] font-medium text-ink/55">Bonded</span>
+          <span class="rounded-full border border-ink/10 px-3 py-1 text-[11.5px] font-medium text-ink/55">Insured</span>
+        </div>
+      </div>
+      <div>
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-ink/40">Services</p>
+        <ul class="mt-5 space-y-3 text-[14.5px] text-ink/65">
+          <li><a href="services.html#legal-filings" class="transition hover:text-ink">Court &amp; legal filings</a></li>
+          <li><a href="services.html#confidential-records" class="transition hover:text-ink">Confidential records</a></li>
+          <li><a href="services.html#deadline-critical" class="transition hover:text-ink">Deadline-critical documents</a></li>
+          <li><a href="services.html#high-value" class="transition hover:text-ink">High-value goods</a></li>
+          <li><a href="services.html#data-hardware" class="transition hover:text-ink">Sensitive data &amp; hardware</a></li>
+          <li><a href="services.html#dedicated-route" class="transition hover:text-ink">Dedicated routes</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-ink/40">Company</p>
+        <ul class="mt-5 space-y-3 text-[14.5px] text-ink/65">
+          <li><a href="custody.html" class="transition hover:text-ink">Chain of custody</a></li>
+          <li><a href="index.html#process" class="transition hover:text-ink">How it works</a></li>
+          <li><a href="coverage.html" class="transition hover:text-ink">Coverage &amp; zones</a></li>
+          <li><a href="pricing.html" class="transition hover:text-ink">Rates</a></li>
+          <li><a href="faq.html" class="transition hover:text-ink">FAQ</a></li>
+          <li><a href="book.html" class="transition hover:text-ink">Open an account</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-ink/40">Dispatch</p>
+        <ul class="mt-5 space-y-4 text-[14.5px] text-ink/65">
+          <li>
+            <a href="tel:+254730900100" class="font-semibold text-ink transition hover:text-blue-700">+254 730 900 100</a>
+            <p class="mt-1 text-[12.5px] text-ink/45">Answered 24 hours, every day</p>
+          </li>
+          <li><a href="mailto:runs@swiftcourier.example" class="transition hover:text-ink">runs@swiftcourier.example</a></li>
+          <li class="text-ink/55">Riverside Square, 2nd Floor, Riverside Drive<br>Westlands, Nairobi</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-14 flex flex-col items-start justify-between gap-5 border-t border-ink/10 pt-8 sm:flex-row sm:items-center">
+      <p class="text-[13px] text-ink/45">© <span id="year">2025</span> Swift Courier Service. All rights reserved.</p>
+      <div class="flex flex-wrap items-center gap-6 text-[13px] text-ink/45">
+        <a href="faq.html" class="transition hover:text-ink">Privacy</a>
+        <a href="faq.html" class="transition hover:text-ink">Terms of carriage</a>
+        <a href="faq.html" class="transition hover:text-ink">Insurance &amp; claims</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky book bar: most Kenyan traffic is mobile, so keep the primary
+     action one tap away once the user is past the hero. -->
+<div id="mobile-book-bar" class="fixed inset-x-0 bottom-0 z-40 border-t border-ink/10 bg-cream/95 px-4 py-3 backdrop-blur-xl sm:hidden">
+  <div class="flex items-center gap-3">
+    <div class="min-w-0 flex-1">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/40">Dispatch online</p>
+      <p class="truncate text-[13px] font-semibold text-ink">Free quote · 90 seconds</p>
+    </div>
+    <a href="book.html" class="shrink-0 rounded-full bg-ink px-5 py-3 text-[14px] font-semibold text-cream">Book a run</a>
+  </div>
+</div>
+
+<!-- Contact float -->
+<div id="contact-float" class="no-print fixed bottom-20 right-4 z-40 sm:bottom-6 sm:right-6">
+  <a href="https://wa.me/254730900100" target="_blank" rel="noopener" aria-label="Chat with dispatch on WhatsApp" class="grid h-13 w-13 place-items-center rounded-full bg-[#1FA855] p-3.5 text-white shadow-lift transition hover:scale-105">
+    <svg viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.2-.1-1.5-.8-1.8-.9s-.4-.1-.6.2-.6.9-.8 1.1-.3.2-.6.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3A3 3 0 0 0 6 10.6a5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4 5.2 5.2 0 0 0 3.2.6 2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg>
+  </a>
+</div>
+
+<script src="assets/api-config.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — Swift Courier Service</title>
+<meta name="description" content="Court and legal filings, confidential records, deadline-critical documents, high-value goods, sensitive data and hardware, and dedicated courier routes across Kenya." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/tailwind-config.js"></script>
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body class="antialiased overflow-x-hidden">
+
+<header id="site-header" class="header-solid fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="flex h-20 items-center justify-between">
+      <a href="index.html" class="group flex items-center gap-3">
+        <span class="relative grid h-11 w-11 place-items-center rounded-[14px] bg-ink text-blue-500 shadow-soft transition-transform duration-500 group-hover:-rotate-6">
+          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
+            <path d="M12 2.6 4.9 5.4v6.2c0 4.4 3 8.1 7.1 9.8 4.1-1.7 7.1-5.4 7.1-9.8V5.4L12 2.6Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+            <path d="m8.7 12.1 2.3 2.3 4.4-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="leading-none">
+          <span class="block font-display text-[22px] font-semibold tracking-tight text-ink">Swift</span>
+          <span class="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.3em] text-ink/45">Courier Service</span>
+        </span>
+      </a>
+      <nav class="hidden items-center gap-7 lg:flex">
+        <a href="index.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Home</a>
+        <a href="services.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition" aria-current="page">Services</a>
+        <a href="custody.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Chain of Custody</a>
+        <a href="coverage.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Coverage</a>
+        <a href="pricing.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Rates</a>
+        <a href="faq.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">FAQ</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="track.html" class="nav-link hidden items-center gap-2 text-[14.5px] font-medium text-ink/70 transition sm:flex">Track</a>
+        <a href="book.html" class="group hidden items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-[14px] font-semibold text-cream shadow-soft transition-all duration-300 hover:bg-ink-700 sm:inline-flex">
+          Book a run
+          <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button id="menu-btn" aria-label="Open menu" class="grid h-11 w-11 place-items-center rounded-xl border border-ink/10 bg-cream-100 text-ink transition hover:bg-cream-200 lg:hidden">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu" class="overflow-hidden border-t border-ink/10 bg-cream/95 backdrop-blur-xl transition-[max-height,opacity] duration-500 lg:hidden" style="max-height:0;opacity:0">
+    <div class="mx-auto max-w-7xl px-5 py-6">
+      <div class="grid gap-1">
+        <a href="index.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Home</a>
+        <a href="custody.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Chain of custody</a>
+        <a href="coverage.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Coverage</a>
+        <a href="pricing.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Rates</a>
+        <a href="faq.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">FAQ</a>
+        <a href="track.html" class="mobile-link rounded-xl px-4 py-3.5 text-[15px] font-medium text-ink/80 transition hover:bg-ink/5">Track a shipment</a>
+        <a href="book.html" class="mobile-link mt-4 flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3.5 text-[15px] font-semibold text-cream">Book a secure run</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="page-top pb-16">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="reveal max-w-3xl">
+      <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-600">Services</p>
+      <h1 class="mt-4 font-display text-[40px] font-semibold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[54px]">Six services, one standard.</h1>
+      <p class="mt-6 text-[17px] leading-relaxed text-ink/65">We don't run general parcels. Every route we operate is built around goods and information where a lost or delayed item means a missed deadline, a broken chain, or a serious liability. Pick a service for the full detail, or hover a card to see its price and book it in one step.</p>
+    </div>
+
+    <div class="reveal mt-9 flex flex-wrap gap-2" id="service-chips"></div>
+  </div>
+</section>
+
+<section class="pb-20">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div id="services-grid" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
+  </div>
+</section>
+
+<section class="border-y border-ink/10 bg-cream-200/50 py-20">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid gap-14 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
+      <div class="reveal lg:sticky lg:top-28 lg:self-start">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-700">In detail</p>
+        <h2 class="mt-4 font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.02em] text-ink sm:text-[36px]">What each run actually involves.</h2>
+        <p class="mt-5 text-[15.5px] leading-relaxed text-ink/60">Each service below shows the tier that usually fits it, the consignments we handle day to day, and how the run is executed. Pricing on this page comes from the live dispatch rate card.</p>
+        <a href="custody.html" class="group mt-7 inline-flex items-center gap-2.5 text-[15px] font-semibold text-ink">How we prove custody <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div id="service-detail"></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-20">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="reveal relative overflow-hidden rounded-[2rem] bg-ink px-7 py-14 text-cream sm:px-12 lg:px-16">
+      <div class="pointer-events-none absolute -left-20 -top-24 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl"></div>
+      <div class="noise pointer-events-none absolute inset-0 opacity-[0.06]"></div>
+      <div class="relative flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
+        <div>
+          <h2 class="font-display text-[30px] font-semibold leading-[1.1] tracking-[-0.02em] sm:text-[36px]">Not sure which service fits?</h2>
+          <p class="mt-4 max-w-xl text-[15.5px] leading-relaxed text-cream/55">Describe the item and the deadline on the booking form and we'll price it server-side. If it's a crucial delivery — where delay or disclosure has consequences — it belongs on a Swift run.</p>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <a href="book.html" class="inline-flex items-center justify-center gap-2.5 rounded-full bg-blue-600 px-7 py-4 text-[15px] font-semibold text-ink transition hover:bg-blue-500">Book a secure run</a>
+          <a href="tel:+254730900100" class="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/20 px-7 py-4 text-[15px] font-semibold text-cream transition hover:bg-white/[0.06]">Call dispatch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer" class="border-t border-ink/10 bg-cream-200/60">
+  <div class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
+    <div class="flex flex-col items-start justify-between gap-4 text-[13px] text-ink/50 sm:flex-row sm:items-center">
+      <p>© <span id="year">2025</span> Swift Courier Service. Licensed &amp; bonded for Kenya metro operations.</p>
+      <div class="flex gap-6">
+        <a href="index.html" class="hover:text-ink transition">Home</a>
+        <a href="pricing.html" class="hover:text-ink transition">Rates</a>
+        <a href="coverage.html" class="hover:text-ink transition">Coverage</a>
+        <a href="faq.html" class="hover:text-ink transition">FAQ</a>
+        <a href="track.html" class="hover:text-ink transition">Track</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="contact-float" class="no-print fixed bottom-6 right-4 z-40 sm:right-6">
+  <a href="https://wa.me/254730900100" target="_blank" rel="noopener" aria-label="Chat with dispatch on WhatsApp" class="block rounded-full bg-[#1FA855] p-3.5 text-white shadow-lift transition hover:scale-105">
+    <svg viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.2-.1-1.5-.8-1.8-.9s-.4-.1-.6.2-.6.9-.8 1.1-.3.2-.6.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3A3 3 0 0 0 6 10.6a5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4 5.2 5.2 0 0 0 3.2.6 2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg>
+  </a>
+</div>
+
+<script src="assets/api-config.js"></script><script src="assets/site.js"></script>
+</body>
+</html>

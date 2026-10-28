@@ -1,0 +1,8 @@
+# Vercel only needs the customer site at the repo root.
+# The ops console and the API container are deployed separately.
+logistics-system/
+.git/
+*.db
+*.db-shm
+*.db-wal
+node_modules/
