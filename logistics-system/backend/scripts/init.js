@@ -5,7 +5,7 @@
  *   node scripts/init.js            # seed only if the database is empty
  *   node scripts/init.js --force    # wipe and re-seed
  *
- * Honours DB_PATH so it works identically locally and inside the container.
+ * Honours DB_PATH so it works identically locally and on the server.
  */
 const { DatabaseSync } = require('node:sqlite');
 const { mkdirSync } = require('fs');

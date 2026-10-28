@@ -28,19 +28,16 @@ assets/                      #   shared site.css / site.js / tailwind-config.js
 logistics-system/
 ├── backend/                 # Express API + SQLite (node:sqlite)
 │   ├── src/
-│   │   ├── index.ts         # API routes, pricing engine, controllers
-│   │   └── scripts/
-│   │       └── init.js      # Seed script (demo data)
+│   │   └── index.ts         # API routes, pricing engine, controllers
+│   ├── scripts/
+│   │   └── init.js          # Seed script (demo data)
 │   ├── package.json
-│   ├── Dockerfile
-│   └── docker-compose.yml   # Override for backend port
-├── frontend/                # Internal ops console (nginx-served static)
+│   └── railway.json         # Railway deploy config (persistent /data volume)
+├── frontend/                # Internal ops console (static files)
 │   ├── public/
 │   │   └── index.html       # Ops SPA (vanilla JS)
-│   ├── nginx.conf           # /api proxy, / → site, /ops → console
-│   └── Dockerfile           # Build context is the repo root
-├── serve-dev.js             # Local static preview (no Docker)
-├── docker-compose.yml       # Orchestrates backend + frontend
+│   └── package.json
+├── serve-dev.js             # Local preview: site + /ops + /api proxy
 └── README.md
 ```
 
@@ -52,52 +49,61 @@ logistics-system/
 | Frontend     | Multi-page HTML + Tailwind CSS + vanilla JS (no bundler) |
 | Map          | Leaflet.js over OpenStreetMap / HOT / Esri imagery (free, no API key) |
 | Database     | SQLite (file-based, zero-config)       |
-| Deployment   | Docker Compose                         |
+| Deployment   | Vercel (site) + Railway (API)          |
 
 ---
 
-## Quick start (Docker)
+## Deployment
 
-### 1. Start everything
+Each part deploys to the host that suits it:
 
-```bash
-cd logistics-system
-docker compose up -d --build
-```
+| Part | Host | What ships |
+|------|------|------------|
+| Customer site | **Vercel** | The repo root as static files (`vercel.json`) — no build step |
+| API (Book/Track) | **Railway** | The Express API in `logistics-system/backend`, with a persistent volume for SQLite |
+| Ops console | any static host | `logistics-system/frontend/public` — serve it wherever staff reach it |
 
-### 2. Open the application
+### Railway — the API
 
-| Resource        | URL                     |
-|-----------------|-------------------------|
-| **Customer site**   | [http://localhost:3000/](http://localhost:3000/) |
-| **Services**        | [http://localhost:3000/services](http://localhost:3000/services) |
-| **Book a run**      | [http://localhost:3000/book](http://localhost:3000/book) |
-| **Track**           | [http://localhost:3000/track](http://localhost:3000/track) |
-| **Coverage map**    | [http://localhost:3000/coverage](http://localhost:3000/coverage) |
-| **Rates**           | [http://localhost:3000/pricing](http://localhost:3000/pricing) |
-| **Ops console**     | [http://localhost:3000/ops](http://localhost:3000/ops) |
-| **Backend API**     | [http://localhost:4001/api](http://localhost:4001/api) |
-| **Health check**    | [http://localhost:4001/api/health](http://localhost:4001/api/health) |
+1. Create a project on [railway.com](https://railway.com) → **Deploy from GitHub repo** (this one).
+2. In the service's **Settings**, set **Root Directory** to `logistics-system/backend`.
+3. Deploy. `railway.json` tells Railway how: Nixpacks builds the TypeScript
+   (`npm run build`), `node dist/index.js` starts it, and a persistent volume is
+   mounted at `/data`.
+4. Add variables:
+   - `DB_PATH=/data/logistics.db` — puts the SQLite file on the volume so it
+     survives deploys. Without it the DB is ephemeral and vanishes on restart.
+   - `PUBLIC_URL=https://<your-vercel-domain>` — origin used to build the
+     shareable tracking links dispatch hands to customers.
+   - `RATE_LIMIT_*` (optional) — rate-limit window and max (defaults: 600 / 15 min).
+   `PORT` is injected by Railway; the server already listens on it.
+5. **Networking → Generate Domain** to expose it, e.g.
+   `https://<service>-production.up.railway.app`.
 
-> nginx serves the customer site at `/` and the ops console at `/ops`, proxying
-> `/api` to the backend. Both front ends only ever need `/api` to reach it.
-
-### 3. Seed demo data
-
-The API creates the schema on first boot but ships no rows, so a fresh
-container starts with zero orders. Seed the demo data with:
-
-```bash
-docker compose exec backend node scripts/init.js --force
-```
-
-Skip this in production if you want an empty dispatch board.
-
-### 4. Stop
+The API creates its own tables on boot (`CREATE TABLE IF NOT EXISTS`), so a
+fresh volume needs no seeding. For demo data, link the project once
+(`railway link`) and run from `logistics-system/backend`:
 
 ```bash
-docker compose down
+railway run node scripts/init.js --force
 ```
+
+Health check: `GET /api/health` on the Railway domain.
+
+### Vercel — the customer site
+
+1. Import the GitHub repo into Vercel and deploy — it's framework-free, so
+   "Other" works; the root pages and `assets/` ship as-is.
+2. Point the site at your Railway API by editing **one line** in
+   `assets/api-config.js` and pushing:
+
+```js
+window.SWIFT_API = 'https://<service>-production.up.railway.app/api';
+```
+
+The API has open CORS, so calls from the Vercel domain work cross-origin.
+Until this line is set the site degrades gracefully — quotes and rates fall
+back to the baked-in cards, and Book/Track say the service is offline.
 
 ---
 
@@ -140,16 +146,15 @@ from the order drawer.
 
 ### How it talks to the backend
 
-By default it calls same-origin `/api`. To point it at a backend on another
-host, edit **one file** — `assets/api-config.js`, which every page loads before
+By default it calls same-origin `/api`. To point it at the hosted Railway API,
+edit **one file** — `assets/api-config.js`, which every page loads before
 `site.js`:
 
 ```js
-window.SWIFT_API = 'https://api.example.com/api';
+window.SWIFT_API = 'https://<service>-production.up.railway.app/api';
 ```
 
-Leave it as an empty string for same-origin (local preview, docker compose,
-the nginx proxy).
+Leave it as an empty string for same-origin (local preview via `serve-dev.js`).
 
 | Feature | Endpoint |
 |---------|----------|
@@ -184,12 +189,12 @@ has room for accounts later without a migration.
 
 ---
 
-## Manual development (without Docker)
+## Local development
 
 ### Backend
 
 ```bash
-cd backend
+cd logistics-system/backend
 npm install
 npm run build            # compile src/ → dist/ (dist/ is committed, rebuild after edits)
 npm run db:init          # create & seed SQLite DB
@@ -208,56 +213,6 @@ npm --prefix backend run db:init    # create & seed SQLite DB
 PORT=4001 npm --prefix backend start # backend on :4001
 node serve-dev.js                   # site + console on :3000 (proxies /api to :4001)
 ```
-
----
-
-## Deploying (split: site on Vercel, API in a container)
-
-The customer site is static HTML/CSS/JS and the API is a Node process with a
-file-based SQLite database, so they deploy separately.
-
-### 1. Site → Vercel
-
-The repo root is the Vercel project. `vercel.json` enables clean URLs and
-baseline security headers; `.vercelignore` excludes `logistics-system/` so only
-the eight pages and `assets/` ship.
-
-Before the first deploy, set the API origin in `assets/api-config.js`:
-
-```js
-window.SWIFT_API = 'https://<your-api-host>/api';
-```
-
-Without it the site calls `/api` on the Vercel domain, which has no backend,
-and the pricing section falls back to the baked-in rate card while booking and
-tracking fail.
-
-### 2. API → any container host (Railway, Render, Fly, a VPS …)
-
-```bash
-cd logistics-system
-docker compose up -d --build backend     # image: Node 22, builds TS, runs dist/
-```
-
-| Env var       | Required | Purpose |
-|---------------|----------|---------|
-| `PORT`        | yes (4001) | Port the API listens on |
-| `DB_PATH`     | yes      | SQLite file path, e.g. `/data/logistics.db` — put it on a persistent volume |
-| `PUBLIC_URL`  | yes      | Origin of the deployed site, used to build tracking links |
-| `RATE_LIMIT_*` | no      | Rate limit window and max (defaults: 600 / 15 min) |
-
-The API sends permissive CORS headers, so the Vercel site can call it cross-origin.
-Verify with `GET /api/health` before pointing the site at it.
-
-`backend/dist/` is committed, so a host that just runs `npm ci && npm start`
-also works; after editing `src/`, run `npm run build` (or let the Dockerfile
-build it) to keep `dist/` in sync.
-
-### 3. Ops console
-
-`/ops` is served by the nginx frontend image (`docker compose up frontend`) and
-is **not** part of the Vercel deploy — it is the internal console. Run the full
-compose stack on a host if dispatch needs it publicly, and put it behind auth.
 
 ---
 
@@ -327,7 +282,7 @@ several real statuses, the drop resolves to one canonical stage per column
 - ✅ Vehicle fleet management, with map placement for new vehicles
 - ✅ Driver management
 - ✅ Real-time GPS update endpoint, adjustable poll interval, pause when hidden
-- ✅ Docker Compose for local dev
+- ✅ Vercel (site) + Railway (API, persistent SQLite volume) deploys
 - ✅ Demo seed data (3 vehicles, 3 drivers, 4 service areas, 3 zones, 4 orders)
 - ✅ Output escaping in both front ends (customer text reaches both)
 
@@ -340,4 +295,4 @@ several real statuses, the drop resolves to one canonical stage per column
 - Maps are free and keyless (OpenStreetMap, HOT, Esri). Production use of the Esri and HOT tiles still warrants checking their usage policies.
 - Booking is guest-only by design: no accounts, no payment capture. Dispatch confirms the window and invoices out of band.
 - `PUBLIC_URL` must be set on the backend for tracking links to resolve to an absolute customer-facing URL.
-- `logistics-system/serve-dev.js` is for local preview only; nginx serves the same layout under Docker.
+- `logistics-system/serve-dev.js` is for local preview only; in production Vercel serves the site and Railway serves the API.

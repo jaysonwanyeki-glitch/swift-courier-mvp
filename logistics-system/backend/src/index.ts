@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // ── Database bootstrap ───────────────────────────────────────────────────
 // Resolve the data directory from the *configured* path, not __dirname, so the
-// same code works from `src/` (tsx), `dist/` (compiled) and the Docker image.
+// same code works from `src/` (tsx), `dist/` (compiled) and the deployed Node process.
 const DB_PATH = process.env.DB_PATH
   ? join(process.env.DB_PATH)
   : join(__dirname, '../../data/logistics.db');

@@ -1,5 +1,5 @@
 // Dev-only preview server: serves the repo root (customer site) and proxies
-// /api to the Express backend so the page works same-origin without Docker.
+// /api to the Express backend so the page works same-origin with no setup.
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -7,7 +7,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const API = { host: 'localhost', port: process.env.API_PORT || 4001 };
 const PORT = process.env.PORT || 3000;
-const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml' };
+const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp' };
 
 http.createServer((req, res) => {
   if (req.url.startsWith('/api')) {

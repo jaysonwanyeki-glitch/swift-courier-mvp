@@ -12,7 +12,7 @@ const node_sqlite_1 = require("node:sqlite");
 const uuid_1 = require("uuid");
 // ── Database bootstrap ───────────────────────────────────────────────────
 // Resolve the data directory from the *configured* path, not __dirname, so the
-// same code works from `src/` (tsx), `dist/` (compiled) and the Docker image.
+// same code works from `src/` (tsx), `dist/` (compiled) and the deployed Node process.
 const DB_PATH = process.env.DB_PATH
     ? (0, path_1.join)(process.env.DB_PATH)
     : (0, path_1.join)(__dirname, '../../data/logistics.db');
