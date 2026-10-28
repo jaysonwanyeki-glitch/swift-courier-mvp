@@ -19,11 +19,8 @@
   <div class="mx-auto max-w-7xl px-5 lg:px-8">
     <div class="flex h-20 items-center justify-between">
       <a href="index.html" class="group flex items-center gap-3">
-        <span class="relative grid h-11 w-11 place-items-center rounded-[14px] bg-ink text-blue-500 shadow-soft transition-transform duration-500 group-hover:-rotate-6">
-          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
-            <path d="M12 2.6 4.9 5.4v6.2c0 4.4 3 8.1 7.1 9.8 4.1-1.7 7.1-5.4 7.1-9.8V5.4L12 2.6Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
-            <path d="m8.7 12.1 2.3 2.3 4.4-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <span class="relative grid h-11 w-11 place-items-center rounded-[14px] bg-ink shadow-soft transition-transform duration-500 group-hover:-rotate-6">
+          <img src="assets/swift-mark.svg" alt="" class="h-11 w-11" width="44" height="44" />
           <span class="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-teal-light ring-2 ring-cream"></span>
         </span>
         <span class="leading-none">
@@ -73,7 +70,7 @@
 <!-- ============================== HERO ============================== -->
 <section class="relative min-h-screen flex items-end pb-16 lg:pb-24">
   <div class="hero-image-container absolute inset-0 film-grain">
-    <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=1920&q=80&auto=format&fit=crop" alt="Dramatic low-angle view of curved Art Deco building against dusk sky with street lamp silhouette" class="w-full h-full object-cover" />
+    <img src="assets/images/dispatch-logistics.jpg" alt="Modern logistics warehouse with packages ready for dispatch" class="w-full h-full object-cover" fetchpriority="high" />
   </div>
   <div class="hero-overlay absolute inset-0"></div>
 
@@ -280,6 +277,23 @@
     <!-- Rendered from the shared catalog in assets/site.js so the price shown
          on hover always comes from the server rate card. -->
     <div id="services-grid" class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
+    <div class="reveal mt-14 grid gap-4 sm:grid-cols-3" aria-label="Swift courier services in action">
+      <figure class="swift-photo-card group relative min-h-[240px] overflow-hidden rounded-[1.5rem] sm:min-h-[300px]">
+        <img src="assets/images/courier-delivery.jpg" alt="Freight truck moving goods along a regional route" loading="lazy" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#07131f]/85 via-[#07131f]/15 to-transparent"></div>
+        <figcaption class="absolute inset-x-0 bottom-0 p-6 text-white"><span class="text-[10px] font-semibold uppercase tracking-[.22em] text-blue-300">Regional delivery</span><p class="mt-2 font-display text-[22px] font-semibold">On the road, on schedule.</p></figcaption>
+      </figure>
+      <figure class="swift-photo-card group relative min-h-[240px] overflow-hidden rounded-[1.5rem] sm:min-h-[300px]">
+        <img src="assets/images/secure-parcel.jpg" alt="Carefully handled parcel secured for transport" loading="lazy" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#07131f]/85 via-[#07131f]/15 to-transparent"></div>
+        <figcaption class="absolute inset-x-0 bottom-0 p-6 text-white"><span class="text-[10px] font-semibold uppercase tracking-[.22em] text-blue-300">Careful handling</span><p class="mt-2 font-display text-[22px] font-semibold">Every parcel accounted for.</p></figcaption>
+      </figure>
+      <figure class="swift-photo-card group relative min-h-[240px] overflow-hidden rounded-[1.5rem] sm:min-h-[300px]">
+        <img src="assets/images/dispatch-logistics.jpg" alt="Organized distribution center prepared for courier dispatch" loading="lazy" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#07131f]/85 via-[#07131f]/15 to-transparent"></div>
+        <figcaption class="absolute inset-x-0 bottom-0 p-6 text-white"><span class="text-[10px] font-semibold uppercase tracking-[.22em] text-blue-300">Reliable dispatch</span><p class="mt-2 font-display text-[22px] font-semibold">Your timeline comes first.</p></figcaption>
+      </figure>
+    </div>
 
     <noscript>
       <div class="mt-10 rounded-2xl border border-ink/10 bg-cream-100 p-6 text-[14px] text-ink/65">
@@ -737,12 +751,7 @@
     <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
       <div>
         <div class="flex items-center gap-3">
-          <span class="grid h-11 w-11 place-items-center rounded-[14px] bg-ink text-blue-500">
-            <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
-              <path d="M12 2.6 4.9 5.4v6.2c0 4.4 3 8.1 7.1 9.8 4.1-1.7 7.1-5.4 7.1-9.8V5.4L12 2.6Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
-              <path d="m8.7 12.1 2.3 2.3 4.4-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
+          <span class="grid h-11 w-11 place-items-center rounded-[14px] bg-ink"><img src="assets/swift-mark.svg" alt="" class="h-11 w-11" width="44" height="44" loading="lazy" /></span>
           <span class="leading-none">
             <span class="block font-display text-[21px] font-semibold tracking-tight text-ink">Swift</span>
             <span class="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.3em] text-ink/45">Courier Service</span>

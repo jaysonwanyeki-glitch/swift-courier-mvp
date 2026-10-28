@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Track a shipment — Swift Courier Service</title>
-<meta name="description" content="Track a Swift courier run by reference number. See the full chain of custody — seal status, courier identity, geofence events and signature — and print a court-ready custody report." />
+<title>Track a shipment â€” Swift Courier Service</title>
+<meta name="description" content="Track a Swift courier run by reference number. See the full chain of custody â€” seal status, courier identity, geofence events and signature â€” and print a court-ready custody report." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -18,12 +18,7 @@
   <div class="mx-auto max-w-7xl px-5 lg:px-8">
     <div class="flex h-20 items-center justify-between">
       <a href="index.html" class="group flex items-center gap-3">
-        <span class="relative grid h-11 w-11 place-items-center rounded-[14px] bg-ink text-blue-500 shadow-soft transition-transform duration-500 group-hover:-rotate-6">
-          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
-            <path d="M12 2.6 4.9 5.4v6.2c0 4.4 3 8.1 7.1 9.8 4.1-1.7 7.1-5.4 7.1-9.8V5.4L12 2.6Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
-            <path d="m8.7 12.1 2.3 2.3 4.4-4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
+        <span class="relative grid h-11 w-11 place-items-center rounded-[14px] bg-ink shadow-soft transition-transform duration-500 group-hover:-rotate-6"><img src="assets/swift-mark.svg" alt="" class="h-11 w-11" width="44" height="44" /></span>
         <span class="leading-none">
           <span class="block font-display text-[22px] font-semibold tracking-tight text-ink">Swift</span>
           <span class="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.3em] text-ink/45">Courier Service</span>
@@ -73,7 +68,7 @@
         <div>
           <p class="text-[11.5px] font-semibold uppercase tracking-[0.24em] text-blue-400">Live tracking</p>
           <h1 class="mt-4 font-display text-[30px] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[36px]">Where is it right now?</h1>
-          <p class="mt-4 text-[15px] leading-relaxed text-cream/55">Every Swift run has a reference number. Enter it to see the full custody log — seal status, courier ID, geofence events and signature.</p>
+          <p class="mt-4 text-[15px] leading-relaxed text-cream/55">Every Swift run has a reference number. Enter it to see the full custody log â€” seal status, courier ID, geofence events and signature.</p>
           <form id="track-form" class="mt-7">
             <label for="track-input" class="sr-only">Waybill or reference number</label>
             <div class="flex flex-col gap-2.5 rounded-2xl border border-white/10 bg-white/[0.05] p-2 backdrop-blur sm:flex-row sm:items-center">
@@ -115,28 +110,28 @@
           </div>
           <div id="track-loading" class="hidden min-h-[300px] place-items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.03] text-cream/50">
             <span class="h-5 w-5 animate-spin rounded-full border-2 border-white/20 border-t-blue-300"></span>
-            <span class="text-[14px] font-medium">Pulling custody log…</span>
+            <span class="text-[14px] font-medium">Pulling custody logâ€¦</span>
           </div>
           <div id="track-card" class="hidden overflow-hidden rounded-2xl bg-cream-100 text-ink shadow-lift">
             <div class="flex flex-wrap items-center justify-between gap-3 border-b border-ink/10 px-6 py-5">
               <div>
-                <p id="tc-ref" class="font-display text-[19px] font-semibold tracking-tight text-ink">—</p>
-                <p id="tc-desc" class="mt-0.5 text-[12.5px] text-ink/50">—</p>
+                <p id="tc-ref" class="font-display text-[19px] font-semibold tracking-tight text-ink">â€”</p>
+                <p id="tc-desc" class="mt-0.5 text-[12.5px] text-ink/50">â€”</p>
               </div>
-              <span id="tc-status" class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em]">—</span>
+              <span id="tc-status" class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em]">â€”</span>
             </div>
             <div class="px-6 py-6">
               <div id="tc-timeline" class="relative space-y-5"></div>
               <div class="mt-7 grid grid-cols-2 gap-4 border-t border-ink/10 pt-5 sm:grid-cols-4">
-                <div><p class="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink/40">Courier</p><p id="tc-courier" class="mt-1.5 text-[13.5px] font-semibold text-ink">—</p></div>
-                <div><p class="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink/40">Seal no.</p><p id="tc-seal" class="mt-1.5 text-[13.5px] font-semibold text-ink">—</p></div>
-                <div><p class="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink/40">Route</p><p id="tc-route" class="mt-1.5 text-[13.5px] font-semibold text-ink">—</p></div>
-                <div><p class="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink/40">ETA</p><p id="tc-eta" class="mt-1.5 text-[13.5px] font-semibold text-blue-600">—</p></div>
+                <div><p class="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink/40">Courier</p><p id="tc-courier" class="mt-1.5 text-[13.5px] font-semibold text-ink">â€”</p></div>
+                <div><p class="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink/40">Seal no.</p><p id="tc-seal" class="mt-1.5 text-[13.5px] font-semibold text-ink">â€”</p></div>
+                <div><p class="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink/40">Route</p><p id="tc-route" class="mt-1.5 text-[13.5px] font-semibold text-ink">â€”</p></div>
+                <div><p class="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink/40">ETA</p><p id="tc-eta" class="mt-1.5 text-[13.5px] font-semibold text-blue-600">â€”</p></div>
               </div>
             </div>
             <div class="flex items-center gap-2.5 border-t border-ink/10 bg-cream-200/60 px-6 py-3.5">
               <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 text-teal"><path d="M12 3.2 5.6 5.8v5.4c0 3.9 2.7 7.2 6.4 8.7 3.7-1.5 6.4-4.8 6.4-8.7V5.8L12 3.2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="m9.3 11.6 2.1 2.1 3.9-4.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <p class="text-[12px] text-ink/55">Custody log cryptographically signed · verifiable on request</p>
+              <p class="text-[12px] text-ink/55">Custody log cryptographically signed Â· verifiable on request</p>
             </div>
           </div>
         </div>
@@ -148,7 +143,7 @@
 <footer id="site-footer" class="border-t border-ink/10 bg-cream-200/60">
   <div class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
     <div class="flex flex-col items-start justify-between gap-4 text-[13px] text-ink/50 sm:flex-row sm:items-center">
-      <p>© <span id="year">2025</span> Swift Courier Service. Licensed &amp; bonded for Kenya metro operations.</p>
+      <p>Â© <span id="year">2025</span> Swift Courier Service. Licensed &amp; bonded for Kenya metro operations.</p>
       <div class="flex gap-6">
         <a href="index.html" class="hover:text-ink transition">Home</a>
         <a href="services.html" class="hover:text-ink transition">Services</a>
