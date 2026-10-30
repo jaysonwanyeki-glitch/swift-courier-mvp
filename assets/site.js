@@ -442,6 +442,8 @@
   // ── Coverage ──────────────────────────────────────────────────────────
   function loadCoverage() {
     var host = $('coverage-areas');
+    // The map is useful even when the operations API is offline.
+    renderCoverageMap({ areas: [] });
     if (!host) return;
     apiFetch('/coverage').then(function (data) {
       if (!data || !data.areas || !data.areas.length) return;
@@ -458,7 +460,7 @@
       if (note) note.classList.remove('hidden');
       observeReveals(host);
       renderCoverageMap(data);
-    }).catch(function () { /* static coverage copy stays */ });
+    }).catch(function () { /* keep the Nairobi base map and static coverage copy */ });
   }
 
   /* Public coverage map. Free, keyless basemaps (OSM standard / OSM
@@ -501,7 +503,19 @@
     var el = $('coverage-map');
     if (!el) return;
     loadLeaflet().then(function (L) {
+      if (el._swiftCoverageMap) {
+        var existingMap = el._swiftCoverageMap;
+        (data.areas || []).forEach(function (area) {
+          var b = area.bounds || {};
+          if (b.lat_min == null || b.lat_max == null || b.lng_min == null || b.lng_max == null) return;
+          L.rectangle([[b.lat_min, b.lng_min], [b.lat_max, b.lng_max]], { color: area.color || '#1C4E80', weight: 2, fillOpacity: 0.12 })
+            .bindPopup('<strong>' + escapeHtml(area.name) + '</strong>' + (area.description ? '<br>' + escapeHtml(area.description) : ''))
+            .addTo(existingMap);
+        });
+        return;
+      }
       var map = L.map(el, { scrollWheelZoom: false }).setView(NAIROBI, 11);
+      el._swiftCoverageMap = map;
       var layers = freeBasemaps(L);
       layers.Street.addTo(map);
 
