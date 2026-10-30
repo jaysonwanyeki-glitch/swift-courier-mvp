@@ -722,7 +722,7 @@
       '<table><thead><tr><th>Stage</th><th>State</th><th>Detail</th></tr></thead><tbody>' + rows + '</tbody></table>' +
       '<footer>Every transition of possession on this run is listed above with its timestamp. This record is ' +
       'cryptographically signed at the point of capture and retained for seven years. Verify with dispatch on ' +
-      '+254 730 900 100 quoting the reference above.</footer>' +
+      '+254 793 676 054 quoting the reference above.</footer>' +
       '</body></html>'
     );
     win.document.close();
@@ -870,7 +870,7 @@
         }
       })
       .catch(function (err) {
-        showBookError(err.message || 'We could not book that run. Please call dispatch on +254 730 900 100.');
+        showBookError(err.message || 'We could not book that run. Please call dispatch on +254 793 676 054.');
       })
       .then(function () {
         btn.disabled = false;
