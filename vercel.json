@@ -2,6 +2,13 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://${RAILWAY_API_DOMAIN}/api/$1",
+      "env": ["RAILWAY_API_DOMAIN"]
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="assets/tailwind-config.js"></script>
+<link rel="icon" type="image/svg+xml" href="assets/swift-mark.svg" />
 <link rel="stylesheet" href="assets/site.css" />
 </head>
 <body id="top" class="antialiased overflow-x-hidden">
@@ -18,15 +19,8 @@
 <header id="site-header" class="header-over-hero fixed inset-x-0 top-0 z-50 transition-all duration-500">
   <div class="mx-auto max-w-7xl px-5 lg:px-8">
     <div class="flex h-20 items-center justify-between">
-      <a href="index.html" class="group flex items-center gap-3">
-        <span class="relative grid h-11 w-11 place-items-center rounded-[14px] bg-ink shadow-soft transition-transform duration-500 group-hover:-rotate-6">
-          <img src="assets/swift-mark.svg" alt="" class="h-11 w-11" width="44" height="44" />
-          <span class="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-teal-light ring-2 ring-cream"></span>
-        </span>
-        <span class="leading-none">
-          <span class="brand-word block font-display text-[22px] font-semibold tracking-tight text-ink">Swift</span>
-          <span class="brand-sub mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.3em] text-ink/45">Courier Service</span>
-        </span>
+      <a href="index.html" class="group flex min-w-0 items-center">
+        <img src="assets/swift-logo.svg" alt="Swift Courier Services" width="500" height="116" class="h-auto w-[min(52vw,250px)] sm:w-[250px] object-contain object-left transition-transform duration-300 group-hover:scale-[1.02]" fetchpriority="high" />
       </a>
       <nav class="hidden items-center gap-7 lg:flex">
         <a href="services.html" class="nav-link text-[14.5px] font-medium text-ink/70 transition">Services</a>
@@ -750,13 +744,9 @@
   <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
     <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
       <div>
-        <div class="flex items-center gap-3">
-          <span class="grid h-11 w-11 place-items-center rounded-[14px] bg-ink"><img src="assets/swift-mark.svg" alt="" class="h-11 w-11" width="44" height="44" loading="lazy" /></span>
-          <span class="leading-none">
-            <span class="block font-display text-[21px] font-semibold tracking-tight text-ink">Swift</span>
-            <span class="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.3em] text-ink/45">Courier Service</span>
-          </span>
-        </div>
+        <a href="index.html" class="inline-flex max-w-full items-center rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600" aria-label="Swift Courier Services home">
+          <img src="assets/swift-logo.svg" alt="Swift Courier Services" width="500" height="116" class="h-auto w-[min(100%,360px)] object-contain object-left" loading="lazy" />
+        </a>
         <p class="mt-6 max-w-xs text-[14.5px] leading-relaxed text-ink/55">Chain-of-custody delivery for legal documents, confidential records, and high-value goods. Licensed, bonded, and insured to KSh 50,000,000 per run.</p>
         <div class="mt-6 flex flex-wrap gap-2">
           <span class="rounded-full border border-ink/10 px-3 py-1 text-[11.5px] font-medium text-ink/55">Licence #CR-40912</span>

@@ -15,7 +15,7 @@ tailwind.config = {
           DEFAULT: '#1C4E80', dark: '#12355B', light: '#2B6CA8', soft: '#4A90C4',
           pale: '#E8F1FA', ghost: '#EAF2F9', sky: '#7FB0D8'
         },
-        gold: { 50: '#FBF3E4', 100: '#F6E7C7', 200: '#ECD49B', 300: '#DDB66A', 400: '#D0A046', 500: '#C08A2E', 600: '#A06E22', 700: '#7C551A', DEFAULT: '#C08A2E', dark: '#7C551A', light: '#DDB66A' },
+        gold: { 50: '#FFF5EC', 100: '#FFE6D2', 200: '#FFD0A8', 300: '#FFB375', 400: '#F99546', 500: '#E96A14', 600: '#C9500D', 700: '#9F390D', DEFAULT: '#E96A14', dark: '#9F390D', light: '#FFB375' },
         teal: { DEFAULT: '#0E7C6B', light: '#17A78E' },
         dusk: { DEFAULT: '#5A7A8F', light: '#8BA8B8', dark: '#3A5566' }
       },

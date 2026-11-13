@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const API = { host: 'localhost', port: process.env.API_PORT || 4001 };
+const API = { host: 'localhost', port: process.env.API_PORT || 4000 };
 const PORT = process.env.PORT || 3000;
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp' };
 

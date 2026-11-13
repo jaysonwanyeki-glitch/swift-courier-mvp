@@ -11,7 +11,9 @@ import { v4 as uuidv4 } from 'uuid';
 // same code works from `src/` (tsx), `dist/` (compiled) and the deployed Node process.
 const DB_PATH = process.env.DB_PATH
   ? join(process.env.DB_PATH)
-  : join(__dirname, '../../data/logistics.db');
+  : process.env.RAILWAY_VOLUME_MOUNT_PATH
+    ? join(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'logistics.db')
+    : join(__dirname, '../../data/logistics.db');
 
 mkdirSync(dirname(DB_PATH), { recursive: true });
 
@@ -393,7 +395,16 @@ const computeQuote = (req: QuoteRequest) => {
 const app = express();
 
 app.set('trust proxy', 1);
-app.use(cors());
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(null, false);
+  },
+}));
 app.use(express.json({ limit: '64kb' }));
 
 const limiter = rateLimit({

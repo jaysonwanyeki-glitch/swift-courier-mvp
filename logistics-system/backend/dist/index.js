@@ -15,7 +15,9 @@ const uuid_1 = require("uuid");
 // same code works from `src/` (tsx), `dist/` (compiled) and the deployed Node process.
 const DB_PATH = process.env.DB_PATH
     ? (0, path_1.join)(process.env.DB_PATH)
-    : (0, path_1.join)(__dirname, '../../data/logistics.db');
+    : process.env.RAILWAY_VOLUME_MOUNT_PATH
+        ? (0, path_1.join)(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'logistics.db')
+        : (0, path_1.join)(__dirname, '../../data/logistics.db');
 (0, fs_1.mkdirSync)((0, path_1.dirname)(DB_PATH), { recursive: true });
 const db = new node_sqlite_1.DatabaseSync(DB_PATH);
 db.exec('PRAGMA journal_mode = WAL');
@@ -349,7 +351,17 @@ const computeQuote = (req) => {
 // ── App ──────────────────────────────────────────────────────────────────
 const app = (0, express_1.default)();
 app.set('trust proxy', 1);
-app.use((0, cors_1.default)());
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+app.use((0, cors_1.default)({
+    origin(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin))
+            return callback(null, true);
+        return callback(null, false);
+    },
+}));
 app.use(express_1.default.json({ limit: '64kb' }));
 const limiter = (0, express_rate_limit_1.default)({
     windowMs: Number(process.env.RATE_LIMIT_WINDOW_MS || 15 * 60 * 1000),
