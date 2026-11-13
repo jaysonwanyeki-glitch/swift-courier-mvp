@@ -1128,15 +1128,29 @@
   // ══════════════════════════════════════════════════════════════════════
   async function renderDashboard() {
     try {
+      let revenueError = false;
       const [vehicles, drivers, shipments, orders, revenue] = await Promise.all([
         api('/api/vehicles'),
         api('/api/drivers'),
         api('/api/shipments/active'),
         api('/api/orders?limit=200').catch(() => []),
-        api('/api/revenue/summary').catch(() => ({}))
+        api('/api/revenue/summary').catch(() => { revenueError = true; return {}; })
       ]);
       setApiStatus(true);
-      
+      const revenueOk = !revenueError;
+      if (!revenueOk) {
+        $('#kpi-total-revenue').textContent = '—';
+        $('#kpi-avg-order').textContent = '—';
+        $('#kpi-orders-today').textContent = '0';
+        $('#kpi-delivered-today').textContent = '0';
+        $('#kpi-growth').textContent = '0%';
+        $('#kpi-subs').textContent = '0';
+        $('#kpi-churn').textContent = '0%';
+        $('#kpi-tier').textContent = '—';
+        $('#kpi-uptime').textContent = '100%';
+        toast('Unable to load revenue data', 'error');
+      }
+
       // Revenue analytics KPIs
       const r = revenue || {};
       $('#kpi-total-revenue').textContent = formatCurrency(r.total_revenue || 0);
