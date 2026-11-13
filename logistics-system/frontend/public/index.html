@@ -511,7 +511,12 @@
     text.textContent = ok ? 'api online' : 'api offline';
   }
 
-  // ══════════════════════════════════════════════════════════════════════
+  function formatCurrency(amount) {
+    const num = Number(amount) || 0;
+    return num.toLocaleString('en-KE', { style: 'currency', currency: 'KES' });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
   //  MAP — Leaflet over free OpenStreetMap / HOT / Esri basemaps
   // ══════════════════════════════════════════════════════════════════════
   const map = {};
@@ -755,7 +760,12 @@
     }
   }
 
-  // ══════════════════════════════════════════════════════════════════════
+  function formatCurrency(amount) {
+    const num = Number(amount) || 0;
+    return num.toLocaleString('en-KE', { style: 'currency', currency: 'KES' });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
   //  RENDER: Vehicles & drivers
   // ══════════════════════════════════════════════════════════════════════
   async function renderVehicles() {
@@ -816,7 +826,12 @@
     }
   }
 
-  // ══════════════════════════════════════════════════════════════════════
+  function formatCurrency(amount) {
+    const num = Number(amount) || 0;
+    return num.toLocaleString('en-KE', { style: 'currency', currency: 'KES' });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
   //  RENDER: Kanban with drag-and-drop
   // ══════════════════════════════════════════════════════════════════════
   // Column keys MUST match the markup (#col-<key> / #count-<key>). A mismatch
@@ -931,7 +946,12 @@
     });
   }
 
-  // ══════════════════════════════════════════════════════════════════════
+  function formatCurrency(amount) {
+    const num = Number(amount) || 0;
+    return num.toLocaleString('en-KE', { style: 'currency', currency: 'KES' });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
   //  RENDER: Order detail drawer
   // ══════════════════════════════════════════════════════════════════════
   async function openDrawer(orderId) {
@@ -1039,7 +1059,12 @@
     $('#drawer-scrim').classList.remove('open');
   }
 
-  // ══════════════════════════════════════════════════════════════════════
+  function formatCurrency(amount) {
+    const num = Number(amount) || 0;
+    return num.toLocaleString('en-KE', { style: 'currency', currency: 'KES' });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
   //  RENDER: Areas & zones
   // ══════════════════════════════════════════════════════════════════════
   async function renderAreas() {
@@ -1103,13 +1128,26 @@
   // ══════════════════════════════════════════════════════════════════════
   async function renderDashboard() {
     try {
-      const [vehicles, drivers, shipments, orders] = await Promise.all([
+      const [vehicles, drivers, shipments, orders, revenue] = await Promise.all([
         api('/api/vehicles'),
         api('/api/drivers'),
         api('/api/shipments/active'),
-        api('/api/orders?limit=200').catch(() => [])
+        api('/api/orders?limit=200').catch(() => []),
+        api('/api/revenue/summary').catch(() => ({}))
       ]);
       setApiStatus(true);
+      
+      // Revenue analytics KPIs
+      const r = revenue || {};
+      $('#kpi-total-revenue').textContent = formatCurrency(r.total_revenue || 0);
+      $('#kpi-avg-order').textContent = formatCurrency(r.avg_order_value || 0);
+      $('#kpi-orders-today').textContent = r.orders_today || 0;
+      $('#kpi-delivered-today').textContent = r.delivered_today || 0;
+      $('#kpi-growth').textContent = ((r.monthly_growth || 0) * 100).toFixed(1) + '%';
+      $('#kpi-subs').textContent = r.active_subscriptions || 0;
+      $('#kpi-churn').textContent = ((r.churn_rate || 0) * 100).toFixed(1) + '%';
+      $('#kpi-tier').textContent = r.top_tier || '—';
+      $('#kpi-uptime').textContent = ((r.api_uptime || 0) * 100).toFixed(0) + '%';
 
       const onRoad = (vehicles || []).filter(v => ['on_road', 'out_for_delivery'].includes(v.status)).length;
       $('#kpi-cars').textContent = (vehicles || []).length;
@@ -1151,7 +1189,12 @@
     }
   }
 
-  // ══════════════════════════════════════════════════════════════════════
+  function formatCurrency(amount) {
+    const num = Number(amount) || 0;
+    return num.toLocaleString('en-KE', { style: 'currency', currency: 'KES' });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
   //  Events
   // ══════════════════════════════════════════════════════════════════════
   $('#btn-add-vehicle').addEventListener('click', async () => {
