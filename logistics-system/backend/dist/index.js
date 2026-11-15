@@ -382,6 +382,66 @@ app.get('/api/health', handle((_req, res) => {
     const { count } = db.prepare('SELECT COUNT(*) AS count FROM orders').get();
     res.json({ status: 'ok', service: 'swift-logistics-api', orders: count, timestamp: now() });
 }));
+// ── Revenue analytics ─────────────────────────────────────────────────────────
+app.get('/api/revenue/summary', handle((_req, res) => {
+    const rows = db.prepare('SELECT price_quote FROM orders WHERE price_quote IS NOT NULL').all();
+    const totalRevenue = rows.reduce((sum, row) => {
+        const quote = JSON.parse(row.price_quote);
+        return sum + (quote?.total ?? 0);
+    }, 0);
+    const totalOrders = rows.length;
+    const avgOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+    const delivered = db.prepare('SELECT COUNT(*) AS count FROM orders WHERE status = ?').get('delivered');
+    const deliveredCount = delivered?.count ?? 0;
+    const deliveredRevenueRows = db.prepare('SELECT price_quote FROM orders WHERE status = ? AND price_quote IS NOT NULL').all('delivered');
+    const deliveredRevenue = deliveredRevenueRows.reduce((sum, row) => {
+        const quote = JSON.parse(row.price_quote);
+        return sum + (quote?.total ?? 0);
+    }, 0);
+    res.json({
+        total_revenue: totalRevenue,
+        total_orders: totalOrders,
+        average_order_value: avgOrderValue,
+        delivered_orders: deliveredCount,
+        delivered_revenue: deliveredRevenue,
+        currency: 'KES'
+    });
+}));
+app.get('/api/revenue/orders', handle((req, res) => {
+    const query = req.query;
+    const { status: qStatus = '', limit: qLimit = '100', offset: qOffset = '0' } = query;
+    const maxLimit = Math.min(Math.max(parseInt(String(qLimit), 10) || 100, 1), 1000);
+    const startOffset = Math.max(parseInt(String(qOffset), 10) || 0, 0);
+    const where = [];
+    const params = [];
+    if (qStatus && qStatus !== 'all') {
+        where.push('status = ?');
+        params.push(String(qStatus));
+    }
+    const sql = 'SELECT id, reference, status, created_at, price_quote FROM orders' +
+        (where.length ? ` WHERE ${where.join(' AND ')}` : '') +
+        ' ORDER BY created_at DESC LIMIT ? OFFSET ?';
+    const rows = db.prepare(sql).all(...params, maxLimit, startOffset);
+    const orders = rows.map((row) => {
+        let quote = null;
+        try {
+            // @ts-ignore - JSON.parse returns unknown, we handle it with null check below
+            quote = JSON.parse(row.price_quote);
+        }
+        catch (e) {
+            quote = null;
+        }
+        return {
+            id: row.id,
+            reference: row.reference,
+            status: row.status,
+            created_at: row.created_at,
+            quote_total: quote?.total ?? 0,
+            quote_currency: quote?.currency ?? 'KES'
+        };
+    });
+    res.json(orders);
+}));
 // ── Vehicles ─────────────────────────────────────────────────────────────
 app.get('/api/vehicles', handle((_req, res) => {
     res.json(db.prepare('SELECT * FROM vehicles ORDER BY last_updated DESC').all());
