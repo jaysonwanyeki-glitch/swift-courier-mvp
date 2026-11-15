@@ -15,6 +15,9 @@
   --blue-dark: #12355B;
   --blue-light: #2B6CA8;
   --blue-soft: #4A90C4;
+  --indigo-soft: #818CF8;
+  --moss-green: #6B7A5C;
+  --ultra-pink: #EC4899;
 }
 
 html { -webkit-font-smoothing: antialiased; }

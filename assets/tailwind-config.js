@@ -17,8 +17,13 @@ tailwind.config = {
         },
         gold: { 50: '#FFF5EC', 100: '#FFE6D2', 200: '#FFD0A8', 300: '#FFB375', 400: '#F99546', 500: '#E96A14', 600: '#C9500D', 700: '#9F390D', DEFAULT: '#E96A14', dark: '#9F390D', light: '#FFB375' },
         teal: { DEFAULT: '#0E7C6B', light: '#17A78E' },
-        dusk: { DEFAULT: '#5A7A8F', light: '#8BA8B8', dark: '#3A5566' }
-      },
+        dusk: { DEFAULT: '#5A7A8F', light: '#8BA8B8', dark: '#3A5566' },
+        indigo: { DEFAULT: '#4F46E5', soft: '#818CF8', moss: '#6B7A5C', pale: '#EFD6C1', ultra: '#EC4899' }
+      ]
+    }
+  }
+}
+}
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['Fraunces', 'ui-serif', 'Georgia', 'serif']
