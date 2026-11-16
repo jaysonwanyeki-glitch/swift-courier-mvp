@@ -185,18 +185,18 @@
     var featured = tier.key === 'priority';
     var bullets = (tier.features || []).map(function (f) {
       var tick = featured
-        ? '<span class="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-blue-600 text-ink">' + CHECK + '</span>'
-        : '<span class="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-teal/15 text-teal">' + CHECK + '</span>';
+        ? '<span class="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-indigo-600 text-ink">' + CHECK + '</span>'
+        : '<span class="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-moss/15 text-moss">' + CHECK + '</span>';
       return '<li class="flex items-start gap-3">' + tick + escapeHtml(f) + '</li>';
     }).join('');
 
     var badge = featured
-      ? '<span class="rounded-full bg-blue-600 px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.12em] text-ink">Most chosen</span>'
+      ? '<span class="rounded-full bg-indigo-600 px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.12em] text-ink">Most chosen</span>'
       : '';
 
     var head = featured
-      ? '<p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-300">' + escapeHtml(tier.name) + '</p>'
-      : '<span class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-blue-600">' + escapeHtml(tier.name) + '</span>';
+      ? '<p class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-indigo-300">' + escapeHtml(tier.name) + '</p>'
+      : '<span class="text-[11.5px] font-semibold uppercase tracking-[0.2em] text-indigo-600">' + escapeHtml(tier.name) + '</span>';
 
     var price = featured
       ? '<div class="relative mt-5 flex items-end gap-2"><span class="font-display text-[40px] font-semibold leading-none">' + formatKsh(tier.base_fee) + '</span><span class="pb-1 text-[13.5px] font-medium text-cream/45">from</span></div>'
@@ -210,7 +210,7 @@
                        : 'mt-7 space-y-3.5 text-[14.5px] text-ink/70';
 
     var cta = featured
-      ? '<button type="button" data-pick="' + escapeHtml(tier.key) + '" class="relative mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3.5 font-semibold text-ink transition hover:bg-blue-500">Book ' + escapeHtml(tier.name) + ' <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
+      ? '<button type="button" data-pick="' + escapeHtml(tier.key) + '" class="relative mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full bg-indigo-600 px-6 py-3.5 font-semibold text-ink transition hover:bg-indigo-500">Book ' + escapeHtml(tier.name) + ' <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
       : '<button type="button" data-pick="' + escapeHtml(tier.key) + '" class="mt-9 inline-flex w-full items-center justify-center rounded-full border border-ink/15 px-6 py-3.5 text-[14.5px] font-semibold text-ink transition hover:border-ink/35 hover:bg-cream-200/60">Choose ' + escapeHtml(tier.name) + '</button>';
 
     var shell = featured
@@ -218,7 +218,7 @@
       : 'card-hover flex h-full flex-col rounded-[1.6rem] border border-ink/10 bg-cream-100 p-8';
 
     var inner = featured
-      ? '<div class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-blue-500/22 blur-3xl"></div><div class="noise pointer-events-none absolute inset-0 opacity-[0.06]"></div>'
+      ? '<div class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-indigo-500/22 blur-3xl"></div><div class="noise pointer-events-none absolute inset-0 opacity-[0.06]"></div>'
       : '';
 
     return '<div class="' + shell + '" style="transition-delay:' + (index * 0.07) + 's">' + inner +
@@ -337,11 +337,11 @@
     '<article class="service-card card-hover reveal group relative flex flex-col overflow-hidden rounded-[1.5rem] ' +
       (dark ? 'bg-ink text-cream' : 'border border-ink/10 bg-cream-100') + ' p-7" style="transition-delay:' + (i % 3 * 0.06) + 's">' +
       (dark
-        ? '<div class="pointer-events-none absolute -right-14 -top-14 h-44 w-44 rounded-full bg-blue-500/20 blur-3xl"></div><div class="noise pointer-events-none absolute inset-0 opacity-[0.06]"></div>'
-        : '<div class="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-blue-600/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"></div>') +
+        ? '<div class="pointer-events-none absolute -right-14 -top-14 h-44 w-44 rounded-full bg-indigo-500/20 blur-3xl"></div><div class="noise pointer-events-none absolute inset-0 opacity-[0.06]"></div>'
+        : '<div class="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-indigo-600/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"></div>') +
       '<a href="services.html#' + svc.slug + '" class="' + (dark ? 'relative' : '') + ' block">' +
         '<span class="relative grid h-12 w-12 place-items-center rounded-2xl shadow-soft ' +
-          (dark ? 'bg-blue-600 text-ink' : 'bg-ink text-blue-500') + '">' +
+          (dark ? 'bg-indigo-600 text-ink' : 'bg-ink text-indigo-500') + '">' +
           '<svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">' + svc.icon + '</svg>' +
         '</span>' +
         '<h3 class="relative mt-6 font-display text-[21px] font-semibold tracking-tight ' + (dark ? '' : 'text-ink') + '">' + escapeHtml(svc.name) + '</h3>' +
@@ -354,14 +354,14 @@
         '<div class="quickbook-inner pt-5">' +
           '<div class="flex items-end justify-between gap-3 border-t ' + (dark ? 'border-white/12' : 'border-ink/10') + ' pt-4">' +
             '<div>' +
-              '<p class="text-[10.5px] font-semibold uppercase tracking-[0.16em] ' + (dark ? 'text-blue-300' : 'text-blue-600') + '" data-qb-tier-label>—</p>' +
+              '<p class="text-[10.5px] font-semibold uppercase tracking-[0.16em] ' + (dark ? 'text-indigo-300' : 'text-indigo-600') + '" data-qb-tier-label>—</p>' +
               '<p class="mt-1 font-display text-[22px] font-semibold leading-none ' + (dark ? 'text-cream' : 'text-ink') + '" data-qb-price>from —</p>' +
             '</div>' +
             '<p class="pb-0.5 text-[11.5px] ' + (dark ? 'text-cream/45' : 'text-ink/45') + '" data-qb-eta></p>' +
           '</div>' +
           '<a href="book.html?tier=' + encodeURIComponent(svc.tier) + '&service=' + encodeURIComponent(svc.slug) + '"' +
             ' class="group/qb mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-[14px] font-semibold transition ' +
-            (dark ? 'bg-blue-600 text-ink hover:bg-blue-500' : 'bg-ink text-cream hover:bg-ink-700') + '">' +
+            (dark ? 'bg-indigo-600 text-ink hover:bg-indigo-500' : 'bg-ink text-cream hover:bg-ink-700') + '">' +
             'Book this service' +
             '<svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5 transition-transform duration-300 group-hover/qb:translate-x-1"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
           '</a>' +
@@ -402,20 +402,20 @@
     host.innerHTML = SERVICES.map(function (svc, i) {
       var tier = findTier(svc.tier);
       var items = (svc.items || []).map(function (item) {
-        return '<li class="flex items-start gap-2.5 text-[14px] text-ink/65"><span class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-teal/15 text-teal">' + CHECK + '</span>' + escapeHtml(item) + '</li>';
+        return '<li class="flex items-start gap-2.5 text-[14px] text-ink/65"><span class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-moss/15 text-moss">' + CHECK + '</span>' + escapeHtml(item) + '</li>';
       }).join('');
       return '' +
       '<section id="' + svc.slug + '" class="reveal scroll-mt-28 border-t border-ink/10 py-12 first:border-t-0 first:pt-0" style="transition-delay:' + (i % 3 * 0.05) + 's">' +
         '<div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">' +
           '<div>' +
-            '<span class="grid h-12 w-12 place-items-center rounded-2xl bg-ink text-blue-500 shadow-soft"><svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">' + svc.icon + '</svg></span>' +
+            '<span class="grid h-12 w-12 place-items-center rounded-2xl bg-ink text-indigo-500 shadow-soft"><svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">' + svc.icon + '</svg></span>' +
             '<h2 class="mt-5 font-display text-[27px] font-semibold tracking-tight text-ink sm:text-[32px]">' + escapeHtml(svc.name) + '</h2>' +
             '<p class="mt-3 text-[15.5px] leading-relaxed text-ink/60">' + escapeHtml(svc.short) + '</p>' +
             '<div class="mt-6 rounded-2xl border border-ink/10 bg-cream-100 p-5">' +
-              '<p class="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-blue-600">Typical tier</p>' +
+              '<p class="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-indigo-600">Typical tier</p>' +
               '<p class="mt-1.5 font-display text-[22px] font-semibold text-ink">' + escapeHtml(tier.name) + '</p>' +
               '<p class="mt-1 text-[13px] text-ink/50">from ' + formatKsh(tier.base_fee) + ' · then ' + formatKsh(tier.per_kg) + '/kg · ' + escapeHtml(tier.eta) + '</p>' +
-              '<a href="book.html?tier=' + encodeURIComponent(svc.tier) + '&service=' + encodeURIComponent(svc.slug) + '" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-[14px] font-semibold text-ink transition hover:bg-blue-500">Book ' + escapeHtml(svc.name) + '</a>' +
+              '<a href="book.html?tier=' + encodeURIComponent(svc.tier) + '&service=' + encodeURIComponent(svc.slug) + '" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-indigo-600 px-5 py-3 text-[14px] font-semibold text-ink transition hover:bg-indigo-500">Book ' + escapeHtml(svc.name) + '</a>' +
             '</div>' +
           '</div>' +
           '<div>' +
@@ -433,7 +433,7 @@
     var host = $('service-chips');
     if (!host) return;
     host.innerHTML = SERVICES.map(function (svc) {
-      return '<a href="services.html#' + svc.slug + '" class="inline-flex items-center gap-2 rounded-full border border-ink/12 bg-cream-100 px-4 py-2 text-[13px] font-medium text-ink/70 transition hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700">' +
+      return '<a href="services.html#' + svc.slug + '" class="inline-flex items-center gap-2 rounded-full border border-ink/12 bg-cream-100 px-4 py-2 text-[13px] font-medium text-ink/70 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700">' +
         '<svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5"><path d="M5 12h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
         escapeHtml(svc.name) + '</a>';
     }).join('');
@@ -449,7 +449,7 @@
       if (!data || !data.areas || !data.areas.length) return;
       host.innerHTML = data.areas.map(function (area, i) {
         return '<div class="reveal card-hover rounded-2xl border border-ink/10 bg-cream-100 p-6" style="transition-delay:' + (i * 0.06) + 's">' +
-          '<span class="inline-block h-2.5 w-2.5 rounded-full" style="background:' + escapeHtml(area.color || '#1C4E80') + '"></span>' +
+          '<span class="inline-block h-2.5 w-2.5 rounded-full" style="background:' + escapeHtml(area.color || '#4F46E5') + '"></span>' +
           '<p class="mt-4 font-display text-[19px] font-semibold text-ink">' + escapeHtml(area.name) + '</p>' +
           (area.description ? '<p class="mt-2 text-[13.5px] leading-relaxed text-ink/55">' + escapeHtml(area.description) + '</p>' : '') +
           '</div>';
@@ -508,7 +508,7 @@
         (data.areas || []).forEach(function (area) {
           var b = area.bounds || {};
           if (b.lat_min == null || b.lat_max == null || b.lng_min == null || b.lng_max == null) return;
-          L.rectangle([[b.lat_min, b.lng_min], [b.lat_max, b.lng_max]], { color: area.color || '#1C4E80', weight: 2, fillOpacity: 0.12 })
+          L.rectangle([[b.lat_min, b.lng_min], [b.lat_max, b.lng_max]], { color: area.color || '#4F46E5', weight: 2, fillOpacity: 0.12 })
             .bindPopup('<strong>' + escapeHtml(area.name) + '</strong>' + (area.description ? '<br>' + escapeHtml(area.description) : ''))
             .addTo(existingMap);
         });
@@ -527,7 +527,7 @@
         var b = area.bounds || {};
         if (b.lat_min == null || b.lat_max == null || b.lng_min == null || b.lng_max == null) return;
         var bounds = [[b.lat_min, b.lng_min], [b.lat_max, b.lng_max]];
-        L.rectangle(bounds, { color: area.color || '#1C4E80', weight: 2, fillOpacity: 0.12 })
+        L.rectangle(bounds, { color: area.color || '#4F46E5', weight: 2, fillOpacity: 0.12 })
           .bindPopup('<strong>' + escapeHtml(area.name) + '</strong>' + (area.description ? '<br>' + escapeHtml(area.description) : ''))
           .addTo(map);
       });
@@ -542,7 +542,7 @@
   }
 
   // ── Tracking ──────────────────────────────────────────────────────────
-  var STATUS_STYLES = { live: 'bg-blue-600/15 text-blue-700', done: 'bg-teal/12 text-teal', warn: 'bg-red-500/15 text-red-700' };
+  var STATUS_STYLES = { live: 'bg-indigo-600/15 text-indigo-700', done: 'bg-moss/12 text-moss', warn: 'bg-red-500/15 text-red-700' };
   var TRACK_CACHE = {};
 
   function setTrackError(msg) {
@@ -595,16 +595,16 @@
 
     var timeline = $('tc-timeline');
     if (timeline) {
-      timeline.innerHTML = '<div class="timeline-track" style="background:linear-gradient(to bottom, rgba(14,124,107,.9), rgba(14,124,107,.2))"></div>' +
+      timeline.innerHTML = '<div class="timeline-track" style="background:linear-gradient(to bottom, rgba(107,122,92,.9), rgba(107,122,92,.2))"></div>' +
         (data.timeline || []).map(function (s) {
           var dot, titleClass, subClass;
           if (s.state === 'done') {
-            dot = '<span class="relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-teal text-white ring-4 ring-cream-100"><svg viewBox="0 0 24 24" fill="none" class="h-3 w-3"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+            dot = '<span class="relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-moss text-white ring-4 ring-cream-100"><svg viewBox="0 0 24 24" fill="none" class="h-3 w-3"><path d="m5 12.5 4 4 10-10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
             titleClass = 'text-[13.5px] font-semibold text-ink';
             subClass = 'text-[11.5px] text-ink/45';
           } else if (s.state === 'active') {
-            dot = '<span class="pulse-ring relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-blue-600 ring-4 ring-cream-100"><span class="h-2 w-2 rounded-full bg-ink"></span></span>';
-            titleClass = 'text-[13.5px] font-semibold text-blue-700';
+            dot = '<span class="pulse-ring relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-indigo-600 ring-4 ring-cream-100"><span class="h-2 w-2 rounded-full bg-ink"></span></span>';
+            titleClass = 'text-[13.5px] font-semibold text-indigo-700';
             subClass = 'text-[11.5px] text-ink/50';
           } else {
             dot = '<span class="relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-ink/12 bg-cream-100 ring-4 ring-cream-100"><span class="h-1.5 w-1.5 rounded-full bg-ink/20"></span></span>';
@@ -662,7 +662,7 @@
       if (!data || !data.references || !data.references.length) return;
       host.innerHTML = '<span class="text-[12px] text-cream/40">Try a live reference:</span>' +
         data.references.map(function (ref) {
-          return '<button type="button" data-demo="' + escapeHtml(ref) + '" class="demo-chip rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 font-mono text-[11.5px] font-medium text-cream/65 transition hover:border-gold/50 hover:text-blue-300">' + escapeHtml(ref) + '</button>';
+          return '<button type="button" data-demo="' + escapeHtml(ref) + '" class="demo-chip rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 font-mono text-[11.5px] font-medium text-cream/65 transition hover:border-ultra-pink/50 hover:text-indigo-300">' + escapeHtml(ref) + '</button>';
         }).join('');
       host.classList.remove('hidden');
       host.classList.add('flex');
@@ -738,7 +738,7 @@
     host.innerHTML = TIER_STATE.tiers.map(function (tier) {
       var active = tier.key === current;
       return '<button type="button" data-tier="' + escapeHtml(tier.key) + '" class="tier-btn rounded-xl border px-3 py-2.5 text-left transition ' +
-        (active ? 'border-blue-400 bg-blue-600/25 text-cream' : 'border-white/12 bg-white/[0.04] text-cream/60 hover:border-white/30') + '">' +
+        (active ? 'border-indigo-400 bg-indigo-600/25 text-cream' : 'border-white/12 bg-white/[0.04] text-cream/60 hover:border-white/30') + '">' +
         '<span class="block text-[13px] font-semibold">' + escapeHtml(tier.name) + '</span>' +
         '<span class="mt-0.5 block text-[11px] opacity-70">' + escapeHtml(tier.eta) + '</span>' +
         '</button>';
@@ -757,7 +757,7 @@
     host.querySelectorAll('.tier-btn').forEach(function (btn) {
       var active = btn.getAttribute('data-tier') === key;
       btn.className = 'tier-btn rounded-xl border px-3 py-2.5 text-left transition ' +
-        (active ? 'border-blue-400 bg-blue-600/25 text-cream' : 'border-white/12 bg-white/[0.04] text-cream/60 hover:border-white/30');
+        (active ? 'border-indigo-400 bg-indigo-600/25 text-cream' : 'border-white/12 bg-white/[0.04] text-cream/60 hover:border-white/30');
     });
     refreshQuote();
   }
@@ -787,7 +787,7 @@
         lines.innerHTML = quote.lines.map(function (l) {
           return '<div class="flex items-baseline justify-between gap-4"><span>' + escapeHtml(l.label) + '</span><span class="font-medium text-cream/85">' + formatKsh(l.amount) + '</span></div>';
         }).join('') +
-          (quote.cover_note ? '<p class="pt-1 text-[12px] text-gold-light">' + escapeHtml(quote.cover_note) + '</p>' : '');
+          (quote.cover_note ? '<p class="pt-1 text-[12px] text-ultra-pink-light">' + escapeHtml(quote.cover_note) + '</p>' : '');
       }
       if (total) total.textContent = formatKsh(quote.total);
       if (state) state.textContent = quote.service_name + ' · ' + quote.eta;

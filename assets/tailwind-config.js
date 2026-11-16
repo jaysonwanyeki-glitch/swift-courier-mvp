@@ -1,29 +1,22 @@
-/* Swift Courier Service — Tailwind theme config.
-   Kept separate from site.js so each page can load it immediately after the
-   Tailwind CDN script and before any markup is parsed. */
+/* Swift Courier Services brand tokens and Tailwind theme. */
 tailwind.config = {
   theme: {
     extend: {
       colors: {
         ink: { DEFAULT: '#0B1B2B', 900: '#07131F', 800: '#12293F', 700: '#1B3A56', 600: '#2C506F', 400: '#5B7691' },
         cream: { DEFAULT: '#F7F4EF', 50: '#FFFDF9', 100: '#FDFCFA', 200: '#EFEAE1', 300: '#E2DACD' },
-        // The numeric scale was missing, so every bg-blue-500 / text-blue-300 /
-        // blue-100 reference in the markup silently rendered as no colour.
         blue: {
-          50: '#F1F6FB', 100: '#E2EDF7', 200: '#C5DCEF', 300: '#8FBCE0', 400: '#5A97CB',
-          500: '#2B6CA8', 600: '#1C4E80', 700: '#164062', 800: '#12355B', 900: '#0C2540',
-          DEFAULT: '#1C4E80', dark: '#12355B', light: '#2B6CA8', soft: '#4A90C4',
-          pale: '#E8F1FA', ghost: '#EAF2F9', sky: '#7FB0D8'
+          50: '#EEF2FF', 100: '#E0E7FF', 200: '#C7D2FE', 300: '#A5B4FC', 400: '#818CF8',
+          500: '#6366F1', 600: '#4F46E5', 700: '#4338CA', 800: '#3730A3', 900: '#312E81',
+          DEFAULT: '#4F46E5', dark: '#4338CA', light: '#6366F1', soft: '#818CF8', pale: '#EEF2FF', ghost: '#EEF2FF', sky: '#A5B4FC'
         },
-        gold: { 50: '#FFF5EC', 100: '#FFE6D2', 200: '#FFD0A8', 300: '#FFB375', 400: '#F99546', 500: '#E96A14', 600: '#C9500D', 700: '#9F390D', DEFAULT: '#E96A14', dark: '#9F390D', light: '#FFB375' },
-        teal: { DEFAULT: '#0E7C6B', light: '#17A78E' },
-        dusk: { DEFAULT: '#5A7A8F', light: '#8BA8B8', dark: '#3A5566' },
-        indigo: { DEFAULT: '#4F46E5', soft: '#818CF8', moss: '#6B7A5C', pale: '#EFD6C1', ultra: '#EC4899' }
-      ]
-    }
-  }
-}
-}
+        indigo: { 50: '#EEF2FF', 100: '#E0E7FF', 200: '#C7D2FE', 300: '#A5B4FC', 400: '#818CF8', 500: '#6366F1', 600: '#4F46E5', 700: '#4338CA', 800: '#3730A3', 900: '#312E81', DEFAULT: '#4F46E5', soft: '#818CF8' },
+        moss: { 50: '#F3F4F0', 100: '#E5E7DF', 200: '#CDD1C2', 300: '#B3B9A4', 400: '#969F83', 500: '#7F8C6C', 600: '#6B7A5C', 700: '#566348', DEFAULT: '#6B7A5C' },
+        'ultra-pink': { 50: '#FDF2F8', 100: '#FCE7F3', 200: '#FBCFE8', 300: '#F9A8D4', 400: '#F472B6', 500: '#EC4899', 600: '#DB2777', 700: '#BE185D', DEFAULT: '#EC4899' },
+        gold: { 50: '#FDF2F8', 100: '#FCE7F3', 200: '#FBCFE8', 300: '#F9A8D4', 400: '#F472B6', 500: '#EC4899', 600: '#DB2777', 700: '#BE185D', DEFAULT: '#EC4899', dark: '#BE185D', light: '#F9A8D4' },
+        teal: { DEFAULT: '#6B7A5C', light: '#7F8C6C' },
+        dusk: { DEFAULT: '#5A7A8F', light: '#8BA8B8', dark: '#3A5566' }
+      },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['Fraunces', 'ui-serif', 'Georgia', 'serif']
