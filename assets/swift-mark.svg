@@ -1,23 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" role="img" aria-labelledby="title desc">
-  <title id="title">Swift courier emblem</title>
-  <desc id="desc">A streamlined orange courier scooter carrying a parcel in front of a simple tracking-phone shape.</desc>
-  <defs>
-    <linearGradient id="orange" x1="53" y1="43" x2="80" y2="79" gradientUnits="userSpaceOnUse"><stop stop-color="#818CF8"/><stop offset="1" stop-color="#4F46E5"/></linearGradient>
-  </defs>
-  <rect x="2" y="2" width="92" height="92" rx="25" fill="#102A3D"/>
-  <rect x="17" y="13" width="37" height="69" rx="9" transform="rotate(-6 17 13)" fill="#EEF2FF" stroke="#FFF3D1" stroke-width="2.5"/>
-  <path d="M31 21h10" stroke="#17344A" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="m28 34 4 4 8-9" stroke="#6B7A5C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M50 73h34" stroke="#C9D8DC" stroke-width="2.7" stroke-linecap="round"/>
-  <circle cx="57" cy="74" r="8" fill="#102A3D" stroke="#F4F6F2" stroke-width="2.5"/>
-  <circle cx="57" cy="74" r="3" fill="#AFC1C9"/>
-  <circle cx="81" cy="74" r="7" fill="#102A3D" stroke="#F4F6F2" stroke-width="2.5"/>
-  <circle cx="81" cy="74" r="2.5" fill="#AFC1C9"/>
-  <path d="M50 64c2-9 8-15 18-17h8l9 10-4 7-12 4H58l-8-4Z" fill="url(#orange)"/>
-  <path d="m68 49 6-10 8 2 4 12-5 3-10-1-3-6Z" fill="#818CF8"/>
-  <path d="M65 64h11M67 58l-7 6" stroke="#3730A3" stroke-width="2.4" stroke-linecap="round"/>
-  <path d="M53 43h17l3 11H54l-1-11Z" fill="#FFFDF8" stroke="#D9E3E3" stroke-width="1.4" stroke-linejoin="round"/>
-  <path d="m53 43 9-5 8 5-9 5-8-5Z" fill="#FFFFFF"/>
-  <path d="M59 49h7" stroke="#EC4899" stroke-width="2" stroke-linecap="round"/>
-  <path d="M19 70h7M16 76h9" stroke="#6B7A5C" stroke-width="2.2" stroke-linecap="round"/>
+  <title id="title">Swift Courier emblem</title>
+  <desc id="desc">A white delivery-check phone behind a swift purple scooter carrying a pink parcel, on indigo.</desc>
+  <rect x="2" y="2" width="92" height="92" rx="26" fill="#0D1B31"/>
+  <rect x="15" y="12" width="37" height="67" rx="10" transform="rotate(-7 15 12)" fill="#FFFDF9" stroke="#A5B4FC" stroke-width="2.6"/>
+  <rect x="29" y="17" width="10" height="2" rx="1" transform="rotate(-7 29 17)" fill="#334155"/>
+  <path d="m25 39 7 7 14-17" stroke="#35B86B" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18 65h14M16 70h10" stroke="#6B7A5C" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M42 74h40" stroke="#E0E7FF" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="49" cy="75" r="8" fill="#142239" stroke="#FFFDF9" stroke-width="2.5"/><circle cx="49" cy="75" r="3" fill="#A5B4FC"/>
+  <circle cx="79" cy="75" r="7" fill="#142239" stroke="#FFFDF9" stroke-width="2.5"/><circle cx="79" cy="75" r="2.5" fill="#A5B4FC"/>
+  <path d="M43 66c2-11 9-19 20-22l10-2 10 12-5 10-12 5H49l-6-3Z" fill="#7C3AED" stroke="#E0D4FF" stroke-width="2" stroke-linejoin="round"/>
+  <path d="m68 45 6-12 8 2 5 13-6 4-10-1-3-6Z" fill="#EC4899" stroke="#FFFDF9" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M57 66h12M59 60l-8 7" stroke="#E0D4FF" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M45 49 54 42l11 6-9 9-11-8Z" fill="#EC4899" stroke="#FFFDF9" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="m54 42 1 9m-9-2 10 8" stroke="#FCE7F3" stroke-width="1.2"/>
+  <path d="M43 54h-8" stroke="#FFFDF9" stroke-width="2.5" stroke-linecap="round"/>
 </svg>
